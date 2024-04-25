@@ -233,8 +233,6 @@
             z-index: 99999;
         }
 
-
-
         #year-slider {
             position: relative;
             margin-bottom: 10px;
@@ -260,6 +258,48 @@
             text-align: center;
             font-size: 12px;
             margin-top: 5px;
+        }
+
+        #current-projectValue {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .clear-countrySelection-button,
+        .clear-categorySelection-button,
+        .clear-clientSelection-button {
+            font-family: 'Be Vietnam', sans-serif;
+            font-size: 12px;
+            padding: 8px 8px;
+            background-color: rgb(211, 211, 211);
+            color: rgb(74, 74, 74);
+            border: 1px solid rgb(221, 221, 221);
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        .clear-countrySelection-button:hover,
+        .clear-categorySelection-button:hover,
+        .clear-clientSelection-button:hover {
+            background-color: rgb(171, 133, 133);
+            color: #ffffff;
+        }
+
+        .filter-category {
+            width: 100%;
+            margin-bottom: 0px;
+        }
+
+        .filter-category label {
+            display: block;
+            margin-bottom: -25px;
+        }
+
+        .filter-category input[type="checkbox"] {
+            margin-right: 0px;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -287,22 +327,57 @@
     <div id="slideMenu" class="slide-menu">
         <div class="slide-menu-content">
             <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
-            <div class="filter-category">
-                <span class="filter-title">Category</span>
-                <select class="filter-select">
-                    <option value="">Select category</option>
-                    <option value="Architecture">Architecture</option>
-                    <option value="Urban Planning">Urban Planning</option>
-                    <option value="Regional Planning">Regional Planning</option>
-                    <option value="GIS">GIS</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Water">Water</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Heritage Preservation">Heritage Preservation</option>
-                    <option value="Sustainable Development">Sustainable Development</option>
-                </select>
+
+            <div class="filter-country">
+                <span class="filter-title">Select Country</span>
+                <div>
+                    <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                    <label for="country-indonesia">Indonesia</label><br>
+                    <input type="checkbox" id="country-singapore" name="country" value="Singapore">
+                    <label for="country-singapore">Singapore</label><br>
+                    <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                    <label for="country-vietnam">Vietnam</label><br>
+                </div>
+                <p>
+                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
+                        Selection</button>
             </div>
 
+            <div class="filter-category">
+                <span class="filter-title">Select Project Category</span>
+                <div style="font-size: 16px;">
+                    <label><input type="checkbox" name="category" value="Architecture"> Architecture</label><br>
+                    <label><input type="checkbox" name="category" value="GIS"> GIS</label><br>
+                    <label><input type="checkbox" name="category" value="Heritage Preservation"> Heritage
+                        Preservation</label><br>
+                    <label><input type="checkbox" name="category" value="Regional Planning"> Regional
+                        Planning</label><br>
+                    <label><input type="checkbox" name="category" value="Sustainable Development"> Sustainable
+                        Development</label><br>
+                    <label><input type="checkbox" name="category" value="Technology"> Technology</label><br>
+                    <label><input type="checkbox" name="category" value="Transportation"> Transportation</label><br>
+                    <label><input type="checkbox" name="category" value="Urban Planning"> Urban Planning</label><br>
+                    <label><input type="checkbox" name="category" value="Water"> Water</label><br>
+                </div>
+                <p>
+                    <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
+                        Selection</button>
+            </div>
+
+            <div class="filter-client">
+                <span class="filter-title">Client Type</span>
+                <div>
+                    <div style="font-size: 16px;">
+                    <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
+                    <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
+                    <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
+                        Financial Institutions</label><br>
+                </div>
+                <p>
+                <button class="clear-clientSelection-button" onclick="clearClientSelection()">Clear
+                    Selection</button>
+            </div>
+            
             <div class="filter-year">
                 <span class="filter-title">Year</span>
                 <p></p>
@@ -319,20 +394,15 @@
                 <div id="current-year"></div> <!-- New element to show current year -->
             </div>
 
-
-            <div class="filter-country">
-                <span class="filter-title">Country</span>
-                <input type="text" class="filter-input" placeholder="Enter country">
-            </div>
             <div class="filter-projectValue">
                 <span class="filter-title">Project Value</span>
-                <input type="text" class="filter-input" placeholder="Enter project value">
+                <p></p>
+                <div id="projectValue-slider"></div>
+                <div id="current-projectValue"></div> <!-- New element to show current project value -->
             </div>
-            <div class="filter-client">
-                <span class="filter-title">Client</span>
-                <input type="text" class="filter-input" placeholder="Enter client">
-            </div>
-            <button class="filter-button-apply">Apply Filters</button>
+
+            <p>
+                <button class="filter-button-apply">Apply Filters</button>
         </div>
     </div>
 
@@ -456,7 +526,7 @@
         // Function to toggle slide menu
         function toggleSlideMenu() {
             const slideMenu = document.getElementById("slideMenu");
-            slideMenu.style.width = slideMenu.style.width === "250px" ? "0" : "250px";
+            slideMenu.style.width = slideMenu.style.width === "300px" ? "0" : "300px";
         }
 
         // Initialize the year slider
@@ -490,6 +560,52 @@
             });
         });
 
+        // Initialize project value slider
+        $(function () {
+            $("#projectValue-slider").slider({
+                range: "min",
+                min: 0,
+                max: 500000,
+                step: 50000, // set step to 50000
+                value: 0,
+                slide: function (event, ui) {
+                    $("#current-projectValue").html("$" + ui.value.toLocaleString());
+                }
+            });
+            $("#current-projectValue").html("$" + $("#projectValue-slider").slider("value").toLocaleString());
+        });
+
+        // Function to clear country selection
+        function clearCountrySelection() {
+            $('input[name="country"]').prop('checked', false);
+        }
+
+
+        // Function to get selected categories
+        function getSelectedCategories() {
+            var selectedCategories = [];
+            $('#project-category option:selected').each(function () {
+                selectedCategories.push($(this).val());
+            });
+            return selectedCategories;
+        }
+
+        // Function to clear country selection
+        function clearCategorySelection() {
+            $('input[name="category"]').prop('checked', false);
+        }
+
+        // Function to clear country selection
+        function clearClientSelection() {
+            $('input[name="client-type"]').prop('checked', false);
+        }
+
+
+        // Event listener for apply filters button
+        $('.filter-button-apply').on('click', function () {
+            var selectedCategories = getSelectedCategories();
+            // Your filtering logic here using selectedCategories
+        });
 
     </script>
 </body>
