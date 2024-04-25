@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #map {
+            height: 100%;
+        }
+
+        .leaflet-popup-content {
+            font-family: 'Be Vietnam', sans-serif;
+            max-width: 300px; /* Adjust popup width */
+        }
+
+        .image-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .popup-image {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+        }
+
+        .next-button, .prev-button {
+            font-family: 'Material Icons Outlined', sans-serif;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-button {
+            font-family: 'Be Vietnam', sans-serif;
+            font-size: 16px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Paste the relevant data from your Google Sheet here
+        const data = [
+            {
+                lat: 10.820565, 
+                lng: 106.795027,
+                projectName: "Thu Duc Planning Platform",
+                location: "Thu Duc City",
+                title: "Thu Duc Planning Platform",
+                startDate: "Nov 2022",
+                completionDate: "Apr 2023",
+                partner: "",
+                client: "Thu Duc City",
+                description: "",
+                value: "",
+                status: "Completed",
+                photo1: "https://assets-global.website-files.com/6213793139128577f6ba751b/639afd576f64285b3359469b_td3-p-1600.jpg",
+                photo2: "https://assets-global.website-files.com/6213793139128577f6ba751b/63d1691de864dc1b1b5ddabc_kepler.gl-p-1600.png",
+                attachment: "https://example.com/sample_attachment.pdf" 
+            }
+            // Add more data rows as needed
+        ];
+
+        // Initialize the map
+        const map = L.map('map').setView([data[0].lat, data[0].lng], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Add markers to the map
+        data.forEach(({ lat, lng, projectName, location, title, startDate, completionDate, partner, client, description, value, status, photo1, photo2, attachment }) => {
+            const popupContent = `
+                <h2>${projectName}<br></h2>
+                <b>Location:</b> ${location}<br>
+                <b>Title:</b> ${title}<br>
+                <b>Start Date:</b> ${startDate}<br>
+                <b>Completion Date:</b> ${completionDate}<br>
+                <b>Partner:</b> ${partner}<br>
+                <b>Client:</b> ${client}<br>
+                <b>Description:</b> ${description}<br>
+                <b>Value:</b> ${value}<br>
+                <b>Status:</b> ${status}<br>
+                <p></p>
+                <div class="image-container">
+                    <a href="${photo1}" target="_blank">
+                        <img src="${photo1}" class="popup-image" id="popup-image">
+                    </a>
+                </div>
+                <div class="button-container">
+                    <div class="nav-buttons">
+                        <button class="prev-button" onclick="prevImage()">navigate_before</button>
+                        <button class="next-button" onclick="nextImage()">navigate_next</button>
+                    </div>
+                    <div>
+                        <a href="${attachment}" download>
+                            <button class="download-button">Download Project Sheet</button>
+                        </a>
+                    </div>
+                </div>
+            `;
+            const marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(popupContent, { maxWidth: 300 });
+        });
+
+        // Function to show next image
+        function nextImage() {
+            const image = document.getElementById('popup-image');
+            if (image.src === data[0].photo1) {
+                image.src = data[0].photo2;
+                image.parentElement.href = data[0].photo2;
+            } else {
+                image.src = data[0].photo1;
+                image.parentElement.href = data[0].photo1;
+            }
+        }
+
+        // Function to show previous image
+        function prevImage() {
+            const image = document.getElementById('popup-image');
+            if (image.src === data[0].photo1) {
+                image.src = data[0].photo2;
+                image.parentElement.href = data[0].photo2;
+            } else {
+                image.src = data[0].photo1;
+                image.parentElement.href = data[0].photo1;
+            }
+        }
+    </script>
+</body>
+</html>
