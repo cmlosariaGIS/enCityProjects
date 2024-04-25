@@ -90,9 +90,11 @@
                 completionDate: "Apr 2023",
                 partner: "",
                 client: "Thu Duc City",
-                description: "",
-                value: "",
+                description: "A data-driven web GIS dasboard for comparing existing and proposed land use plans",
+                projectValue: "",
                 status: "Completed",
+                sector1: "Urban Planning",
+                sector2: "GIS",
                 photo1: "https://assets-global.website-files.com/6213793139128577f6ba751b/639afd576f64285b3359469b_td3-p-1600.jpg",
                 photo2: "https://assets-global.website-files.com/6213793139128577f6ba751b/63d1691de864dc1b1b5ddabc_kepler.gl-p-1600.png",
                 attachment: "https://example.com/sample_attachment.pdf" 
@@ -108,7 +110,7 @@
         }).addTo(map);
 
         // Add markers to the map
-        data.forEach(({ lat, lng, projectName, location, title, startDate, completionDate, partner, client, description, value, status, photo1, photo2, attachment }) => {
+        data.forEach(({ lat, lng, projectName, location, title, startDate, completionDate, partner, client, description, projectValue, status, sector1, sector2, photo1, photo2, attachment }) => {
             const popupContent = `
                 <h2>${projectName}<br></h2>
                 <b>Location:</b> ${location}<br>
@@ -118,8 +120,9 @@
                 <b>Partner:</b> ${partner}<br>
                 <b>Client:</b> ${client}<br>
                 <b>Description:</b> ${description}<br>
-                <b>Value:</b> ${value}<br>
+                <b>Project Value:</b> ${projectValue}<br>
                 <b>Status:</b> ${status}<br>
+                <b>Sector:</b> ${sector1}, ${sector2}<br>
                 <p></p>
                 <div class="image-container">
                     <a href="${photo1}" target="_blank">
