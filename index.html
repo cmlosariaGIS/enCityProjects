@@ -5,6 +5,7 @@
     <title>enCity Projects Web Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         body,
         html {
@@ -142,7 +143,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
             position: absolute;
-            right: calc(10% - 16px); /* Adjusted to account for padding */
+            right: calc(10% - 16px);
+            /* Adjusted to account for padding */
         }
 
         .filter-button:hover {
@@ -194,7 +196,6 @@
             margin-bottom: 5px;
         }
 
-        .filter-select,
         .filter-input {
             width: 100%;
             padding: 8px;
@@ -231,12 +232,43 @@
             left: 10px;
             z-index: 99999;
         }
+
+
+
+        #year-slider {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .tick {
+            position: absolute;
+            bottom: -8px;
+            width: 1px;
+            height: 5px;
+            background-color: rgb(165, 165, 165);
+        }
+
+        .year-label {
+            font-size: 11px;
+            /* Adjust the font size as needed */
+            position: absolute;
+            bottom: -15px;
+            transform: translateX(-50%);
+        }
+
+        #current-year {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -259,13 +291,35 @@
                 <span class="filter-title">Category</span>
                 <select class="filter-select">
                     <option value="">Select category</option>
-                    <!-- Add options here -->
+                    <option value="Architecture">Architecture</option>
+                    <option value="Urban Planning">Urban Planning</option>
+                    <option value="Regional Planning">Regional Planning</option>
+                    <option value="GIS">GIS</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Water">Water</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Heritage Preservation">Heritage Preservation</option>
+                    <option value="Sustainable Development">Sustainable Development</option>
                 </select>
             </div>
+
             <div class="filter-year">
                 <span class="filter-title">Year</span>
-                <input type="text" class="filter-input" placeholder="Enter year">
+                <p></p>
+                <div id="year-slider"></div>
+                <div id="year-labels">
+                    <span class="year-label">2018</span>
+                    <span class="year-label">2019</span>
+                    <span class="year-label">2020</span>
+                    <span class="year-label">2021</span>
+                    <span class="year-label">2022</span>
+                    <span class="year-label">2023</span>
+                    <span class="year-label">2024</span>
+                </div>
+                <div id="current-year"></div> <!-- New element to show current year -->
             </div>
+
+
             <div class="filter-country">
                 <span class="filter-title">Country</span>
                 <input type="text" class="filter-input" placeholder="Enter country">
@@ -404,6 +458,39 @@
             const slideMenu = document.getElementById("slideMenu");
             slideMenu.style.width = slideMenu.style.width === "250px" ? "0" : "250px";
         }
+
+        // Initialize the year slider
+        $("#year-slider").slider({
+            range: true,
+            min: 2018,
+            max: 2024,
+            values: [2018, 2024],
+            slide: function (event, ui) {
+                $("#year-range").text(ui.values[0] + " - " + ui.values[1]);
+            },
+            create: function () {
+                // Add tick indicators
+                for (let i = 2018; i <= 2024; i++) {
+                    $("<div>").addClass("tick").css("left", (i - 2018) * (100 / 6) + "%").appendTo($("#year-slider"));
+                }
+            }
+        });
+
+        // Update current year label
+        $("#current-year").text("Years Selected: 2018 - 2024");
+
+        $("#year-slider").on("slide", function (event, ui) {
+            if (ui.values[0] === ui.values[1]) {
+                $("#current-year").text("Year Selected: " + ui.values[0]);
+            } else {
+                $("#current-year").text("Years Selected: " + ui.values[0] + " - " + ui.values[1]);
+            }
+            $(".year-label").each(function () {
+                $(this).css("left", (ui.values[0] - 2018) * (100 / 6) + "%");
+            });
+        });
+
+
     </script>
 </body>
 
