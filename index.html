@@ -3,6 +3,7 @@
 
 <head>
     <title>enCity Projects Web Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <style>
         body,
@@ -141,7 +142,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
             position: absolute;
-            right: 5%; /* Position the button at 5% of the menu bar */
+            right: 5%;
+            /* Position the button at 5% of the menu bar */
         }
 
 
@@ -171,8 +173,13 @@
         <a href="https://encity.co" target="_blank">
             <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
         </a>
-        <button class="filter-button">Filter Projects</button>
+        <button class="filter-button">
+            <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
+                style="vertical-align: middle;">Filter Projects</span>
+        </button>
     </div>
+
+
     <div id="map"></div>
 
     <script>
@@ -240,8 +247,10 @@
                     </div>
                     <div>
                         <a href="${attachment}" target="_blank">
-                            <button class="download-button">Download Project Sheet</button>
-                        </a>
+                        <button class="download-button">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
+                        </button>
+                    </a>
                     </div>
                     <span class="material-icons-outlined close-button" onclick="closePopup()">
                         highlight_off
