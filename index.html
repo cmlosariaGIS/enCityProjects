@@ -90,7 +90,7 @@
                 completionDate: "Apr 2023",
                 partner: "",
                 client: "Thu Duc City",
-                description: "A data-driven web GIS dasboard for comparing existing and proposed land use plans",
+                description: "A data-driven web GIS dasboard for comparing existing and proposed land use plans.",
                 projectValue: "",
                 status: "Completed",
                 sector1: "Urban Planning",
@@ -108,6 +108,14 @@
             attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
             maxZoom: 18,
         }).addTo(map);
+
+        // Custom icon for marker
+        const customIcon = L.icon({
+            iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
+            iconSize: [30, 30], // Adjust icon size as needed
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -37]
+        });
 
         // Add markers to the map
         data.forEach(({ lat, lng, projectName, location, title, startDate, completionDate, partner, client, description, projectValue, status, sector1, sector2, photo1, photo2, attachment }) => {
@@ -141,7 +149,7 @@
                     </div>
                 </div>
             `;
-            const marker = L.marker([lat, lng]).addTo(map);
+            const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
             marker.bindPopup(popupContent, { maxWidth: 300 });
         });
 
