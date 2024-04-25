@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            font-family: 'Be Vietnam', sans-serif;
         }
 
         #map {
@@ -23,7 +24,6 @@
         }
 
         .leaflet-popup-content {
-            font-family: 'Be Vietnam', sans-serif;
             max-width: 300px;
             border-radius: 5px;
         }
@@ -124,7 +124,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
         }
 
         .menu-bar img {
@@ -143,8 +142,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
             position: absolute;
-            right: 5%;
-            /* Position the button at 5% of the menu bar */
+            right: calc(10% - 16px); /* Adjusted to account for padding */
         }
 
         .filter-button:hover {
@@ -153,21 +151,23 @@
         }
 
         .slide-menu {
+            height: 100%;
+            width: 0;
             position: fixed;
             top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100%;
+            right: 0;
             background-color: white;
-            transition: right 0.5s ease-in-out;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 9999;
         }
 
-        .slide-menu.open {
-            right: 0;
-        }
-
         .slide-menu-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
         }
 
@@ -175,7 +175,54 @@
             position: absolute;
             top: 10px;
             right: 10px;
+            font-size: 36px;
+            margin-left: 50px;
             cursor: pointer;
+        }
+
+        .filter-category,
+        .filter-year,
+        .filter-country,
+        .filter-projectValue,
+        .filter-client {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter-select,
+        .filter-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        .filter-button-apply {
+            font-family: 'Be Vietnam', sans-serif;
+            font-size: 14px;
+            padding: 8px 16px;
+            background-color: #04a9b2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .filter-button-apply:hover {
+            background-color: #0097ae;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .leaflet-control-zoom {
@@ -205,12 +252,33 @@
 
     <div id="map"></div>
 
-    <div class="slide-menu" id="slideMenu">
+    <div id="slideMenu" class="slide-menu">
         <div class="slide-menu-content">
-            <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">
-                close
-            </span>
-            <!-- Content for the filter menu can be added here -->
+            <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
+            <div class="filter-category">
+                <span class="filter-title">Category</span>
+                <select class="filter-select">
+                    <option value="">Select category</option>
+                    <!-- Add options here -->
+                </select>
+            </div>
+            <div class="filter-year">
+                <span class="filter-title">Year</span>
+                <input type="text" class="filter-input" placeholder="Enter year">
+            </div>
+            <div class="filter-country">
+                <span class="filter-title">Country</span>
+                <input type="text" class="filter-input" placeholder="Enter country">
+            </div>
+            <div class="filter-projectValue">
+                <span class="filter-title">Project Value</span>
+                <input type="text" class="filter-input" placeholder="Enter project value">
+            </div>
+            <div class="filter-client">
+                <span class="filter-title">Client</span>
+                <input type="text" class="filter-input" placeholder="Enter client">
+            </div>
+            <button class="filter-button-apply">Apply Filters</button>
         </div>
     </div>
 
@@ -333,8 +401,8 @@
 
         // Function to toggle slide menu
         function toggleSlideMenu() {
-            const slideMenu = document.getElementById('slideMenu');
-            slideMenu.classList.toggle('open');
+            const slideMenu = document.getElementById("slideMenu");
+            slideMenu.style.width = slideMenu.style.width === "250px" ? "0" : "250px";
         }
     </script>
 </body>
