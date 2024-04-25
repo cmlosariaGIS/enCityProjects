@@ -301,6 +301,19 @@
         .filter-category input[type="checkbox"] {
             margin-right: 0px;
         }
+
+        .country-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.country-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -332,16 +345,18 @@
                 <span class="filter-title">Select Country</span>
                 <div>
                     <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
-                    <label for="country-indonesia">Indonesia</label><br>
+                    <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png" alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;"> Indonesia</label><br>
+                    
                     <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                    <label for="country-singapore">Singapore</label><br>
+                    <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png" alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;"> Singapore</label><br>
+                    
                     <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                    <label for="country-vietnam">Vietnam</label><br>
+                    <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;"> Vietnam</label><br>
                 </div>
                 <p>
-                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
-                        Selection</button>
+                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear Selection</button>
             </div>
+            
 
             <div class="filter-category">
                 <span class="filter-title">Select Project Category</span>
@@ -526,7 +541,7 @@
         // Function to toggle slide menu
         function toggleSlideMenu() {
             const slideMenu = document.getElementById("slideMenu");
-            slideMenu.style.width = slideMenu.style.width === "300px" ? "0" : "300px";
+            slideMenu.style.width = slideMenu.style.width === "320px" ? "0" : "320px";
         }
 
         // Initialize the year slider
