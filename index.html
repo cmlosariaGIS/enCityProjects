@@ -124,6 +124,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
         }
 
         .menu-bar img {
@@ -146,13 +147,36 @@
             /* Position the button at 5% of the menu bar */
         }
 
-
         .filter-button:hover {
             background-color: #0097ae;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            transition: right 0.5s ease-in-out;
+            z-index: 9999;
+        }
 
+        .slide-menu.open {
+            right: 0;
+        }
+
+        .slide-menu-content {
+            padding: 20px;
+        }
+
+        .slide-menu-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
 
         .leaflet-control-zoom {
             position: absolute;
@@ -173,14 +197,22 @@
         <a href="https://encity.co" target="_blank">
             <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
         </a>
-        <button class="filter-button">
+        <button class="filter-button" onclick="toggleSlideMenu()">
             <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
                 style="vertical-align: middle;">Filter Projects</span>
         </button>
     </div>
 
-
     <div id="map"></div>
+
+    <div class="slide-menu" id="slideMenu">
+        <div class="slide-menu-content">
+            <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">
+                close
+            </span>
+            <!-- Content for the filter menu can be added here -->
+        </div>
+    </div>
 
     <script>
         // Paste the relevant data from your Google Sheet here
@@ -297,6 +329,12 @@
         // Function to close the popup
         function closePopup() {
             map.closePopup();
+        }
+
+        // Function to toggle slide menu
+        function toggleSlideMenu() {
+            const slideMenu = document.getElementById('slideMenu');
+            slideMenu.classList.toggle('open');
         }
     </script>
 </body>
