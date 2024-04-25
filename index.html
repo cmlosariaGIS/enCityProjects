@@ -3,6 +3,7 @@
 
 <head>
     <title>enCity Projects Web Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <style>
         body,
@@ -10,7 +11,6 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            font-size: 16px;
         }
 
         #map {
@@ -100,8 +100,6 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
-            display: flex;
-            align-items: center;
         }
 
         .download-button:hover {
@@ -126,7 +124,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 18px;
         }
 
         .menu-bar img {
@@ -149,10 +146,13 @@
             /* Position the button at 5% of the menu bar */
         }
 
+
         .filter-button:hover {
             background-color: #0097ae;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+
 
         .leaflet-control-zoom {
             position: absolute;
@@ -234,7 +234,8 @@
                 <b>Project Value:</b> ${projectValue}<br>
                 <b>Status:</b> ${status}<br>
                 <b>Sector:</b> ${sector1}, ${sector2}<br>
-                <p style="font-size: 8px;"><i>Note: A project's pinned location is only indicative</i></p>
+                <p></p>
+                <p style="font-size: 10px;"><i>Note: Project pinned location is indicative only</i></p>
                 <div class="image-container">
                     <a href="${photo1}" target="_blank">
                         <img src="${photo1}" class="popup-image" id="popup-image">
@@ -247,10 +248,10 @@
                     </div>
                     <div>
                         <a href="${attachment}" target="_blank">
-                            <button class="download-button">
-                                <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
-                            </button>
-                        </a>
+                        <button class="download-button">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
+                        </button>
+                    </a>
                     </div>
                     <span class="material-icons-outlined close-button" onclick="closePopup()">
                         highlight_off
