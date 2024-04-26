@@ -786,8 +786,12 @@ $('.apply-filters-button').on('click', function () {
     // Get selected client types
     var selectedClientTypes = getSelectedClientTypes();
 
-    // Filter data based on selected countries, categories, and client types
+    // Get selected year range
+    var selectedYearRange = $("#year-slider").slider("option", "values");
+
+    // Filter data based on selected countries, categories, client types, and year range
     var filteredData = data.filter(function (project) {
+        var projectYear = parseInt(project.startDate.substring(project.startDate.length - 4));
         return (
             (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
             (
@@ -795,7 +799,8 @@ $('.apply-filters-button').on('click', function () {
                 selectedCategories.includes(project.sector1) ||
                 selectedCategories.includes(project.sector2)
             ) &&
-            (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType))
+            (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
+            (projectYear >= selectedYearRange[0] && projectYear <= selectedYearRange[1])
         );
     });
 
@@ -848,6 +853,8 @@ $('.apply-filters-button').on('click', function () {
         const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
         marker.bindPopup(popupContent, { maxWidth: 300 });
     });
+
+
 
 
 
