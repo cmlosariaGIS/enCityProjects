@@ -375,6 +375,12 @@
             height: 20px;
             vertical-align: middle;
         }
+
+        .beta-testing {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #666;
+        }
     </style>
 
 </head>
@@ -383,6 +389,7 @@
     <div class="menu-bar">
         <a href="https://encity.co" target="_blank">
             <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
+            <span class="beta-testing">Beta Testing. Data maybe inaccurate to test filters</span>
         </a>
         <button class="filter-button" onclick="toggleSlideMenu()">
             <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
@@ -393,6 +400,7 @@
             <span style="vertical-align: middle;"></span>
         </button>
     </div>
+
 
     <div id="map"></div>
 
@@ -719,17 +727,18 @@
                 $("#projectScale-slider").slider({
                     range: true,
                     min: 0,
-                    max: 5000,
+                    max: 100000,
                     step: 100,
-                    values: [0, 5000],
+                    values: [0, 100000],
                     slide: function (event, ui) {
-                        $("#current-projectScale").html(ui.values[0] + "ha - " + ui.values[1] + "ha");
+                        $("#current-projectScale").html(ui.values[0].toLocaleString() + "ha - " + ui.values[1].toLocaleString() + "ha");
                     }
                 });
 
                 // Initial display of values
-                $("#current-projectScale").html("0ha - 5000ha");
+                $("#current-projectScale").html("0ha - 100,000ha");
             });
+
 
             /*** RESET FILTERS BUTTON **/
 
@@ -773,43 +782,59 @@
 
 
             /*** APPLY FILTERS BUTTON **/
-// Event listener for Apply Filters button
-$('.apply-filters-button').on('click', function () {
-    // Get selected countries
-    var selectedCountries = [];
-    $('input[name="country"]:checked').each(function () {
-        selectedCountries.push($(this).val());
-    });
+            /*** APPLY FILTERS BUTTON **/
+            // Event listener for Apply Filters button
+            $('.apply-filters-button').on('click', function () {
+                // Get selected countries
+                var selectedCountries = [];
+                $('input[name="country"]:checked').each(function () {
+                    selectedCountries.push($(this).val());
+                });
 
-    // Get selected categories
-    var selectedCategories = getSelectedCategories();
+                // Get selected categories
+                var selectedCategories = getSelectedCategories();
 
-    // Get selected client types
-    var selectedClientTypes = getSelectedClientTypes();
+                // Get selected client types
+                var selectedClientTypes = getSelectedClientTypes();
 
-    // Filter data based on selected countries, categories, and client types
-    var filteredData = data.filter(function (project) {
-        return (
-            (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
-            (
-                selectedCategories.length === 0 ||
-                selectedCategories.includes(project.sector1) ||
-                selectedCategories.includes(project.sector2)
-            ) &&
-            (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType))
-        );
-    });
+                // Get selected year range
+                var selectedYearRange = $("#year-slider").slider("option", "values");
 
-    // Remove existing markers
-    map.eachLayer(function (layer) {
-        if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-        }
-    });
+                // Get selected project value range
+                var selectedProjectValueRange = $("#projectValue-slider").slider("option", "values");
 
-    // Add markers for filtered data
-    filteredData.forEach(function (project) {
-        const popupContent = `
+                // Get selected project scale range
+                var selectedProjectScaleRange = $("#projectScale-slider").slider("option", "values");
+
+                // Filter data based on selected countries, categories, client types, year range, project value range, and project scale range
+                var filteredData = data.filter(function (project) {
+                    var startYear = new Date(project.startDate).getFullYear();
+                    var completionYear = new Date(project.completionDate).getFullYear();
+                    return (
+                        (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
+                        (
+                            selectedCategories.length === 0 ||
+                            selectedCategories.includes(project.sector1) ||
+                            selectedCategories.includes(project.sector2)
+                        ) &&
+                        (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
+                        ((startYear >= selectedYearRange[0] && startYear <= selectedYearRange[1]) ||
+                            (completionYear >= selectedYearRange[0] && completionYear <= selectedYearRange[1])) &&
+                        (project.projectValue >= selectedProjectValueRange[0] && project.projectValue <= selectedProjectValueRange[1]) &&
+                        (project.projectScale >= selectedProjectScaleRange[0] && project.projectScale <= selectedProjectScaleRange[1])
+                    );
+                });
+
+                // Remove existing markers
+                map.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker) {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                // Add markers for filtered data
+                filteredData.forEach(function (project) {
+                    const popupContent = `
             <h2>${project.projectName}<br></h2>
             <b>Country:</b> ${project.country}<br>
             <b>Location:</b> ${project.location}<br>
@@ -846,19 +871,9 @@ $('.apply-filters-button').on('click', function () {
                 </span>
             </div>
         `;
-        const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
-        marker.bindPopup(popupContent, { maxWidth: 300 });
-    });
-
-
-
-
-
-
-
-
-
-
+                    const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
+                    marker.bindPopup(popupContent, { maxWidth: 300 });
+                });
 
 
                 var selectedCategories = getSelectedCategories();
@@ -874,6 +889,12 @@ $('.apply-filters-button').on('click', function () {
                 console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
                 console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
             });
+
+
+
+
+
+
 
 
 
