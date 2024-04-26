@@ -53,7 +53,6 @@
 
         .leaflet-popup-close-button {
             display: none;
-            /* Hide the default close button */
         }
 
         .image-container {
@@ -673,7 +672,7 @@
                 });
             });
 
-            // Initialize project value slider
+            /*/ Initialize project value slider
             $(function () {
                 $("#projectValue-slider").slider({
                     range: "min",
@@ -686,7 +685,24 @@
                     }
                 });
                 $("#current-projectValue").html("$" + $("#projectValue-slider").slider("value").toLocaleString());
+            });*/
+
+            $(function () {
+                $("#projectValue-slider").slider({
+                    range: true,
+                    min: 0,
+                    max: 500000,
+                    step: 50000,
+                    values: [0, 500000],
+                    slide: function (event, ui) {
+                        $("#current-projectValue").html("$" + ui.values[0].toLocaleString() + " - $" + ui.values[1].toLocaleString());
+                    }
+                });
+
+                // Initial display of values
+                $("#current-projectValue").html("$0 - $500,000");
             });
+
 
             // Event listener for Apply Filters button
             $('.apply-filters-button').on('click', function () {
@@ -698,14 +714,15 @@
                 var selectedCategories = getSelectedCategories();
                 var selectedClientTypes = getSelectedClientTypes();
                 var selectedYearRange = $("#year-slider").slider("option", "values");
-                var selectedProjectValue = $("#projectValue-slider").slider("value");
+                var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
 
                 console.log("Selected Countries:", selectedCountries);
                 console.log("Selected Categories:", selectedCategories);
                 console.log("Selected Client Types:", selectedClientTypes);
                 console.log("Selected Year Range:", selectedYearRange);
-                console.log("Selected Project Value:", selectedProjectValue);
+                console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
             });
+
 
 
 
