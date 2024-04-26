@@ -296,13 +296,9 @@
             transform: translateX(-50%);
         }
 
-        #current-year {
-            text-align: center;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        #current-projectValue {
+        #current-year,
+        #current-projectValue,
+        #current-projectScale {
             text-align: center;
             font-size: 12px;
             margin-top: 5px;
@@ -376,33 +372,33 @@
         <div class="slide-menu-content">
             <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
 
-            <div class="filter-country">
+            <div class="filter-country" style="font-size: 14px;">
                 <span class="filter-title">Select Country</span>
                 <div>
                     <input type="checkbox" id="country-china" name="country" value="China">
                     <label for="country-china"><img src="https://i.ibb.co/b63qf69/icons8-china-48.png"
-                            alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                        China</label><br>
+                            alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                            style="margin-left: 5px;">China</span></label><br>
 
                     <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
                     <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png"
-                            alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                        Indonesia</label><br>
+                            alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                            style="margin-left: 5px;">Indonesia</span></label><br>
 
                     <input type="checkbox" id="country-maldives" name="country" value="Maldives">
                     <label for="country-maldives"><img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png"
-                            alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                        Maldives</label><br>
+                            alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                            style="margin-left: 5px;">Maldives</span></label><br>
 
                     <input type="checkbox" id="country-singapore" name="country" value="Singapore">
                     <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png"
-                            alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                        Singapore</label><br>
+                            alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                            style="margin-left: 5px;">Singapore</span></label><br>
 
                     <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
                     <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png"
-                            alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                        Vietnam</label><br>
+                            alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                            style="margin-left: 5px;">Vietnam</span></label><br>
                 </div>
                 <p>
                     <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
@@ -410,9 +406,11 @@
             </div>
 
 
-            <div class="filter-category">
+
+
+            <div class="filter-category" style="font-size: 14px;">
                 <span class="filter-title">Select Project Category</span>
-                <div style="font-size: 16px;">
+                <div style="font-size: 14px;">
                     <label><input type="checkbox" name="category" value="Architecture"> Architecture</label><br>
                     <label><input type="checkbox" name="category" value="GIS"> GIS</label><br>
                     <label><input type="checkbox" name="category" value="Heritage Preservation"> Heritage
@@ -431,10 +429,10 @@
                         Selection</button>
             </div>
 
-            <div class="filter-client">
+            <div class="filter-client" style="font-size: 14px;">
                 <span class="filter-title">Client Type</span>
                 <div>
-                    <div style="font-size: 16px;">
+                    <div style="font-size: 14px;">
                         <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
                         <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
                         <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
@@ -458,14 +456,21 @@
                         <span class="year-label">2023</span>
                         <span class="year-label">2024</span>
                     </div>
-                    <div id="current-year"></div> <!-- New element to show current year -->
+                    <div id="current-year"></div>
                 </div>
 
                 <div class="filter-projectValue">
                     <span class="filter-title">Project Value</span>
                     <p></p>
                     <div id="projectValue-slider"></div>
-                    <div id="current-projectValue"></div> <!-- New element to show current project value -->
+                    <div id="current-projectValue"></div>
+                </div>
+
+                <div class="filter-projectScale">
+                    <span class="filter-title">Project Scale</span>
+                    <p></p>
+                    <div id="projectScale-slider"></div>
+                    <div id="current-projectScale"></div>
                 </div>
 
                 <p>
@@ -704,24 +709,43 @@
             });
 
 
-            // Event listener for Apply Filters button
-            $('.apply-filters-button').on('click', function () {
-                var selectedCountries = [];
-                $('input[name="country"]:checked').each(function () {
-                    selectedCountries.push($(this).val());
+            $(function () {
+                $("#projectScale-slider").slider({
+                    range: true,
+                    min: 0,
+                    max: 5000,
+                    step: 100,
+                    values: [0, 5000],
+                    slide: function (event, ui) {
+                        $("#current-projectScale").html(ui.values[0] + "ha - " + ui.values[1] + "ha");
+                    }
                 });
 
-                var selectedCategories = getSelectedCategories();
-                var selectedClientTypes = getSelectedClientTypes();
-                var selectedYearRange = $("#year-slider").slider("option", "values");
-                var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+                // Initial display of values
+                $("#current-projectScale").html("0ha - 5000ha");
 
-                console.log("Selected Countries:", selectedCountries);
-                console.log("Selected Categories:", selectedCategories);
-                console.log("Selected Client Types:", selectedClientTypes);
-                console.log("Selected Year Range:", selectedYearRange);
-                console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+                // Event listener for Apply Filters button
+                $('.apply-filters-button').on('click', function () {
+                    var selectedCountries = [];
+                    $('input[name="country"]:checked').each(function () {
+                        selectedCountries.push($(this).val());
+                    });
+
+                    var selectedCategories = getSelectedCategories();
+                    var selectedClientTypes = getSelectedClientTypes();
+                    var selectedYearRange = $("#year-slider").slider("option", "values");
+                    var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+                    var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
+
+                    console.log("Selected Countries:", selectedCountries);
+                    console.log("Selected Categories:", selectedCategories);
+                    console.log("Selected Client Types:", selectedClientTypes);
+                    console.log("Selected Year Range:", selectedYearRange);
+                    console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+                    console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+                });
             });
+
 
 
 
