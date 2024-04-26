@@ -772,48 +772,39 @@
             });
 
             /*** APPLY FILTERS BUTTON **/
-            // Event listener for Apply Filters button
-            $('.apply-filters-button').on('click', function () {
-                // Get selected countries
-                var selectedCountries = [];
-                $('input[name="country"]:checked').each(function () {
-                    selectedCountries.push($(this).val());
-                });
+// Event listener for Apply Filters button
+$('.apply-filters-button').on('click', function () {
+    // Get selected countries
+    var selectedCountries = [];
+    $('input[name="country"]:checked').each(function () {
+        selectedCountries.push($(this).val());
+    });
 
-                // Get selected categories
-                var selectedCategories = getSelectedCategories();
+    // Get selected categories
+    var selectedCategories = getSelectedCategories();
 
-                // Get selected client types
-                var selectedClientTypes = getSelectedClientTypes();
+    // Filter data based on selected countries and categories
+    var filteredData = data.filter(function (project) {
+        return (
+            (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
+            (
+                selectedCategories.length === 0 ||
+                selectedCategories.includes(project.sector1) ||
+                selectedCategories.includes(project.sector2)
+            )
+        );
+    });
 
-                // Get selected year range
-                var selectedYearRange = $("#year-slider").slider("option", "values");
+    // Remove existing markers
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
 
-                // Filter data based on selected countries, categories, client types, and year range
-                var filteredData = data.filter(function (project) {
-                    var projectYear = parseInt(project.startDate.substring(project.startDate.length - 4));
-                    return (
-                        (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
-                        (
-                            selectedCategories.length === 0 ||
-                            selectedCategories.includes(project.sector1) ||
-                            selectedCategories.includes(project.sector2)
-                        ) &&
-                        (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
-                        (projectYear >= selectedYearRange[0] && projectYear <= selectedYearRange[1])
-                    );
-                });
-
-                // Remove existing markers
-                map.eachLayer(function (layer) {
-                    if (layer instanceof L.Marker) {
-                        map.removeLayer(layer);
-                    }
-                });
-
-                // Add markers for filtered data
-                filteredData.forEach(function (project) {
-                    const popupContent = `
+    // Add markers for filtered data
+    filteredData.forEach(function (project) {
+        const popupContent = `
             <h2>${project.projectName}<br></h2>
             <b>Country:</b> ${project.country}<br>
             <b>Location:</b> ${project.location}<br>
@@ -850,9 +841,12 @@
                 </span>
             </div>
         `;
-                    const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
-                    marker.bindPopup(popupContent, { maxWidth: 300 });
-                });
+        const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
+        marker.bindPopup(popupContent, { maxWidth: 300 });
+    });
+
+
+
 
 
 
