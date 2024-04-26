@@ -774,23 +774,82 @@
             /*** APPLY FILTERS BUTTON **/
             // Event listener for Apply Filters button
             $('.apply-filters-button').on('click', function () {
+                // Get selected countries
                 var selectedCountries = [];
                 $('input[name="country"]:checked').each(function () {
                     selectedCountries.push($(this).val());
                 });
 
-                var selectedCategories = getSelectedCategories();
-                var selectedClientTypes = getSelectedClientTypes();
-                var selectedYearRange = $("#year-slider").slider("option", "values");
-                var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
-                var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
+                // Filter data based on selected countries
+                var filteredData = data.filter(function (project) {
+                    return selectedCountries.includes(project.country);
+                });
 
-                console.log("Selected Countries:", selectedCountries);
-                console.log("Selected Categories:", selectedCategories);
-                console.log("Selected Client Types:", selectedClientTypes);
-                console.log("Selected Year Range:", selectedYearRange);
-                console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
-                console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+                // Remove existing markers
+                map.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker) {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                // Add markers for filtered data
+                filteredData.forEach(function (project) {
+                    const popupContent = `
+            <h2>${project.projectName}<br></h2>
+            <b>Country:</b> ${project.country}<br>
+            <b>Location:</b> ${project.location}<br>
+            <b>Start Date:</b> ${project.startDate}<br>
+            <b>Completion Date:</b> ${project.completionDate}<br>
+            <b>Partner(s):</b> ${project.partner}<br>
+            <b>Client:</b> ${project.client}<br>
+            <b>Description:</b> ${project.description}<br>
+            <b>Project Value ($):</b> ${project.projectValue}<br>
+            <b>Project Scale (ha):</b> ${project.projectScale}<br>
+            <b>Status:</b> ${project.status}<br>
+            <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
+            <p></p>
+            <p style="font-size: 10px;"><i>Note: Project pinned location is indicative only</i></p>
+            <div class="image-container">
+                <a href="${project.photo1}" target="_blank">
+                    <img src="${project.photo1}" class="popup-image" id="popup-image">
+                </a>
+            </div>
+            <div class="button-container">
+                <div class="nav-buttons">
+                    <button class="prev-button" onclick="prevImage('${project.photo1}', '${project.photo2}')" title="Show previous image">navigate_before</button>
+                    <button class="next-button" onclick="nextImage('${project.photo1}', '${project.photo2}')" title="Show next image">navigate_next</button>
+                </div>
+                <div>
+                    <a href="${project.attachment}" target="_blank">
+                    <button class="download-button">
+                        <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
+                    </button>
+                </a>
+                </div>
+                <span class="material-icons-outlined close-button" onclick="closePopup()">
+                    highlight_off
+                </span>
+            </div>
+        `;
+                    const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
+                    marker.bindPopup(popupContent, { maxWidth: 300 });
+                });
+
+
+
+
+            var selectedCategories = getSelectedCategories();
+            var selectedClientTypes = getSelectedClientTypes();
+            var selectedYearRange = $("#year-slider").slider("option", "values");
+            var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+            var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
+
+            console.log("Selected Countries:", selectedCountries);
+            console.log("Selected Categories:", selectedCategories);
+            console.log("Selected Client Types:", selectedClientTypes);
+            console.log("Selected Year Range:", selectedYearRange);
+            console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+            console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
             });
 
 
