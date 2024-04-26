@@ -783,15 +783,24 @@
                 // Get selected categories
                 var selectedCategories = getSelectedCategories();
 
-                // Filter data based on selected countries and categories
+                // Get selected client types
+                var selectedClientTypes = getSelectedClientTypes();
+
+                // Get selected year range
+                var selectedYearRange = $("#year-slider").slider("option", "values");
+
+                // Filter data based on selected countries, categories, client types, and year range
                 var filteredData = data.filter(function (project) {
+                    var projectYear = parseInt(project.startDate.substring(project.startDate.length - 4));
                     return (
                         (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
                         (
                             selectedCategories.length === 0 ||
                             selectedCategories.includes(project.sector1) ||
                             selectedCategories.includes(project.sector2)
-                        )
+                        ) &&
+                        (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
+                        (projectYear >= selectedYearRange[0] && projectYear <= selectedYearRange[1])
                     );
                 });
 
@@ -847,21 +856,18 @@
 
 
 
+                var selectedCategories = getSelectedCategories();
+                var selectedClientTypes = getSelectedClientTypes();
+                var selectedYearRange = $("#year-slider").slider("option", "values");
+                var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+                var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
 
-
-
-            var selectedCategories = getSelectedCategories();
-            var selectedClientTypes = getSelectedClientTypes();
-            var selectedYearRange = $("#year-slider").slider("option", "values");
-            var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
-            var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
-
-            console.log("Selected Countries:", selectedCountries);
-            console.log("Selected Categories:", selectedCategories);
-            console.log("Selected Client Types:", selectedClientTypes);
-            console.log("Selected Year Range:", selectedYearRange);
-            console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
-            console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+                console.log("Selected Countries:", selectedCountries);
+                console.log("Selected Categories:", selectedCategories);
+                console.log("Selected Client Types:", selectedClientTypes);
+                console.log("Selected Year Range:", selectedYearRange);
+                console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+                console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
             });
 
 
