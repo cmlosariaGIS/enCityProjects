@@ -783,7 +783,10 @@ $('.apply-filters-button').on('click', function () {
     // Get selected categories
     var selectedCategories = getSelectedCategories();
 
-    // Filter data based on selected countries and categories
+    // Get selected client types
+    var selectedClientTypes = getSelectedClientTypes();
+
+    // Filter data based on selected countries, categories, and client types
     var filteredData = data.filter(function (project) {
         return (
             (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
@@ -791,7 +794,8 @@ $('.apply-filters-button').on('click', function () {
                 selectedCategories.length === 0 ||
                 selectedCategories.includes(project.sector1) ||
                 selectedCategories.includes(project.sector2)
-            )
+            ) &&
+            (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType))
         );
     });
 
