@@ -780,9 +780,19 @@
                     selectedCountries.push($(this).val());
                 });
 
-                // Filter data based on selected countries
+                // Get selected categories
+                var selectedCategories = getSelectedCategories();
+
+                // Filter data based on selected countries and categories
                 var filteredData = data.filter(function (project) {
-                    return selectedCountries.includes(project.country);
+                    return (
+                        (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
+                        (
+                            selectedCategories.length === 0 ||
+                            selectedCategories.includes(project.sector1) ||
+                            selectedCategories.includes(project.sector2)
+                        )
+                    );
                 });
 
                 // Remove existing markers
@@ -834,6 +844,8 @@
                     const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
                     marker.bindPopup(popupContent, { maxWidth: 300 });
                 });
+
+
 
 
 
