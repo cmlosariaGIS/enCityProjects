@@ -4,8 +4,22 @@
 <head>
     <title>enCity Projects Web Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Leaflet-->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+
+    <!--Google  Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet">
+
     <style>
         body,
         html {
@@ -303,25 +317,18 @@
         }
 
         .country-label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px;
-}
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
 
-.country-icon {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-}
-
+        .country-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        rel="stylesheet">
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
 </head>
 
 <body>
@@ -344,19 +351,36 @@
             <div class="filter-country">
                 <span class="filter-title">Select Country</span>
                 <div>
+                    <input type="checkbox" id="country-china" name="country" value="China">
+                    <label for="country-china"><img src="https://i.ibb.co/b63qf69/icons8-china-48.png"
+                            alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                        China</label><br>
+
                     <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
-                    <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png" alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;"> Indonesia</label><br>
-                    
+                    <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png"
+                            alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                        Indonesia</label><br>
+
+                    <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                    <label for="country-maldives"><img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png"
+                            alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                        Maldives</label><br>
+
                     <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                    <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png" alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;"> Singapore</label><br>
-                    
+                    <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png"
+                            alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                        Singapore</label><br>
+
                     <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                    <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;"> Vietnam</label><br>
+                    <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png"
+                            alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                        Vietnam</label><br>
                 </div>
                 <p>
-                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear Selection</button>
+                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
+                        Selection</button>
             </div>
-            
+
 
             <div class="filter-category">
                 <span class="filter-title">Select Project Category</span>
@@ -372,7 +396,7 @@
                     <label><input type="checkbox" name="category" value="Technology"> Technology</label><br>
                     <label><input type="checkbox" name="category" value="Transportation"> Transportation</label><br>
                     <label><input type="checkbox" name="category" value="Urban Planning"> Urban Planning</label><br>
-                    <label><input type="checkbox" name="category" value="Water"> Water</label><br>
+                    <label><input type="checkbox" name="category" value="Water Management"> Water Management</label><br>
                 </div>
                 <p>
                     <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
@@ -383,87 +407,89 @@
                 <span class="filter-title">Client Type</span>
                 <div>
                     <div style="font-size: 16px;">
-                    <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
-                    <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
-                    <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
-                        Financial Institutions</label><br>
+                        <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
+                        <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
+                        <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
+                            Financial Institutions</label><br>
+                    </div>
+                    <p>
+                        <button class="clear-clientSelection-button" onclick="clearClientSelection()">Clear
+                            Selection</button>
                 </div>
+
+                <div class="filter-year">
+                    <span class="filter-title">Year</span>
+                    <p></p>
+                    <div id="year-slider"></div>
+                    <div id="year-labels">
+                        <span class="year-label">2018</span>
+                        <span class="year-label">2019</span>
+                        <span class="year-label">2020</span>
+                        <span class="year-label">2021</span>
+                        <span class="year-label">2022</span>
+                        <span class="year-label">2023</span>
+                        <span class="year-label">2024</span>
+                    </div>
+                    <div id="current-year"></div> <!-- New element to show current year -->
+                </div>
+
+                <div class="filter-projectValue">
+                    <span class="filter-title">Project Value</span>
+                    <p></p>
+                    <div id="projectValue-slider"></div>
+                    <div id="current-projectValue"></div> <!-- New element to show current project value -->
+                </div>
+
                 <p>
-                <button class="clear-clientSelection-button" onclick="clearClientSelection()">Clear
-                    Selection</button>
+                    <button class="filter-button-apply">Apply Filters</button>
             </div>
-            
-            <div class="filter-year">
-                <span class="filter-title">Year</span>
-                <p></p>
-                <div id="year-slider"></div>
-                <div id="year-labels">
-                    <span class="year-label">2018</span>
-                    <span class="year-label">2019</span>
-                    <span class="year-label">2020</span>
-                    <span class="year-label">2021</span>
-                    <span class="year-label">2022</span>
-                    <span class="year-label">2023</span>
-                    <span class="year-label">2024</span>
-                </div>
-                <div id="current-year"></div> <!-- New element to show current year -->
-            </div>
-
-            <div class="filter-projectValue">
-                <span class="filter-title">Project Value</span>
-                <p></p>
-                <div id="projectValue-slider"></div>
-                <div id="current-projectValue"></div> <!-- New element to show current project value -->
-            </div>
-
-            <p>
-                <button class="filter-button-apply">Apply Filters</button>
         </div>
-    </div>
 
-    <script>
-        // Paste the relevant data from your Google Sheet here
-        const data = [
-            {
-                lat: 10.820565,
-                lng: 106.795027,
-                projectName: "Thu Duc Planning Platform",
-                location: "Thu Duc City",
-                startDate: "Nov 2022",
-                completionDate: "Apr 2023",
-                partner: "",
-                client: "Thu Duc City",
-                description: "A data-driven web GIS dasboard for comparing existing and proposed land use plans.",
-                projectValue: "",
-                status: "Completed",
-                sector1: "Urban Planning",
-                sector2: "GIS",
-                photo1: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Images/Picture1.jpg",
-                photo2: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Images/Picture2.JPG",
-                attachment: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Project%20Sheet/SAMPLE%20PROJECT%20SHEET.pdf"
-            }
-            // Add more Project data rows as needed
-        ];
+        <script>
+            // Paste the relevant data from your Google Sheet here
+            const data = [
+                {
+                    lat: 10.820565,
+                    lng: 106.795027,
+                    projectName: "Thu Duc Planning Platform",
+                    country: "Vietnam",
+                    location: "Thu Duc City",
+                    startDate: "Nov 2022",
+                    completionDate: "Apr 2023",
+                    partner: "",
+                    client: "Thu Duc City",
+                    description: "A data-driven web GIS dasboard for comparing existing and proposed land use plans.",
+                    projectValue: "",
+                    status: "Completed",
+                    sector1: "Urban Planning",
+                    sector2: "GIS",
+                    photo1: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Images/Picture1.jpg",
+                    photo2: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Images/Picture2.JPG",
+                    attachment: "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/01_Thu%20Duc%20City%20GIS%20Planning%20Platform/Project%20Sheet/SAMPLE%20PROJECT%20SHEET.pdf"
+                }
+                // Add more Project data rows as needed
+            ];
 
-        // Initialize the map
-        const map = L.map('map').setView([data[0].lat, data[0].lng], 13);
-        L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
-            attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
-            maxZoom: 18,
-        }).addTo(map);
+            // Initialize the map
+            const map = L.map('map').setView([data[0].lat, data[0].lng], 13);
+            L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
+                attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
+                maxZoom: 18,
+            }).addTo(map);
 
-        // Custom icon for marker
-        const customIcon = L.icon({
-            iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
-            iconSize: [30, 30], // Adjust icon size as needed
-            iconAnchor: [16, 37],
-            popupAnchor: [0, -37]
-        });
+            // Custom icon for marker
+            const customIcon = L.icon({
+                iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
+                iconSize: [30, 30], // Adjust icon size as needed
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -37]
+            });
 
-        // Add markers to the map
-        data.forEach(({ lat, lng, projectName, location, title, startDate, completionDate, partner, client, description, projectValue, status, sector1, sector2, photo1, photo2, attachment }) => {
-            const popupContent = `
+            // Add markers to the map
+            data.forEach(({ lat, lng, projectName, country, location, title, startDate, completionDate, partner, client, description, projectValue, status, sector1, sector2, photo1, photo2, attachment }) => {
+                const popupContent = `
                 <h2>${projectName}<br></h2>
+                <b>Country:</b> ${country}<br>
                 <b>Location:</b> ${location}<br>
                 <b>Start Date:</b> ${startDate}<br>
                 <b>Completion Date:</b> ${completionDate}<br>
@@ -497,132 +523,155 @@
                     </span>
                 </div>
             `;
-            const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-            marker.bindPopup(popupContent, { maxWidth: 300 });
-        });
-
-        // Function to show next image
-        function nextImage() {
-            const image = document.getElementById('popup-image');
-            if (image.src === data[0].photo1) {
-                image.src = data[0].photo2;
-                image.parentElement.href = data[0].photo2;
-            } else {
-                image.src = data[0].photo1;
-                image.parentElement.href = data[0].photo1;
-            }
-            image.classList.add('fade-in');
-            setTimeout(() => {
-                image.classList.remove('fade-in');
-            }, 1500); // Adjust timing to match animation duration
-        }
-
-        // Function to show previous image
-        function prevImage() {
-            const image = document.getElementById('popup-image');
-            if (image.src === data[0].photo1) {
-                image.src = data[0].photo2;
-                image.parentElement.href = data[0].photo2;
-            } else {
-                image.src = data[0].photo1;
-                image.parentElement.href = data[0].photo1;
-            }
-            image.classList.add('fade-in');
-            setTimeout(() => {
-                image.classList.remove('fade-in');
-            }, 1500); // Adjust timing to match animation duration
-        }
-
-        // Function to close the popup
-        function closePopup() {
-            map.closePopup();
-        }
-
-        // Function to toggle slide menu
-        function toggleSlideMenu() {
-            const slideMenu = document.getElementById("slideMenu");
-            slideMenu.style.width = slideMenu.style.width === "320px" ? "0" : "320px";
-        }
-
-        // Initialize the year slider
-        $("#year-slider").slider({
-            range: true,
-            min: 2018,
-            max: 2024,
-            values: [2018, 2024],
-            slide: function (event, ui) {
-                $("#year-range").text(ui.values[0] + " - " + ui.values[1]);
-            },
-            create: function () {
-                // Add tick indicators
-                for (let i = 2018; i <= 2024; i++) {
-                    $("<div>").addClass("tick").css("left", (i - 2018) * (100 / 6) + "%").appendTo($("#year-slider"));
-                }
-            }
-        });
-
-        // Update current year label
-        $("#current-year").text("Years Selected: 2018 - 2024");
-
-        $("#year-slider").on("slide", function (event, ui) {
-            if (ui.values[0] === ui.values[1]) {
-                $("#current-year").text("Year Selected: " + ui.values[0]);
-            } else {
-                $("#current-year").text("Years Selected: " + ui.values[0] + " - " + ui.values[1]);
-            }
-            $(".year-label").each(function () {
-                $(this).css("left", (ui.values[0] - 2018) * (100 / 6) + "%");
+                const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+                marker.bindPopup(popupContent, { maxWidth: 300 });
             });
-        });
 
-        // Initialize project value slider
-        $(function () {
-            $("#projectValue-slider").slider({
-                range: "min",
-                min: 0,
-                max: 500000,
-                step: 50000, // set step to 50000
-                value: 0,
+            // Function to show next image
+            function nextImage() {
+                const image = document.getElementById('popup-image');
+                if (image.src === data[0].photo1) {
+                    image.src = data[0].photo2;
+                    image.parentElement.href = data[0].photo2;
+                } else {
+                    image.src = data[0].photo1;
+                    image.parentElement.href = data[0].photo1;
+                }
+                image.classList.add('fade-in');
+                setTimeout(() => {
+                    image.classList.remove('fade-in');
+                }, 1500); // Adjust timing to match animation duration
+            }
+
+            // Function to show previous image
+            function prevImage() {
+                const image = document.getElementById('popup-image');
+                if (image.src === data[0].photo1) {
+                    image.src = data[0].photo2;
+                    image.parentElement.href = data[0].photo2;
+                } else {
+                    image.src = data[0].photo1;
+                    image.parentElement.href = data[0].photo1;
+                }
+                image.classList.add('fade-in');
+                setTimeout(() => {
+                    image.classList.remove('fade-in');
+                }, 1500); // Adjust timing to match animation duration
+            }
+
+            // Function to close the popup
+            function closePopup() {
+                map.closePopup();
+            }
+
+            // Function to toggle slide menu
+            function toggleSlideMenu() {
+                const slideMenu = document.getElementById("slideMenu");
+                slideMenu.style.width = slideMenu.style.width === "320px" ? "0" : "320px";
+            }
+
+            // Function to clear country selection
+            function clearCategorySelection() {
+                $('input[name="category"]').prop('checked', false);
+            }
+
+            // Function to get selected categories
+            function getSelectedCategories() {
+                var selectedCategories = [];
+                $('input[name="category"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+                return selectedCategories;
+            }
+
+            // Function to clear Country selection
+            function clearCountrySelection() {
+                $('input[name="country"]').prop('checked', false);
+            }
+
+
+            // Function to get selected client types
+            function getSelectedClientTypes() {
+                var selectedClientTypes = [];
+                $('input[name="client-type"]:checked').each(function () {
+                    selectedClientTypes.push($(this).val());
+                });
+                return selectedClientTypes;
+            }
+
+            // Function to clear Client Type selection
+            function clearClientSelection() {
+                $('input[name="client-type"]').prop('checked', false);
+            }
+
+            // Function to initialize the year slider
+            $("#year-slider").slider({
+                range: true,
+                min: 2018,
+                max: 2024,
+                values: [2018, 2024],
                 slide: function (event, ui) {
-                    $("#current-projectValue").html("$" + ui.value.toLocaleString());
+                    $("#year-range").text(ui.values[0] + " - " + ui.values[1]);
+                },
+                create: function () {
+                    // Add tick indicators
+                    for (let i = 2018; i <= 2024; i++) {
+                        $("<div>").addClass("tick").css("left", (i - 2018) * (100 / 6) + "%").appendTo($("#year-slider"));
+                    }
                 }
             });
-            $("#current-projectValue").html("$" + $("#projectValue-slider").slider("value").toLocaleString());
-        });
 
-        // Function to clear country selection
-        function clearCountrySelection() {
-            $('input[name="country"]').prop('checked', false);
-        }
+            // Update current year label
+            $("#current-year").text("Years selected: 2018 - 2024");
 
-
-        // Function to get selected categories
-        function getSelectedCategories() {
-            var selectedCategories = [];
-            $('#project-category option:selected').each(function () {
-                selectedCategories.push($(this).val());
+            $("#year-slider").on("slide", function (event, ui) {
+                if (ui.values[0] === ui.values[1]) {
+                    $("#current-year").text("Year selected: " + ui.values[0]);
+                } else {
+                    $("#current-year").text("Years selected: " + ui.values[0] + " - " + ui.values[1]);
+                }
+                $(".year-label").each(function () {
+                    $(this).css("left", (ui.values[0] - 2018) * (100 / 6) + "%");
+                });
             });
-            return selectedCategories;
-        }
 
-        // Function to clear country selection
-        function clearCategorySelection() {
-            $('input[name="category"]').prop('checked', false);
-        }
+            // Initialize project value slider
+            $(function () {
+                $("#projectValue-slider").slider({
+                    range: "min",
+                    min: 0,
+                    max: 500000,
+                    step: 50000, // set step to 50000
+                    value: 0,
+                    slide: function (event, ui) {
+                        $("#current-projectValue").html("$" + ui.value.toLocaleString());
+                    }
+                });
+                $("#current-projectValue").html("$" + $("#projectValue-slider").slider("value").toLocaleString());
+            });
 
-        // Function to clear country selection
-        function clearClientSelection() {
-            $('input[name="client-type"]').prop('checked', false);
-        }
+            // Event listener for Apply Filters button
+            $('.filter-button-apply').on('click', function () {
+                var selectedCountries = [];
+                $('input[name="country"]:checked').each(function () {
+                    selectedCountries.push($(this).val());
+                });
+
+                var selectedCategories = getSelectedCategories();
+                var selectedClientTypes = getSelectedClientTypes();
+                var selectedYearRange = $("#year-slider").slider("option", "values");
+                var selectedProjectValue = $("#projectValue-slider").slider("value");
+
+                console.log("Selected Countries:", selectedCountries);
+                console.log("Selected Categories:", selectedCategories);
+                console.log("Selected Client Types:", selectedClientTypes);
+                console.log("Selected Year Range:", selectedYearRange);
+                console.log("Selected Project Value:", selectedProjectValue);
+            });
 
 
-        // Event listener for apply filters button
-        $('.filter-button-apply').on('click', function () {
-            var selectedCategories = getSelectedCategories();
-            // Your filtering logic here using selectedCategories
-        });
 
-    </script>
+        </script>
 </body>
 
 </html>
