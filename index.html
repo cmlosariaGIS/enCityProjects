@@ -606,15 +606,11 @@
                 map.closePopup();
             }
 
+
             // Function to toggle slide menu
             function toggleSlideMenu() {
                 const slideMenu = document.getElementById("slideMenu");
                 slideMenu.style.width = slideMenu.style.width === "350px" ? "0" : "350px";
-            }
-
-            // Function to clear country selection
-            function clearCategorySelection() {
-                $('input[name="category"]').prop('checked', false);
             }
 
             // Function to get selected categories
@@ -626,11 +622,15 @@
                 return selectedCategories;
             }
 
-            // Function to clear Country selection
+            // Function to clear category selection
+            function clearCategorySelection() {
+                $('input[name="category"]').prop('checked', false);
+            }
+
+            // Function to clear country selection
             function clearCountrySelection() {
                 $('input[name="country"]').prop('checked', false);
             }
-
 
             // Function to get selected client types
             function getSelectedClientTypes() {
@@ -641,7 +641,7 @@
                 return selectedClientTypes;
             }
 
-            // Function to clear Client Type selection
+            // Function to clear client type selection
             function clearClientSelection() {
                 $('input[name="client-type"]').prop('checked', false);
             }
@@ -677,20 +677,6 @@
                 });
             });
 
-            /*/ Initialize project value slider
-            $(function () {
-                $("#projectValue-slider").slider({
-                    range: "min",
-                    min: 0,
-                    max: 500000,
-                    step: 50000, // set step to 50000
-                    value: 0,
-                    slide: function (event, ui) {
-                        $("#current-projectValue").html("$" + ui.value.toLocaleString());
-                    }
-                });
-                $("#current-projectValue").html("$" + $("#projectValue-slider").slider("value").toLocaleString());
-            });*/
 
             $(function () {
                 $("#projectValue-slider").slider({
@@ -708,7 +694,6 @@
                 $("#current-projectValue").html("$0 - $500,000");
             });
 
-
             $(function () {
                 $("#projectScale-slider").slider({
                     range: true,
@@ -723,31 +708,62 @@
 
                 // Initial display of values
                 $("#current-projectScale").html("0ha - 5000ha");
+            });
 
-                // Event listener for Apply Filters button
-                $('.apply-filters-button').on('click', function () {
-                    var selectedCountries = [];
-                    $('input[name="country"]:checked').each(function () {
-                        selectedCountries.push($(this).val());
-                    });
-
-                    var selectedCategories = getSelectedCategories();
-                    var selectedClientTypes = getSelectedClientTypes();
-                    var selectedYearRange = $("#year-slider").slider("option", "values");
-                    var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
-                    var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
-
-                    console.log("Selected Countries:", selectedCountries);
-                    console.log("Selected Categories:", selectedCategories);
-                    console.log("Selected Client Types:", selectedClientTypes);
-                    console.log("Selected Year Range:", selectedYearRange);
-                    console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
-                    console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+            // Event listener for Apply Filters button
+            $('.apply-filters-button').on('click', function () {
+                var selectedCountries = [];
+                $('input[name="country"]:checked').each(function () {
+                    selectedCountries.push($(this).val());
                 });
+
+                var selectedCategories = getSelectedCategories();
+                var selectedClientTypes = getSelectedClientTypes();
+                var selectedYearRange = $("#year-slider").slider("option", "values");
+                var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+                var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
+
+                console.log("Selected Countries:", selectedCountries);
+                console.log("Selected Categories:", selectedCategories);
+                console.log("Selected Client Types:", selectedClientTypes);
+                console.log("Selected Year Range:", selectedYearRange);
+                console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+                console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
             });
 
 
+            // Function to reset the year slider
+            function resetYearSlider() {
+                $("#year-slider").slider("values", [2018, 2024]);
+                $("#current-year").text("Years selected: 2018 - 2024");
+            }
 
+            // Function to reset the project value slider
+            function resetProjectValueSlider() {
+                $("#projectValue-slider").slider("values", [0, 500000]);
+                $("#current-projectValue").text("$0 - $500,000");
+            }
+
+            // Function to reset the project scale slider
+            function resetProjectScaleSlider() {
+                $("#projectScale-slider").slider("values", [0, 5000]);
+                $("#current-projectScale").html("0ha - 5000ha");
+            }
+
+            // Function to reset all filters
+            function resetFilters() {
+                clearCategorySelection();
+                clearCountrySelection();
+                clearClientSelection();
+                resetYearSlider();
+                resetProjectValueSlider();
+                resetProjectScaleSlider();
+            }
+
+            // Event listener for Reset Filters button
+            $('.reset-filters-button').on('click', function () {
+                resetFilters();
+            });
 
 
         </script>
