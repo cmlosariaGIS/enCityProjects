@@ -34,6 +34,14 @@
             position: relative;
         }
 
+
+        .leaflet-control-zoom {
+            position: absolute;
+            top: 80px;
+            left: 10px;
+            z-index: 99999;
+        }
+
         .leaflet-popup-content-wrapper {
             border-radius: 5px;
         }
@@ -221,7 +229,7 @@
             resize: vertical;
         }
 
-        .filter-button-apply {
+        .apply-filters-button {
             font-family: 'Be Vietnam', sans-serif;
             font-size: 14px;
             padding: 8px 16px;
@@ -232,19 +240,33 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
-            width: 100%;
+            width: 60%;
+            /* Set width to 60% for Apply Filters button */
+            float: right;
+            /* Align to the right */
         }
 
-        .filter-button-apply:hover {
-            background-color: #0097ae;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .reset-filters-button {
+            font-family: 'Be Vietnam', sans-serif;
+            font-size: 14px;
+            padding: 8px 16px;
+            background-color: #04a9b2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+            width: 30%;
+            /* Set width to 30% for Reset button */
+            float: left;
+            /* Align to the left */
         }
 
-        .leaflet-control-zoom {
-            position: absolute;
-            top: 80px;
-            left: 10px;
-            z-index: 99999;
+        .button-container::after {
+            content: "";
+            clear: both;
+            display: table;
         }
 
         #year-slider {
@@ -441,7 +463,10 @@
                 </div>
 
                 <p>
-                    <button class="filter-button-apply">Apply Filters</button>
+                <div class="button-container">
+                    <button class="reset-filters-button">Reset</button>
+                    <button class="apply-filters-button">Apply Filters</button>
+                </div>
             </div>
         </div>
 
@@ -651,7 +676,7 @@
             });
 
             // Event listener for Apply Filters button
-            $('.filter-button-apply').on('click', function () {
+            $('.apply-filters-button').on('click', function () {
                 var selectedCountries = [];
                 $('input[name="country"]:checked').each(function () {
                     selectedCountries.push($(this).val());
