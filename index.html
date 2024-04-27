@@ -331,24 +331,27 @@
         .clear-countrySelection-button,
         .clear-categorySelection-button,
         .clear-clientSelection-button {
-            font-family: 'Be Vietnam', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 12px;
-            padding: 8px 8px;
-            background-color: rgb(211, 211, 211);
-            color: rgb(74, 74, 74);
-            border: 1px solid rgb(221, 221, 221);
-            border-radius: 4px;
+            padding: 5px 8px;
+            background-color: #e5e5e5;
+            color: rgb(98, 98, 98);
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
         .clear-countrySelection-button:hover,
         .clear-categorySelection-button:hover,
         .clear-clientSelection-button:hover {
-            background-color: rgb(171, 133, 133);
-            color: #ffffff;
+            background-color: #df194a;
+            color: rgb(255, 255, 255);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+
 
         .filter-category {
             width: 100%;
@@ -409,95 +412,119 @@
             <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
 
             <div class="filter-country" style="font-size: 14px;">
-                <span class="filter-title">Select Country</span>
-                <div>
-                    <input type="checkbox" id="country-china" name="country" value="China">
-                    <label for="country-china"><img src="https://i.ibb.co/b63qf69/icons8-china-48.png"
-                            alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                            style="margin-left: 5px;">China</span></label><br>
+                <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
+                <div class="filter-country" style="font-size: 14px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">globe_asia</span>
+                        <span style="padding-right: 10px;">Select Country</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
+                            Selection</button>
+                    </span>
+                    <div>
+                        <input type="checkbox" id="country-china" name="country" value="China">
+                        <label for="country-china"><img src="https://i.ibb.co/b63qf69/icons8-china-48.png"
+                                alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
+                                style="margin-left: 5px;">China</span></label><br>
 
-                    <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
-                    <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png"
-                            alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                            style="margin-left: 5px;">Indonesia</span></label><br>
+                        <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                        <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png"
+                                alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                            <span style="margin-left: 5px;">Indonesia</span></label><br>
 
-                    <input type="checkbox" id="country-maldives" name="country" value="Maldives">
-                    <label for="country-maldives"><img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png"
-                            alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                            style="margin-left: 5px;">Maldives</span></label><br>
+                        <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                        <label for="country-maldives"><img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png"
+                                alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                            <span style="margin-left: 5px;">Maldives</span></label><br>
 
-                    <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                    <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png"
-                            alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                            style="margin-left: 5px;">Singapore</span></label><br>
+                        <input type="checkbox" id="country-singapore" name="country" value="Singapore">
+                        <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png"
+                                alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                            <span style="margin-left: 5px;">Singapore</span></label><br>
 
-                    <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                    <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png"
-                            alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                            style="margin-left: 5px;">Vietnam</span></label><br>
-                </div>
-                <p>
-                    <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
-                        Selection</button>
-            </div>
-
-            <div class="filter-category" style="font-size: 14px;">
-                <span class="filter-title">Select Project Category</span>
-                <div style="font-size: 14px;">
-                    <label><input type="checkbox" name="category" value="Architecture"> Architecture</label><br>
-                    <label><input type="checkbox" name="category" value="GIS"> GIS</label><br>
-                    <label><input type="checkbox" name="category" value="Heritage Preservation"> Heritage
-                        Preservation</label><br>
-                    <label><input type="checkbox" name="category" value="Regional Planning"> Regional
-                        Planning</label><br>
-                    <label><input type="checkbox" name="category" value="Sustainable Development"> Sustainable
-                        Development</label><br>
-                    <label><input type="checkbox" name="category" value="Technology"> Technology</label><br>
-                    <label><input type="checkbox" name="category" value="Transportation"> Transportation</label><br>
-                    <label><input type="checkbox" name="category" value="Urban Planning"> Urban Planning</label><br>
-                    <label><input type="checkbox" name="category" value="Water Management"> Water Management</label><br>
-                </div>
-                <p>
-                    <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
-                        Selection</button>
-            </div>
-
-            <div class="filter-client" style="font-size: 14px;">
-                <span class="filter-title">Client Type</span>
-                <div>
-                    <div style="font-size: 14px;">
-                        <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
-                        <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
-                        <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
-                            Financial Institutions</label><br>
+                        <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                        <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png"
+                                alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;">
+                            <span style="margin-left: 5px;">Vietnam</span></label><br>
                     </div>
-                    <p>
+                </div>
+
+                <div class="filter-category" style="font-size: 14px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">category</span>
+                        <span style="padding-right: 10px;">Select Project Category</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
+                            Selection</button>
+                    </span>
+
+                    <div style="font-size: 14px;">
+                        <label><input type="checkbox" name="category" value="Architecture"> Architecture</label><br>
+                        <label><input type="checkbox" name="category" value="GIS"> GIS</label><br>
+                        <label><input type="checkbox" name="category" value="Heritage Preservation"> Heritage
+                            Preservation</label><br>
+                        <label><input type="checkbox" name="category" value="Regional Planning"> Regional
+                            Planning</label><br>
+                        <label><input type="checkbox" name="category" value="Sustainable Development"> Sustainable
+                            Development</label><br>
+                        <label><input type="checkbox" name="category" value="Technology"> Technology</label><br>
+                        <label><input type="checkbox" name="category" value="Transportation"> Transportation</label><br>
+                        <label><input type="checkbox" name="category" value="Urban Planning"> Urban Planning</label><br>
+                        <label><input type="checkbox" name="category" value="Water Management"> Water
+                            Management</label><br>
+                    </div>
+                </div>
+                <p></p>
+                <div class="filter-client" style="font-size: 14px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">handshake</span>
+                        <span style="padding-right: 10px;">Client Type</span>
+                        <span style="flex-grow: 1;"></span>
                         <button class="clear-clientSelection-button" onclick="clearClientSelection()">Clear
                             Selection</button>
+                    </span>
+
+                    <div>
+                        <div style="font-size: 14px;">
+                            <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
+                            <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
+                            <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
+                                Financial Institutions</label><br>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-year">
-                    <span class="filter-title">Year</span>
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">calendar_month</span>
+                        Year Implemented
+                    </span>
                     <p></p>
                     <div id="year-slider"></div>
                     <div id="current-year"></div>
                 </div>
 
                 <div class="filter-projectValue">
-                    <span class="filter-title">Project Value</span>
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">payments</span>
+                        Project Value
+                    </span>
                     <p></p>
                     <div id="projectValue-slider"></div>
                     <div id="current-projectValue"></div>
                 </div>
 
                 <div class="filter-projectScale">
-                    <span class="filter-title">Project Scale</span>
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">square_foot</span>
+                        Project Scale
+                    </span>
                     <p></p>
                     <div id="projectScale-slider"></div>
                     <div id="current-projectScale"></div>
                 </div>
-
-                <p>
+                <br>
+                <br>
                 <div class="button-container">
                     <button class="reset-filters-button">
                         <span class="material-symbols-outlined">restart_alt</span>
@@ -510,6 +537,7 @@
                 </div>
             </div>
         </div>
+
 
         <script src="encityProjects.js"></script>
 
