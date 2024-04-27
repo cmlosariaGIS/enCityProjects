@@ -353,19 +353,8 @@
 
 
 
-        .filter-category {
-            width: 100%;
-            margin-bottom: 0px;
-        }
 
-        .filter-category label {
-            display: block;
-            margin-bottom: -25px;
-        }
 
-        .filter-category input[type="checkbox"] {
-            margin-right: 0px;
-        }
 
         .country-label {
             display: inline-block;
@@ -384,7 +373,70 @@
             font-size: 14px;
             color: #666;
         }
+
+        /* Checkbox styling */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        .checkbox-container:hover .checkmark {
+            background-color: #f0f0f0;
+        }
+
+        .checkbox-container input:checked~.checkmark {
+            background-color: #2196F3;
+        }
+
+        .checkbox-container input:hover~.checkmark {
+            background-color: #f0f0f0;
+            /* Change color on hover */
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
     </style>
+
+
 
 </head>
 
@@ -422,30 +474,26 @@
                             Selection</button>
                     </span>
                     <div>
-                        <input type="checkbox" id="country-china" name="country" value="China">
-                        <label for="country-china"><img src="https://i.ibb.co/b63qf69/icons8-china-48.png"
-                                alt="icons8-china-48" style="width: 20px; height: 20px; vertical-align: middle;"> <span
-                                style="margin-left: 5px;">China</span></label><br>
-
-                        <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
-                        <label for="country-indonesia"><img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png"
-                                alt="icons8-indonesia-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                            <span style="margin-left: 5px;">Indonesia</span></label><br>
-
-                        <input type="checkbox" id="country-maldives" name="country" value="Maldives">
-                        <label for="country-maldives"><img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png"
-                                alt="icons8-maldives-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                            <span style="margin-left: 5px;">Maldives</span></label><br>
-
-                        <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                        <label for="country-singapore"><img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png"
-                                alt="icons8-singapore-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                            <span style="margin-left: 5px;">Singapore</span></label><br>
-
-                        <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                        <label for="country-vietnam"><img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png"
-                                alt="icons8-vietnam-48" style="width: 20px; height: 20px; vertical-align: middle;">
-                            <span style="margin-left: 5px;">Vietnam</span></label><br>
+                        <label class="checkbox-container">China
+                            <input type="checkbox" id="country-china" name="country" value="China">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">Indonesia
+                            <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">Maldives
+                            <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">Singapore
+                            <input type="checkbox" id="country-singapore" name="country" value="Singapore">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">Vietnam
+                            <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                 </div>
 
@@ -457,24 +505,41 @@
                         <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
                             Selection</button>
                     </span>
-
-                    <div style="font-size: 14px;">
-                        <label><input type="checkbox" name="category" value="Architecture"> Architecture</label><br>
-                        <label><input type="checkbox" name="category" value="GIS"> GIS</label><br>
-                        <label><input type="checkbox" name="category" value="Heritage Preservation"> Heritage
-                            Preservation</label><br>
-                        <label><input type="checkbox" name="category" value="Regional Planning"> Regional
-                            Planning</label><br>
-                        <label><input type="checkbox" name="category" value="Sustainable Development"> Sustainable
-                            Development</label><br>
-                        <label><input type="checkbox" name="category" value="Technology"> Technology</label><br>
-                        <label><input type="checkbox" name="category" value="Transportation"> Transportation</label><br>
-                        <label><input type="checkbox" name="category" value="Urban Planning"> Urban Planning</label><br>
-                        <label><input type="checkbox" name="category" value="Water Management"> Water
-                            Management</label><br>
+                    <div>
+                        <div style="font-size: 14px;">
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Architecture"> Architecture<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="GIS"> GIS<span class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Heritage Preservation"> Heritage Preservation<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Regional Planning"> Regional Planning<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Sustainable Development"> Sustainable Development<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Technology"> Technology<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Transportation"> Transportation<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Urban Planning"> Urban Planning<span
+                                    class="checkmark"></span></label>
+                            <label class="checkbox-container" style="margin-bottom: 5px;"><input type="checkbox"
+                                    name="category" value="Water Management"> Water Management<span
+                                    class="checkmark"></span></label>
+                        </div>
                     </div>
                 </div>
-                <p></p>
+
+
+
+
                 <div class="filter-client" style="font-size: 14px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
                         <span class="material-symbols-outlined" style="margin-right: 5px;">handshake</span>
@@ -485,11 +550,19 @@
                     </span>
 
                     <div>
-                        <div style="font-size: 14px;">
-                            <label><input type="checkbox" name="client-type" value="Government"> Government</label><br>
-                            <label><input type="checkbox" name="client-type" value="Private"> Private</label><br>
-                            <label><input type="checkbox" name="client-type" value="ODAs, Financial Institutions"> ODAs,
-                                Financial Institutions</label><br>
+                        <div>
+                            <label class="checkbox-container">Government
+                                <input type="checkbox" name="client-type" value="Government">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">Private
+                                <input type="checkbox" name="client-type" value="Private">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">ODAs, Financial Institutions
+                                <input type="checkbox" name="client-type" value="ODAs, Financial Institutions">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -523,8 +596,7 @@
                     <div id="projectScale-slider"></div>
                     <div id="current-projectScale"></div>
                 </div>
-                <br>
-                <br>
+
                 <div class="button-container">
                     <button class="reset-filters-button">
                         <span class="material-symbols-outlined">restart_alt</span>
@@ -784,8 +856,8 @@
 
             // Function to reset the project scale slider
             function resetProjectScaleSlider() {
-                $("#projectScale-slider").slider("values", [0, 5000]);
-                $("#current-projectScale").html("0ha - 5000ha");
+                $("#projectScale-slider").slider("values", [0, 100000]);
+                $("#current-projectScale").html("0ha - 100,000ha");
             }
 
             // Function to reset all filters
@@ -809,7 +881,6 @@
             });
 
 
-            /*** APPLY FILTERS BUTTON **/
             /*** APPLY FILTERS BUTTON **/
             // Event listener for Apply Filters button
             $('.apply-filters-button').on('click', function () {
