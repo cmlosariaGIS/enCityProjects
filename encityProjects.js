@@ -61,7 +61,29 @@ const data = [
         "photo1": "https://encity.co/wp-content/uploads/2023/06/LCK_img_4.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/06/LCK_img_7-2048x1116.jpg",
         "attachment": ""
+    },
+    {
+        "lat": 12.25522,
+        "lng": 109.196053,
+        "projectName": "Khanh Hoa Provincial Government Centre",
+        "country": "Vietnam",
+        "location": "Nha Trang City",
+        "startDate": "Jan 2023",
+        "completionDate": "Jan 2024",
+        "partner": "",
+        "client": "Khanh Hoa Provincial Government ",
+        "clientType": "Government",
+        "description": "The Khanh Hoa Provincial Government Centre will be a contemporary icon for the province, anchored in cultural traditions and headed towards progress. ",
+        "projectValue": 50000,
+        "projectScale": 0.5,
+        "status": "Completed",
+        "sector1": "Architecture",
+        "sector2": "Urban Planning",
+        "photo1": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-7-2-copy.jpg",
+        "photo2": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-1-copy.jpg",
+        "attachment": ""
     }
+
 ];
 
 // Add more Project data rows as needed
