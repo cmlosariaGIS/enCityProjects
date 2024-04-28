@@ -39,7 +39,7 @@ const data = [
         "sector2": "Urban Planning",
         "photo1": "https://encity.co/wp-content/uploads/2024/01/Residential-2048x1484.jpeg",
         "photo2": "https://encity.co/wp-content/uploads/2024/01/Industrial-2048x1344.jpeg",
-        "attachment": ""
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/blob/main/Projects/Project%20Sheet_Butom%20Industrial%20Area.pdf"
     },
     {
         "lat": 1.431829,
@@ -60,7 +60,7 @@ const data = [
         "sector2": "Architecture",
         "photo1": "https://encity.co/wp-content/uploads/2023/06/LCK_img_4.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/06/LCK_img_7-2048x1116.jpg",
-        "attachment": ""
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/blob/main/Projects/Project%20Sheet_Lim%20Chu%20Kang%20Agri-food%20Production%20Hub.pdf"
     },
     {
         "lat": 12.25522,
@@ -81,7 +81,7 @@ const data = [
         "sector2": "Urban Planning",
         "photo1": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-7-2-copy.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-1-copy.jpg",
-        "attachment": ""
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/blob/main/Projects/Project%20Sheet_Khanh%20Hoa%20Provincial%20Government%20Centre.pdf"
     },
     {
         "lat": 10.873737,
@@ -102,7 +102,7 @@ const data = [
         "sector2": "Sustainable Development",
         "photo1": "https://encity.co/wp-content/uploads/2023/11/GS-Aerial_01_1-copy.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/11/z4860870015439_2e526ee6920024c2be2b673f5d3dde98-e1699437288790.jpg",
-        "attachment": ""
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/blob/main/Projects/Project%20Sheet_GS%20Metro%20Long%20Binh%20Mixed-use%20Community.pdf"
     },
     {
         "lat": -6.296316,
@@ -123,7 +123,28 @@ const data = [
         "sector2": "Transportation",
         "photo1": "https://encity.co/wp-content/uploads/2023/11/photo_2023-11-10_14-33-21-1.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/11/231031_Jakarta-2045_TOD-Forum-2-1-2048x1154.jpg",
-        "attachment": ""
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/raw/main/Projects/Project%20Sheet_TOD-led%20Urban%20Regeneration%20for%20South%20Jakarta.pdf"
+    },
+    {
+        "lat": 15.881294,
+        "lng": 108.376996,
+        "projectName": "Casamia Balanca Hoi An Waterfront Eco-community",
+        "country": "Vietnam",
+        "location": "Hoi An",
+        "startDate": "2019",
+        "completionDate": "2020",
+        "partner": "",
+        "client": "",
+        "clientType": "Government",
+        "description": "A waterfront destination for both tourists and the local community, with nightlife and lifestyle attractions.",
+        "projectValue": 30000,
+        "projectScale": 30,
+        "status": "Completed",
+        "sector1": "Heritage Preservation",
+        "sector2": "Sustainable Development",
+        "photo1": "https://encity.co/wp-content/uploads/2022/06/FuturArc-Hoi-An-Website-4-Hoi-An-Waterfront_VTN-Architects-1.jpg",
+        "photo2": "https://encity.co/wp-content/uploads/2022/07/363502392_1005919210850496_8589311349754184039_n-e1690448105228.png",
+        "attachment": "https://github.com/cmlosariaGIS/enCityProjects/raw/main/Projects/Project%20Sheet_Casamia%20Balanca%20Hoi%20An%20Waterfront%20Eco-community.pdf"
     }
 ];
 
