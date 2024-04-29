@@ -1,7 +1,7 @@
 // Function to download attachments as zip file
 function downloadAttachmentsAsZip(filteredData, fileName) {
-    if (filteredData.length === 0) {
-        console.log("No data to download.");
+    if (!filteredData || filteredData.length === 0) {
+        console.log("No filters applied, all data attachments will be downloaded.");
         return;
     }
 
@@ -71,17 +71,15 @@ function downloadAttachmentsAsZip(filteredData, fileName) {
     });
 }
 
+
 // Event listener for download button
 $('.downloadProjSheetsAsZip-button').on('click', function () {
     var filtersApplied = $('input[name="country"]:checked').length > 0 ||
         $('input[name="category"]:checked').length > 0 ||
         $('input[name="client-type"]:checked').length > 0 ||
-        $("#year-slider").slider("values")[0] !== 2018 ||
-        $("#year-slider").slider("values")[1] !== 2024 ||
-        $("#projectValue-slider").slider("values")[0] !== 0 ||
-        $("#projectValue-slider").slider("values")[1] !== 500000 ||
-        $("#projectScale-slider").slider("values")[0] !== 0 ||
-        $("#projectScale-slider").slider("values")[1] !== 100000;
+        ($("#year-slider").slider("values")[0] !== 2018 || $("#year-slider").slider("values")[1] !== 2024) ||
+        ($("#projectValue-slider").slider("values")[0] !== 0 || $("#projectValue-slider").slider("values")[1] !== 500000) ||
+        ($("#projectScale-slider").slider("values")[0] !== 0 || $("#projectScale-slider").slider("values")[1] !== 100000);
 
     if (filtersApplied) {
         // If filters applied, download attachments for filtered data
@@ -108,3 +106,4 @@ $('.downloadProjSheetsAsZip-button').on('click', function () {
         downloadAttachmentsAsZip(data, "projectSheetsAll");
     }
 });
+
