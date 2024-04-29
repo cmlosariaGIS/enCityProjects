@@ -208,13 +208,12 @@
             background-color: #ddd;
         }
 
-        .filter-button,
+        .filterProjects-button,
         .downloadProjectListAsExcel-button,
         .downloadProjSheetsAsZip-button {
             font-family: 'Be Vietnam', sans-serif;
             font-size: 14px;
             padding: 8px 16px;
-            background-color: #04a9b2;
             color: white;
             border: none;
             border-radius: 4px;
@@ -222,13 +221,32 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
             margin-left: 10px;
-            /* Add margin between filter button and search button */
         }
 
-        .filter-button:hover,
-        .downloadProjectListAsExcel-button:hover,
-        .downloadProjSheetsAsZip-button:hover {
+        .filterProjects-button {
+            background-color: #04a9b2;
+        }
+
+        .downloadProjectListAsExcel-button {
+            background-color: #13844b;
+        }
+
+        .downloadProjSheetsAsZip-button {
+            background-color: #dab500;
+        }
+
+        .filterProjects-button:hover {
             background-color: #0097ae;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .downloadProjectListAsExcel-button:hover {
+            background-color: #22b800be;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .downloadProjSheetsAsZip-button:hover {
+            background-color: #f9cc00;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -246,7 +264,7 @@
                 right: 6%;
             }
 
-            .filter-button {
+            .filterProjects-button {
                 right: 10%;
             }
         }
@@ -264,7 +282,7 @@
                 right: 4%;
             }
 
-            .filter-button {
+            .filterProjects-button {
                 right: 8%;
             }
         }
@@ -552,7 +570,7 @@
                 <button id="searchButton" style="color: #919191;"><span
                         class="material-symbols-outlined">search</span></button>
             </div>
-            <button class="filter-button" onclick="toggleSlideMenu()">
+            <button class="filterProjects-button" onclick="toggleSlideMenu()">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
                     style="vertical-align: middle;">Filter Projects</span>
             </button>
@@ -845,6 +863,24 @@
         function closePopup() {
             map.closePopup();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
 </body>
