@@ -1,5 +1,5 @@
 // Function to download the attachments as a zip file
-function downloadAttachments() {
+function downloadAttachmentsAsZip() {
     // Create a new instance of JSZip
     var zip = new JSZip();
 
