@@ -24,6 +24,11 @@
         integrity="sha512-3FKAKNDHbfUwAgW45wNAvfgJDDdNoTi5PZWU7ak3Xm0X8u0LbDBWZEyPklRebTZ8r+p0M2KIJWDYZQjDPyYQEA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!--SheetJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+
+
     <style>
         body,
         html {
@@ -134,10 +139,11 @@
         }
 
         .company-logo {
-            max-width: 60px;
+            max-width: 100%;
             /* Adjust the size of the logo */
         }
 
+        /*Start Menu Bar*/
         .menu-bar {
             position: fixed;
             top: 0;
@@ -146,21 +152,39 @@
             background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 99999;
-            padding: 10px 20px;
+            padding: 10px 10px 10px 20px;
+            /* Adjusted padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .menu-bar img {
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .middle-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            padding-right: 30px;
+            /* Adjusted padding */
+        }
+
+        .company-logo {
+            max-width: 100px;
             max-height: 40px;
         }
 
         .search-bar {
             display: flex;
             align-items: center;
-            position: absolute;
-            right: calc(28%);
         }
 
         .search-bar input[type="text"] {
@@ -176,13 +200,16 @@
             cursor: pointer;
             padding: 8px;
             border-radius: 4px;
+            margin-right: 10px;
+            /* Add margin between search button and filter button */
         }
 
         .search-bar button:hover {
             background-color: #ddd;
         }
 
-
+        .filter-button,
+        .downloadProjectListAsExcel-button,
         .downloadProjSheetsAsZip-button {
             font-family: 'Be Vietnam', sans-serif;
             font-size: 14px;
@@ -194,60 +221,58 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
-            position: absolute;
-            right: calc(4%);
+            margin-left: 10px;
+            /* Add margin between filter button and search button */
         }
 
-        .downloadProjSheetsAsZip-button:hover,
-        .filter-button:hover {
+        .filter-button:hover,
+        .downloadProjectListAsExcel-button:hover,
+        .downloadProjSheetsAsZip-button:hover {
             background-color: #0097ae;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Media Queries */
+        @media only screen and (max-width: 768px) {
+            .search-bar {
+                right: 20%;
+            }
 
-        .downloadProjSheetsAsExcel-button {
-            font-family: 'Be Vietnam', sans-serif;
-            font-size: 14px;
-            padding: 8px 16px;
-            background-color: #04a9b2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-            position: absolute;
-            right: calc(10%);
+            .downloadProjSheetsAsZip-button {
+                right: 2%;
+            }
+
+            .downloadProjectListAsExcel-button {
+                right: 6%;
+            }
+
+            .filter-button {
+                right: 10%;
+            }
         }
 
-        .downloadProjSheetsAsExcel-button:hover,
-        .filter-button:hover {
-            background-color: #0097ae;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        @media only screen and (max-width: 576px) {
+            .search-bar {
+                right: 12%;
+            }
+
+            .downloadProjSheetsAsZip-button {
+                right: 0;
+            }
+
+            .downloadProjectListAsExcel-button {
+                right: 4%;
+            }
+
+            .filter-button {
+                right: 8%;
+            }
         }
 
 
-        .filter-button {
-            font-family: 'Be Vietnam', sans-serif;
-            font-size: 14px;
-            padding: 8px 16px;
-            background-color: #04a9b2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-            position: absolute;
-            right: calc(16%);
-            /* Adjusted to account for padding */
-        }
+        /*End Menu Bar*/
 
-        .filter-button:hover {
-            background-color: #0097ae;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
+        /*Start Slide out Filter Menu*/
         .slide-menu {
             height: 100%;
             width: 0;
@@ -513,33 +538,41 @@
 
 <body>
     <div class="menu-bar">
-        <a href="https://encity.co" target="_blank">
-            <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
-            <span class="beta-testing">Beta Testing. Data maybe inaccurate to test filters</span>
-        </a>
-        <button class="filter-button" onclick="toggleSlideMenu()">
-            <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
-                style="vertical-align: middle;">Filter Projects</span>
-        </button>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search Projects...">
-            <button id="searchButton" style="color: #919191;"><span
-                    class="material-symbols-outlined">search</span></button>
+        <div class="left-section">
+            <a href="https://encity.co" target="_blank">
+                <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
+            </a>
+
         </div>
+        <div class="middle-section">
+        </div>
+        <div class="right-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search Projects...">
+                <button id="searchButton" style="color: #919191;"><span
+                        class="material-symbols-outlined">search</span></button>
+            </div>
+            <button class="filter-button" onclick="toggleSlideMenu()">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
+                    style="vertical-align: middle;">Filter Projects</span>
+            </button>
+            <button class="downloadProjectListAsExcel-button" title="Download Filtered Project List as table">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                <span style="vertical-align: middle; margin-left: 0px;"><span
+                        class="material-symbols-outlined">table</span></span>
+            </button>
+            <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()"
+                title="Download Project Sheet Attachements as Zip">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                <span style="vertical-align: middle; margin-left: 0px;"><span
+                        class="material-symbols-outlined">folder_zip</span></span>
+            </button>
+        </div>
+    </div>
 
 
-        <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()" title="Download Project Sheets as csv">
-            <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-            <span style="vertical-align: middle; margin-left: 0px;"><span class="material-symbols-outlined">folder_zip</span></span>
-        </button>
-        
-        <button class="downloadProjSheetsAsExcel-button" title="Download Filtered Project List as table">
-            <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-            <span style="vertical-align: middle; margin-left: 0px;"><span class="material-symbols-outlined">table</span></span>
-        </button>
-        
-        
-    
+
+
 
 
     </div>
@@ -712,7 +745,7 @@
     <script src="filter.js"></script>
     <script src="downloadProjectSheetsAsZip.js"></script>
     <script src="downloadProjectSheetsAsExcel.js"></script>
-    
+
 
     <script>
         // Initialize the map
@@ -812,7 +845,6 @@
         function closePopup() {
             map.closePopup();
         }
-
 
     </script>
 </body>
