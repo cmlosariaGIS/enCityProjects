@@ -27,6 +27,8 @@
     <!--SheetJS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 
+    <!--FileSaver-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 
     <style>
@@ -574,11 +576,12 @@
                 <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
                     style="vertical-align: middle;">Filter Projects</span>
             </button>
-            <button class="downloadProjectListAsExcel-button" title="Download Filtered Project List as table">
+            <button class="downloadProjectListAsExcel-button" onclick="downloadExcel()">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
                 <span style="vertical-align: middle; margin-left: 0px;"><span
                         class="material-symbols-outlined">table</span></span>
             </button>
+            
             <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()"
                 title="Download Project Sheet Attachements as Zip">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
@@ -588,23 +591,13 @@
         </div>
     </div>
 
-
-
-
-
-
     </div>
 
     <div id="map"></div>
 
-
-
     <div id="slideMenu" class="slide-menu">
         <div class="slide-menu-content">
             <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
-
-
-
             <div class="filter-country" style="font-size: 12px;">
                 <div class="filter-country" style="font-size: 12px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
@@ -677,9 +670,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
 
                 <div class="filter-client" style="font-size: 12px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
@@ -757,13 +747,11 @@
 
     </div>
 
-
     <script src="encityProjects.js"></script>
     <script src="search.js"></script>
     <script src="filter.js"></script>
+    <script src="downloadProjectListsAsExcel.js"></script>
     <script src="downloadProjectSheetsAsZip.js"></script>
-    <script src="downloadProjectSheetsAsExcel.js"></script>
-
 
     <script>
         // Initialize the map
@@ -773,7 +761,6 @@
             attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
             maxZoom: 28,
         }).addTo(map);
-
 
         // Custom icon for marker
         const customIcon = L.icon({
@@ -858,29 +845,10 @@
             }, 1500); // Adjust timing to match animation duration
         }
 
-
         // Function to close the popup
-        function closePopup() {
+        function closePopup() {AQ
             map.closePopup();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </script>
 </body>
