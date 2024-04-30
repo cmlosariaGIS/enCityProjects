@@ -252,6 +252,9 @@ $('.apply-filters-button').on('click', function () {
         );
     });
 
+    // Call downloadAttachmentsAsZip with filtered data
+    //downloadAttachmentsAsZip(filteredData);
+
     // Check if filtered data is empty
     if (filteredData.length === 0) {
         displayNoResultsMessage();
@@ -322,8 +325,36 @@ $('.apply-filters-button').on('click', function () {
     console.log("Selected Year Range:", selectedYearRange);
     console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
     console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+
 });
 
 
 
+
+
+//Project Category Expand Options
+function toggleOptions(optionsId, iconClass) {
+    var options = document.getElementById(optionsId);
+    var icon = document.querySelector(iconClass);
+
+    if (options.style.maxHeight === "0px") {
+        options.style.maxHeight = options.scrollHeight + "px";
+        icon.textContent = "chevron_right";
+    } else {
+        options.style.maxHeight = "0px";
+        icon.textContent = "expand_more";
+    }
+}
+
+function toggleArchitectureOptions() {
+    toggleOptions("architectureOptions", ".architecture-expand-icon");
+}
+
+function togglePlanningOptions() {
+    toggleOptions("planningOptions", ".planning-expand-icon");
+}
+
+function toggleWaterManagementOptions() {
+    toggleOptions("waterManagementOptions", ".water-management-expand-icon");
+}
 
