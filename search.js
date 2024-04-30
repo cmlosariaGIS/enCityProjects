@@ -1,5 +1,61 @@
 // JavaScript: Integration of search functionality
 
+
+// Search typing effect
+const searchOptions = [
+    "...",
+    " by location...",
+    " by sector...",
+    " by clients...",
+    " by keywords..."
+];
+
+const typingDelay = 50; // in milliseconds
+const eraseDelay = 25; // in milliseconds
+const pauseDelay = 800; // in milliseconds
+
+const searchInput = document.getElementById('searchInput');
+
+function displayTextWithTypingEffect() {
+    let index = 0;
+    let isDeleting = false;
+    let text = '';
+
+    function type() {
+        const currentText = searchOptions[index];
+        if (isDeleting) {
+            text = currentText.substring(0, text.length - 1);
+        } else {
+            text = currentText.substring(0, text.length + 1);
+        }
+
+        searchInput.placeholder = "Search projects" + text;
+
+        let typingSpeed = typingDelay;
+        if (isDeleting) {
+            typingSpeed /= 2;
+        }
+
+        if (!isDeleting && text === currentText) {
+            isDeleting = true;
+            typingSpeed = pauseDelay;
+        } else if (isDeleting && text === '') {
+            isDeleting = false;
+            index++;
+            if (index === searchOptions.length) {
+                searchInput.placeholder = "Search projects..."; // Display final text
+                return; // Stop after displaying each option once
+            }
+        }
+
+        setTimeout(type, typingSpeed);
+    }
+
+    type();
+}
+
+displayTextWithTypingEffect();
+
 // Function to handle search
 function handleSearch() {
     // Get the search term
