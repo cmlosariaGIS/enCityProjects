@@ -330,9 +330,17 @@ $('.apply-filters-button').on('click', function () {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    });
+});
 
 
-//Project Category Expand Options
 function toggleOptions(optionsId, iconClass) {
     var options = document.getElementById(optionsId);
     var icon = document.querySelector(iconClass);
@@ -346,15 +354,50 @@ function toggleOptions(optionsId, iconClass) {
     }
 }
 
+function toggleCheckboxValue(checkboxValue, relatedCheckboxes) {
+    var mainCheckbox = document.querySelector("input[value='" + checkboxValue + "']");
+    var checked = true;
+
+    relatedCheckboxes.forEach(function (value) {
+        var checkbox = document.querySelector("input[value='" + value + "']");
+        if (!checkbox.checked) {
+            checked = false;
+        }
+    });
+
+    mainCheckbox.checked = checked;
+}
+
+function toggleOptionsCheckboxes(mainCheckboxValue, relatedCheckboxes) {
+    var mainCheckbox = document.querySelector("input[value='" + mainCheckboxValue + "']");
+    var checked = mainCheckbox.checked;
+
+    relatedCheckboxes.forEach(function (value) {
+        var checkbox = document.querySelector("input[value='" + value + "']");
+        checkbox.checked = checked;
+    });
+}
+
+function toggleArchitectureCheckbox() {
+    toggleCheckboxValue('Architecture', ['Landscape Architecture', 'Building Architecture']);
+}
+
 function toggleArchitectureOptions() {
-    toggleOptions("architectureOptions", ".architecture-expand-icon");
+    toggleOptionsCheckboxes('Architecture', ['Landscape Architecture', 'Building Architecture']);
+}
+
+function togglePlanningCheckbox() {
+    toggleCheckboxValue('Planning', ['Urban Planning', 'Regional Planning']);
 }
 
 function togglePlanningOptions() {
-    toggleOptions("planningOptions", ".planning-expand-icon");
+    toggleOptionsCheckboxes('Planning', ['Urban Planning', 'Regional Planning']);
+}
+
+function toggleWaterManagementCheckbox() {
+    toggleCheckboxValue('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
 }
 
 function toggleWaterManagementOptions() {
-    toggleOptions("waterManagementOptions", ".water-management-expand-icon");
+    toggleOptionsCheckboxes('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
 }
-
