@@ -26,6 +26,9 @@
 
     <!--SheetJS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+
+
 
     <!--FileSaver-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -470,7 +473,10 @@
 
         /* Checkbox styling */
         .checkbox-container {
-            display: block;
+            display: flex;
+            /* Change to flex */
+            align-items: center;
+            /* Align items vertically */
             position: relative;
             padding-left: 30px;
             margin-bottom: 5px;
@@ -482,8 +488,6 @@
             position: absolute;
             opacity: 0;
             cursor: pointer;
-            height: 0;
-            width: 0;
         }
 
         .checkmark {
@@ -494,20 +498,13 @@
             width: 20px;
             background-color: #eee;
             border: 1px solid #ccc;
-        }
-
-        .checkbox-container:hover .checkmark {
-            background-color: #f0f0f0;
+            border-radius: 3px;
         }
 
         .checkbox-container input:checked~.checkmark {
             background-color: #2196F3;
         }
 
-        .checkbox-container input:hover~.checkmark {
-            background-color: #f0f0f0;
-            /* Change color on hover */
-        }
 
         .checkmark:after {
             content: "";
@@ -596,7 +593,6 @@
             </button>
         </div>
     </div>
-
     </div>
 
     <div id="map"></div>
@@ -613,30 +609,49 @@
                         <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
                             Selection</button>
                     </span>
+
+
                     <div>
-                        <label class="checkbox-container">China
-                            <input type="checkbox" id="country-china" name="country" value="China">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox-container">Indonesia
-                            <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox-container">Maldives
-                            <input type="checkbox" id="country-maldives" name="country" value="Maldives">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox-container">Singapore
-                            <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox-container">Vietnam
-                            <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                            <span class="checkmark"></span>
-                        </label>
+                        <div class="checkbox-container">
+                            <span class="label-text">China</span>
+                            <label>
+                                <input type="checkbox" id="country-china" name="country" value="China">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Indonesia</span>
+                            <label>
+                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Maldives</span>
+                            <label>
+                                <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Singapore</span>
+                            <label>
+                                <input type="checkbox" id="country-singapore" name="country" value="Singapore">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Vietnam</span>
+                            <label>
+                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
+
+
                 </div>
-    
+
                 <div class="filter-category" style="font-size: 12px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
                         <span class="material-symbols-outlined" style="margin-right: 5px;">category</span>
@@ -645,103 +660,161 @@
                         <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
                             Selection</button>
                     </span>
-    
+
                     <div>
-                        <div style="font-size: 14px;">
-                            <label class="checkbox-container" style="margin-bottom: 5px; display: flex; align-items: center;">
-                                <input type="checkbox" name="category" value="Architecture" id="architectureCheckbox" style="margin-right: 5px;">
-                                Architecture
-                                <span class="checkmark"></span>
-                                <span class="material-symbols-outlined architecture-expand-icon expand-icon" onclick="toggleOptions('architectureOptions', '.architecture-expand-icon')" style="margin-left: 5px;">expand_more</span>
-                            </label>
-                            <div id="architectureOptions" class="expandable-options" style="max-height: 0px; margin-left: 20px;">
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Landscape Architecture" onclick="event.stopPropagation()">
-                                    Landscape Architecture
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Building Architecture" onclick="event.stopPropagation()">
-                                    Building Architecture
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-    
-                            <label class="checkbox-container" style="margin-bottom: 5px;">
-                                <input type="checkbox" name="category" value="GIS"> GIS
+                        <!--Architecture Options-->
+                        <div class="checkbox-container">
+                            <span class="label-text">Architecture</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Architecture" id="architectureCheckbox"
+                                    onclick="toggleArchitectureOptions()">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container" style="margin-bottom: 5px;">
-                                <input type="checkbox" name="category" value="Heritage Preservation"> Heritage
-                                Preservation
-                                <span class="checkmark"></span>
-                            </label>
-    
-                            <label class="checkbox-container" style="margin-bottom: 5px; display: flex; align-items: center;">
-                                <input type="checkbox" name="category" value="Planning" style="margin-right: 5px;" onclick="event.stopPropagation()">
-                                Planning
-                                <span class="checkmark"></span>
-                                <span class="material-symbols-outlined planning-expand-icon expand-icon" onclick="toggleOptions('planningOptions', '.planning-expand-icon')" style="margin-left: 5px;">expand_more</span>
-                            </label>
-                            <div id="planningOptions" class="expandable-options" style="max-height: 0px; margin-left: 20px;">
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Urban Planning" onclick="event.stopPropagation()">
-                                    Urban Planning
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Regional Planning" onclick="event.stopPropagation()">
-                                    Regional Planning
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Master Planning" onclick="event.stopPropagation()">
-                                    Master Planning
+                            <span class="material-symbols-outlined architecture-expand-icon expand-icon"
+                                onclick="toggleOptions('architectureOptions', '.architecture-expand-icon')"
+                                style="margin-left: 5px;">expand_more</span>
+                        </div>
+                        <div id="architectureOptions" class="expandable-options"
+                            style="max-height: 0px; margin-left: 20px;">
+                            <div class="checkbox-container">
+                                <span class="label-text">Landscape Architecture</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Landscape Architecture"
+                                        onclick="toggleArchitectureCheckbox()">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-    
-                            <label class="checkbox-container" style="margin-bottom: 5px;">
-                                <input type="checkbox" name="category" value="Sustainable Development"> Sustainable
-                                Development
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="checkbox-container" style="margin-bottom: 5px;">
-                                <input type="checkbox" name="category" value="Technology"> Technology
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="checkbox-container" style="margin-bottom: 5px;">
-                                <input type="checkbox" name="category" value="Transportation"> Transportation
-                                <span class="checkmark"></span>
-                            </label>
-    
-                            <label class="checkbox-container" style="margin-bottom: 5px; display: flex; align-items: center;">
-                                <input type="checkbox" name="category" value="Water Management" style="margin-right: 5px;" onclick="event.stopPropagation()">
-                                Water Management
-                                <span class="checkmark"></span>
-                                <span class="material-symbols-outlined water-management-expand-icon expand-icon" onclick="toggleOptions('waterManagementOptions', '.water-management-expand-icon')" style="margin-left: 5px;">expand_more</span>
-                            </label>
-                            <div id="waterManagementOptions" class="expandable-options" style="max-height: 0px; margin-left: 20px;">
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Coastal Resource Management" onclick="event.stopPropagation()">
-                                    Coastal Resource Management
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="River and Lakes Management" onclick="event.stopPropagation()">
-                                    River and Lakes Management
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="checkbox-container" style="margin-bottom: 5px;">
-                                    <input type="checkbox" name="category" value="Flood Prevention" onclick="event.stopPropagation()">
-                                    Flood Prevention
+                            <div class="checkbox-container">
+                                <span class="label-text">Building Architecture</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Building Architecture"
+                                        onclick="toggleArchitectureCheckbox()">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+
+                        <div class="checkbox-container">
+                            <span class="label-text">GIS</span>
+                            <label>
+                                <input type="checkbox" name="category" value="GIS">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <span class="label-text">Heritage Preservation</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Heritage Preservation">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <!--Planning Options-->
+                        <div class="checkbox-container">
+                            <span class="label-text">Planning</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Planning" style="margin-right: 5px;"
+                                    onclick="togglePlanningOptions()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="material-symbols-outlined planning-expand-icon expand-icon"
+                                onclick="toggleOptions('planningOptions', '.planning-expand-icon')"
+                                style="margin-left: 5px;">expand_more</span>
+                        </div>
+                        <div id="planningOptions" class="expandable-options"
+                            style="max-height: 0px; margin-left: 20px;">
+                            <div class="checkbox-container">
+                                <span class="label-text">Urban Planning</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Urban Planning"
+                                        onclick="togglePlanningCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox-container">
+                                <span class="label-text">Regional Planning</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Regional Planning"
+                                        onclick="togglePlanningCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="checkbox-container">
+                            <span class="label-text">Master Planning</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Master Planning"
+                                    onclick="event.stopPropagation()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Sustainable Development</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Sustainable Development">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Technology</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Technology">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Transportation</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Transportation">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <span class="label-text">Water Management</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Water Management" style="margin-right: 5px;"
+                                onclick="toggleWaterManagementOptions()">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="material-symbols-outlined water-management-expand-icon expand-icon"
+                            onclick="toggleOptions('waterManagementOptions', '.water-management-expand-icon')"
+                            style="margin-left: 5px;">expand_more</span>
+                    </div>
+                    <div id="waterManagementOptions" class="expandable-options"
+                        style="max-height: 0px; margin-left: 20px;">
+                        <div class="checkbox-container">
+                            <span class="label-text">Coastal Resource Management</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Coastal Resource Management"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">River and Lakes Management</span>
+                            <label>
+                                <input type="checkbox" name="category" value="River and Lakes Management"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Flood Prevention</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Flood Prevention"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
-    
+
                 <div class="filter-client" style="font-size: 12px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
                         <span class="material-symbols-outlined" style="margin-right: 5px;">handshake</span>
@@ -751,99 +824,106 @@
                             Selection</button>
                     </span>
                 </div>
-    
+
                 <div>
-                    <div>
-                        <label class="checkbox-container">Government
+                    <div class="checkbox-container">
+                        <span class="label-text">Government</span>
+                        <label>
                             <input type="checkbox" name="client-type" value="Government">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="checkbox-container">Private
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Private</span>
+                        <label>
                             <input type="checkbox" name="client-type" value="Private">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="checkbox-container">ODAs, Financial Institutions
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">ODAs, Financial Institutions</span>
+                        <label>
                             <input type="checkbox" name="client-type" value="ODAs, Financial Institutions">
                             <span class="checkmark"></span>
                         </label>
                     </div>
                 </div>
+                <p></p>
+                <div class="filter-year">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">calendar_month</span>
+                        Year Implemented
+                    </span>
                     <p></p>
-                    <div class="filter-year">
-                        <span class="filter-title" style="display: flex; align-items: center;">
-                            <span class="material-symbols-outlined" style="margin-right: 5px;">calendar_month</span>
-                            Year Implemented
-                        </span>
-                        <p></p>
-                        <div id="year-slider" class="slider"></div>
-                        <div id="current-year"></div>
-                    </div>
-
-                    <div class="filter-projectValue">
-                        <span class="filter-title" style="display: flex; align-items: center;">
-                            <span class="material-symbols-outlined" style="margin-right: 5px;">payments</span>
-                            Project Value
-                        </span>
-                        <p></p>
-                        <div id="projectValue-slider" class="slider"></div>
-                        <div id="current-projectValue"></div>
-                    </div>
-
-                    <div class="filter-projectScale">
-                        <span class="filter-title" style="display: flex; align-items: center;">
-                            <span class="material-symbols-outlined" style="margin-right: 5px;">square_foot</span>
-                            Project Scale
-                        </span>
-                        <p></p>
-                        <div id="projectScale-slider" class="slider"></div>
-                        <div id="current-projectScale"></div>
-                    </div>
-                    <div class="button-container">
-                        <button class="reset-filters-button">
-                            <span class="material-symbols-outlined">restart_alt</span>
-                            Reset
-                        </button>
-                        <button class="apply-filters-button">
-                            <span class="material-symbols-outlined">play_arrow</span>
-                            Apply Filters
-                        </button>
-                    </div>
-                    <div id="noResultsMessage" style="display: none; color: red; font-size: 12px; font-weight: bold;">
-                        No results found. Please adjust your filters.
-                    </div>
+                    <div id="year-slider" class="slider"></div>
+                    <div id="current-year"></div>
                 </div>
-                <br>
-                <br>
-            </div>
 
+                <div class="filter-projectValue">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">payments</span>
+                        Project Value
+                    </span>
+                    <p></p>
+                    <div id="projectValue-slider" class="slider"></div>
+                    <div id="current-projectValue"></div>
+                </div>
+
+                <div class="filter-projectScale">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">square_foot</span>
+                        Project Scale
+                    </span>
+                    <p></p>
+                    <div id="projectScale-slider" class="slider"></div>
+                    <div id="current-projectScale"></div>
+                </div>
+                <div class="button-container">
+                    <button class="reset-filters-button">
+                        <span class="material-symbols-outlined">restart_alt</span>
+                        Reset
+                    </button>
+                    <button class="apply-filters-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        Apply Filters
+                    </button>
+                </div>
+                <div id="noResultsMessage" style="display: none; color: red; font-size: 12px; font-weight: bold;">
+                    No results found. Please adjust your filters.
+                </div>
+            </div>
+            <br>
+            <br>
         </div>
 
-        <script src="encityProjects.js"></script>
-        <script src="search.js"></script>
-        <script src="filter.js"></script>
-        <script src="downloadProjectListsAsExcel.js"></script>
-        <script src="downloadProjectSheetsAsZip.js"></script>
+    </div>
 
-        <script>
-            // Initialize the map
-            const map = L.map('map').setView([8.8205995,105.52213], 5);
+    <script src="encityProjects.js"></script>
+    <script src="search.js"></script>
+    <script src="filter.js"></script>
+    <script src="downloadProjectListsAsExcel.js"></script>
+    <script src="downloadProjectSheetsAsZip.js"></script>
 
-            L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
-                attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
-                maxZoom: 28,
-            }).addTo(map);
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([8.8205995, 105.52213], 5);
 
-            // Custom icon for marker
-            const customIcon = L.icon({
-                iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
-                iconSize: [30, 30], // Adjust icon size as needed
-                iconAnchor: [16, 37],
-                popupAnchor: [0, -37]
-            });
+        L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
+            attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
+            maxZoom: 28,
+        }).addTo(map);
 
-            // Add markers to the map
-            data.forEach(({ lat, lng, projectName, country, location, title, startDate, completionDate, partner, client, description, projectValue, projectScale, status, sector1, sector2, photo1, photo2, attachment }) => {
-                const popupContent = `
+        // Custom icon for marker
+        const customIcon = L.icon({
+            iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
+            iconSize: [30, 30], // Adjust icon size as needed
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -37]
+        });
+
+        // Add markers to the map
+        data.forEach(({ lat, lng, projectName, country, location, title, startDate, completionDate, partner, client, description, projectValue, projectScale, status, sector1, sector2, photo1, photo2, attachment }) => {
+            const popupContent = `
     <h2>${projectName}<br></h2>
     <b>Country:</b> ${country}<br>
     <b>Location:</b> ${location}<br>
@@ -880,49 +960,49 @@
         </span>
     </div>
 `;
-                const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-                marker.bindPopup(popupContent, { maxWidth: 300 });
-            });
+            const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+            marker.bindPopup(popupContent, { maxWidth: 300 });
+        });
 
-            // Function to show next image
-            function nextImage(photo1, photo2) {
-                const image = document.getElementById('popup-image');
-                if (image.src === photo1) {
-                    image.src = photo2;
-                    image.parentElement.href = photo2;
-                } else {
-                    image.src = photo1;
-                    image.parentElement.href = photo1;
-                }
-                image.classList.add('fade-in');
-                setTimeout(() => {
-                    image.classList.remove('fade-in');
-                }, 1500); // Adjust timing to match animation duration
+        // Function to show next image
+        function nextImage(photo1, photo2) {
+            const image = document.getElementById('popup-image');
+            if (image.src === photo1) {
+                image.src = photo2;
+                image.parentElement.href = photo2;
+            } else {
+                image.src = photo1;
+                image.parentElement.href = photo1;
             }
+            image.classList.add('fade-in');
+            setTimeout(() => {
+                image.classList.remove('fade-in');
+            }, 1500); // Adjust timing to match animation duration
+        }
 
-            // Function to show previous image
-            function prevImage(photo1, photo2) {
-                const image = document.getElementById('popup-image');
-                if (image.src === photo1) {
-                    image.src = photo2;
-                    image.parentElement.href = photo2;
-                } else {
-                    image.src = photo1;
-                    image.parentElement.href = photo1;
-                }
-                image.classList.add('fade-in');
-                setTimeout(() => {
-                    image.classList.remove('fade-in');
-                }, 1500); // Adjust timing to match animation duration
+        // Function to show previous image
+        function prevImage(photo1, photo2) {
+            const image = document.getElementById('popup-image');
+            if (image.src === photo1) {
+                image.src = photo2;
+                image.parentElement.href = photo2;
+            } else {
+                image.src = photo1;
+                image.parentElement.href = photo1;
             }
+            image.classList.add('fade-in');
+            setTimeout(() => {
+                image.classList.remove('fade-in');
+            }, 1500); // Adjust timing to match animation duration
+        }
 
-            // Function to close the popup
-            function closePopup() {
-                map.closePopup();
-            }
+        // Function to close the popup
+        function closePopup() {
+            map.closePopup();
+        }
 
 
-        </script>
+    </script>
 </body>
 
 </html>
