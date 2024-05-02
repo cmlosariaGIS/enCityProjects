@@ -555,14 +555,47 @@
         }
 
         /* Basemap Switcher */
-        .basemap-control img {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            transition: transform 0.2s ease;
+        .basemap-control {
+            position: absolute;
+            bottom: 5px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
         }
 
-        .basemap-control img:hover {
-            transform: translateY(-10px);
+        .basemap-control img {
+            width: 80px;
+            height: 80px;
+            transition: transform 0.2s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .basemap-label {
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+            position: relative;
+            text-align: center;
+            padding: 0px;
+            height: 30px;
+            line-height: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Adjusted color */
+            border-radius: 0 0 15px 15px;
+            color: rgb(58, 58, 58);
+            font-weight: bold;
+            width: 80px;
+            transform: translateY(10px);
+            /* Initially move label 10px above bottom */
+            font-family: 'Be Vietnam', sans-serif;
+        }
+
+        .basemap-control:hover .basemap-label {
+            transform: translateY(calc(-100% - -1px));
+            /* Slide label up from the bottom of the image */
+            opacity: 1;
         }
     </style>
 
@@ -938,21 +971,23 @@
             const container = L.DomUtil.create('div', 'basemap-control');
 
             const img = L.DomUtil.create('img', 'basemap-image', container);
-            img.src = 'https://i.ibb.co/j3fq23k/bm-imagery.png';
+            img.src = 'https://i.ibb.co/fHNQYvD/imagery.png';
             img.alt = 'Basemap Imagery';
-            img.style.width = '100px';
-            img.style.height = '100px';
-            img.style.cursor = 'pointer';
+
+            const label = L.DomUtil.create('div', 'basemap-label', container);
+            label.textContent = 'Imagery';
 
             img.onclick = function () {
                 if (map.hasLayer(street)) {
                     map.removeLayer(street);
                     satellite.addTo(map);
-                    img.src = 'https://i.ibb.co/Jjg7bMD/bm-street.png';
+                    img.src = 'https://i.ibb.co/j4TfkcV/street.png';
+                    label.textContent = 'Street';
                 } else {
                     map.removeLayer(satellite);
                     street.addTo(map);
-                    img.src = 'https://i.ibb.co/j3fq23k/bm-imagery.png';
+                    img.src = 'https://i.ibb.co/fHNQYvD/imagery.png';
+                    label.textContent = 'Imagery';
                 }
             };
 
@@ -960,14 +995,6 @@
         };
 
         customControl.addTo(map);
-
-
-
-
-
-
-
-
 
         // Custom icon for marker
         const customIcon = L.icon({
@@ -1056,10 +1083,6 @@
         function closePopup() {
             map.closePopup();
         }
-
-
-
-
 
     </script>
 </body>
