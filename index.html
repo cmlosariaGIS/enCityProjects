@@ -4,6 +4,9 @@
 <head>
     <title>enCity Projects Web Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css">
+
     <!--Leaflet-->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -29,598 +32,8 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 
 
-
     <!--FileSaver-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-
-
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Be Vietnam', sans-serif;
-        }
-
-        #map {
-            height: calc(100% - 0px);
-            position: relative;
-        }
-
-
-        .leaflet-control-zoom {
-            position: absolute;
-            top: 80px;
-            left: 10px;
-            z-index: 99999;
-        }
-
-        /*Starts Pop-up elements*/
-        .leaflet-popup-content-wrapper {
-            border-radius: 5px;
-        }
-
-        .leaflet-popup-content {
-            max-width: 300px;
-            border-radius: 5px;
-        }
-
-        .leaflet-popup-close-button {
-            display: none;
-        }
-
-        .image-container {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .popup-image {
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .fade-in {
-            animation: fade-in 1.5s forwards;
-        }
-
-        @keyframes fade-in {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .nav-buttons {
-            display: flex;
-        }
-
-        .next-button,
-        .prev-button {
-            font-family: 'Material Icons Outlined', sans-serif;
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            font-size: 24px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .close-button {
-            font-family: 'Material Icons Outlined', sans-serif;
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            font-size: 24px;
-            cursor: pointer;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
-
-        .download-button {
-            font-family: 'Be Vietnam', sans-serif;
-            font-size: 12px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-        }
-
-        .download-button:hover {
-            background-color: #45a049;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /*End Pop up elements*/
-
-        /*Company Logo*/
-        .company-logo {
-            max-width: 100%;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .company-logo:hover {
-            transform: translateY(-5px);
-        }
-
-
-
-        /*Start Menu Bar*/
-        .menu-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 99999;
-            padding: 10px 10px 10px 20px;
-            /* Adjusted padding */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .left-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .middle-section {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .right-section {
-            display: flex;
-            align-items: center;
-            padding-right: 30px;
-            /* Adjusted padding */
-        }
-
-        .company-logo {
-            max-width: 100px;
-            max-height: 40px;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-bar input[type="text"] {
-            width: 200px;
-            padding: 8px;
-            border: none;
-            border-radius: 10px;
-            outline-width: 1px;
-            outline-color: #ccc;
-        }
-
-        .search-bar button {
-            background-color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
-            margin-right: 10px;
-            /* Add margin between search button and filter button */
-        }
-
-        .search-bar button:hover {
-            background-color: #ddd;
-        }
-
-        .filterProjects-button,
-        .downloadProjectListAsExcel-button,
-        .downloadProjSheetsAsZip-button {
-            font-family: 'Be Vietnam', sans-serif;
-            font-size: 14px;
-            padding: 8px 16px;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-            margin-left: 10px;
-        }
-
-        .filterProjects-button {
-            background-color: #04a9b2;
-        }
-
-        .downloadProjectListAsExcel-button {
-            background-color: #13844b;
-        }
-
-        .downloadProjSheetsAsZip-button {
-            background-color: #dab500;
-        }
-
-        .filterProjects-button:hover {
-            background-color: #0097ae;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .downloadProjectListAsExcel-button:hover {
-            background-color: #22b800be;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .downloadProjSheetsAsZip-button:hover {
-            background-color: #f9cc00;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Media Queries */
-        @media only screen and (max-width: 768px) {
-            .search-bar {
-                right: 20%;
-            }
-
-            .downloadProjSheetsAsZip-button {
-                right: 2%;
-            }
-
-            .downloadProjectListAsExcel-button {
-                right: 6%;
-            }
-
-            .filterProjects-button {
-                right: 10%;
-            }
-        }
-
-        @media only screen and (max-width: 576px) {
-            .search-bar {
-                right: 12%;
-            }
-
-            .downloadProjSheetsAsZip-button {
-                right: 0;
-            }
-
-            .downloadProjectListAsExcel-button {
-                right: 4%;
-            }
-
-            .filterProjects-button {
-                right: 8%;
-            }
-        }
-
-
-        /*End Menu Bar*/
-
-        /*Start Slide out Filter Menu*/
-        .slide-menu {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: white;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-        }
-
-        .slide-menu.active {
-            width: 350px;
-        }
-
-        .slide-menu-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .slide-menu-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 36px;
-            margin-left: 50px;
-            cursor: pointer;
-        }
-
-        .filter-category,
-        .filter-year,
-        .filter-country,
-        .filter-projectValue,
-        .filter-client {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .filter-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .filter-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            resize: vertical;
-        }
-
-        .reset-filters-button,
-        .apply-filters-button {
-            font-family: 'Be Vietnam', sans-serif;
-            font-size: 14px;
-            padding: 8px 16px;
-            background-color: #04a9b2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-            display: flex;
-            align-items: center;
-        }
-
-        .reset-filters-button {
-            width: 40%;
-            float: left;
-        }
-
-        .reset-filters-button .material-symbols-outlined {
-            margin-right: 8px;
-        }
-
-        .apply-filters-button {
-            width: 55%;
-            float: right;
-        }
-
-        .apply-filters-button .material-symbols-outlined {
-            margin-right: 8px;
-        }
-
-        .button-container::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .apply-filters-button:hover,
-        .reset-filters-button:hover {
-            background-color: rgb(0, 131, 154);
-            color: #ffffff;
-        }
-
-
-        #year-slider {
-            position: relative;
-            margin-bottom: 10px;
-        }
-
-        .tick {
-            position: absolute;
-            bottom: -8px;
-            width: 1px;
-            height: 5px;
-            background-color: rgb(165, 165, 165);
-        }
-
-        .year-label {
-            font-size: 11px;
-            position: absolute;
-            bottom: -15px;
-            transform: translateX(-50%);
-        }
-
-        #current-year,
-        #current-projectValue,
-        #current-projectScale {
-            text-align: center;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .clear-countrySelection-button,
-        .clear-categorySelection-button,
-        .clear-clientSelection-button {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 12px;
-            padding: 5px 8px;
-            background-color: #e5e5e5;
-            color: rgb(98, 98, 98);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-
-        .clear-countrySelection-button:hover,
-        .clear-categorySelection-button:hover,
-        .clear-clientSelection-button:hover {
-            background-color: #df194a;
-            color: rgb(255, 255, 255);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .country-label {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        .country-icon {
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-        }
-
-        .beta-testing {
-            margin-left: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-
-
-
-
-
-
-
-
-
-        /* Checkbox styling */
-        .checkbox-container {
-            display: flex;
-            /* Change to flex */
-            align-items: center;
-            /* Align items vertically */
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .checkbox-container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: #eee;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .checkbox-container input:checked~.checkmark {
-            background-color: #2196F3;
-        }
-
-
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-
-        .checkbox-container input:checked~.checkmark:after {
-            display: block;
-        }
-
-        .checkbox-container .checkmark:after {
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        /* Slider style */
-        .slider {
-            width: 100%;
-            height: 10px;
-            position: relative;
-            margin-top: 5px;
-            background: linear-gradient(to right, #007bff 0%, #007bff 100%);
-            border-radius: 5px;
-        }
-
-        .slider-handle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            cursor: pointer;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .expandable-options {
-            transition: max-height 0.3s ease-in-out;
-            overflow: hidden;
-        }
-
-        /* Basemap Switcher */
-        .basemap-control {
-            position: absolute;
-            bottom: 5px;
-            left: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0px;
-        }
-
-        .basemap-control img {
-            width: 85px;
-            height: 85px;
-            transition: transform 0.2s ease;
-            position: relative;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-        }
-
-        .basemap-label {
-            transition: transform 0.2s ease, opacity 0.2s ease;
-            opacity: 0;
-            position: relative;
-            text-align: center;
-            padding: 0px;
-            height: 30px;
-            line-height: 30px;
-            background-color: rgba(255, 255, 255, 0.8);
-            /* Adjusted color */
-            border-radius: 0 0 15px 15px;
-            color: rgb(58, 58, 58);
-            font-weight: bold;
-            width: 85px;
-            transform: translateY(10px);
-            /* Initially move label 10px above bottom */
-            font-family: 'Be Vietnam', sans-serif;
-        }
-
-        .basemap-control:hover .basemap-label {
-            transform: translateY(calc(-100% - -1px));
-            /* Slide label up from the bottom of the image */
-            opacity: 1;
-        }
-    </style>
-
 
 
 </head>
@@ -641,23 +54,34 @@
                 <button id="searchButton" style="color: #919191;"><span
                         class="material-symbols-outlined">search</span></button>
             </div>
-            <button class="filterProjects-button" onclick="toggleSlideMenu()">
-                <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
-                    style="vertical-align: middle;">Filter Projects</span>
-            </button>
-            <button class="downloadProjectListAsExcel-button" onclick="downloadExcel()"
-                title="Download Project List as Excel Table">
-                <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-                <span style="vertical-align: middle; margin-left: 0px;"><span
-                        class="material-symbols-outlined">table</span></span>
-            </button>
 
-            <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()"
-                title="Download Project Sheet Attachements as Zip">
-                <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-                <span style="vertical-align: middle; margin-left: 0px;"><span
-                        class="material-symbols-outlined">folder_zip</span></span>
-            </button>
+
+            <div class="tooltip-container">
+                <button class="filterProjects-button" onclick="toggleSlideMenu()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
+                        style="vertical-align: middle;">Filter Projects</span>
+                </button>
+                <span class="tooltip">Show Data Filters</span>
+            </div>
+
+            <div class="tooltip-container">
+                <button class="downloadProjectListAsExcel-button" onclick="downloadExcel()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">table</span></span>
+                </button>
+                <span class="tooltip">Download Project List as Excel Table</span>
+            </div>
+
+            <div class="tooltip-container">
+                <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">folder_zip</span></span>
+                </button>
+                <span class="tooltip">Download Project Sheet(s)</span>
+            </div>
+
         </div>
     </div>
     </div>
@@ -679,8 +103,7 @@
                     <div>
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-china" name="country" value="China"
-                                    class="ui-checkbox">
+                                <input type="checkbox" id="country-china" name="country" value="China">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/b63qf69/icons8-china-48.png" alt="China Icon"
@@ -689,8 +112,7 @@
                         </div>
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia"
-                                    class="ui-checkbox">
+                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png" alt="Indonesia Icon"
@@ -700,8 +122,7 @@
 
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-maldives" name="country" value="Maldives"
-                                    class="ui-checkbox">
+                                <input type="checkbox" id="country-maldives" name="country" value="Maldives">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png" alt="Maldives Icon"
@@ -711,8 +132,7 @@
 
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-singapore" name="country" value="Singapore"
-                                    class="ui-checkbox">
+                                <input type="checkbox" id="country-singapore" name="country" value="Singapore">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png" alt="Singapore Icon"
@@ -722,18 +142,14 @@
 
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam"
-                                    class="ui-checkbox">
+                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
                                 style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Vietnam</span>
                         </div>
-
                     </div>
-
-
                 </div>
 
                 <div class="filter-category" style="font-size: 12px;">
@@ -889,7 +305,6 @@
                     </div>
 
                 </div>
-
                 <div class="filter-client" style="font-size: 12px;">
                     <span class="filter-title" style="display: flex; align-items: center;">
                         <span class="material-symbols-outlined" style="margin-right: 5px;">handshake</span>
@@ -899,7 +314,6 @@
                             Selection</button>
                     </span>
                 </div>
-
                 <div>
                     <div class="checkbox-container">
                         <span class="label-text">Government</span>
@@ -970,7 +384,6 @@
             <br>
             <br>
         </div>
-
     </div>
 
     <script src="encityProjects.js"></script>
