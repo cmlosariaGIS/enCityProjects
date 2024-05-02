@@ -1,5 +1,3 @@
-
-
 body,
 html {
     margin: 0;
@@ -11,6 +9,100 @@ html {
 #map {
     height: calc(100% - 0px);
     position: relative;
+}
+
+
+.info-button {
+    position: absolute;
+    top: 170px;
+    left: 22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.info-button:hover {
+    background-color: #c9c9c9;
+}
+
+.info-button span {
+    line-height: 1;
+}
+
+
+.info-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 998;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Adjusted for proper alignment */
+    align-items: center;
+    max-width: 350px;
+}
+
+.info-image {
+    position: relative; /* Position relative for pseudo-element */
+    background-image: url('assets/info_box.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    width: 111.5%;
+    margin-left: -20px;
+    border-radius: 8px 8px 0 0; /* Adjusted border radius */
+}
+
+.info-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 20%); /* Adjust opacity to desired gray color */
+    border-radius: 8px 8px 0 0; /* Adjusted border radius */
+}
+
+
+.info-content {
+    flex: 1;
+    margin-top: -22px; /* Adjust spacing from image */
+    font-family: 'Be Vietnam', sans-serif;
+    text-align: center; /* Center-align content */
+}
+
+.info-content h3 {
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.dismiss-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Added margin to create space */
+    align-self: flex-end; /* Align to the right */
+}
+
+.dismiss-button:hover {
+    background-color: #0056b3;
 }
 
 .leaflet-control-zoom {
@@ -590,4 +682,5 @@ html {
     visibility: visible;
     opacity: 1;
 }
+
 /*End Menu Bar Buttons Tooltip*/
