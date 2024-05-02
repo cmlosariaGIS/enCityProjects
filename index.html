@@ -36,6 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 
+
 </head>
 
 <style>
@@ -63,12 +64,13 @@
 </style>
 
 <body>
+    <div id="map"></div>
+
     <div class="menu-bar">
         <div class="left-section">
             <a href="https://encity.co" target="_blank">
                 <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
             </a>
-
         </div>
         <div class="middle-section">
         </div>
@@ -78,7 +80,6 @@
                 <button id="searchButton" style="color: #919191;"><span
                         class="material-symbols-outlined">search</span></button>
             </div>
-
 
             <div class="tooltip-container">
                 <button class="filterProjects-button" onclick="toggleSlideMenu()">
@@ -108,9 +109,22 @@
 
         </div>
     </div>
-    </div>
 
-    <div id="map"></div>
+    <button class="info-button" onclick="toggleInfo()">
+        <span class="material-icons-outlined">info</span>
+    </button>
+
+    <div class="info-box">
+        <div class="info-content">
+            <div class="info-image"></div>
+            <p>About this app</p>
+            <p>This is a map application that serves as a digital map library of enCity Projects and has functions to
+                filter
+                and compile relevant project experiences that meet commonly asked Bid/RFP requirements.</p>
+            <button class="dismiss-button" onclick="toggleInfo()">Dismiss</button>
+        </div>
+
+    </div>
 
     <div id="slideMenu" class="slide-menu">
         <div class="slide-menu-content">
@@ -508,12 +522,14 @@
             <button class="next-button" onclick="nextImage('${photo1}', '${photo2}')" title="Show next image">navigate_next</button>
         </div>
         <div>
-            <a href="${attachment}" target="_blank">
-            <button class="download-button">
-                <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
-            </button>
-        </a>
-        </div>
+    <a href="${attachment}" target="_blank" style="text-decoration: none;">
+        <button class="download-button" style="display: flex; align-items: center;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">description</span>
+            <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
+        </button>
+    </a>
+</div>
+
         <span class="material-icons-outlined close-button" onclick="closePopup()">
             highlight_off
         </span>
@@ -559,6 +575,21 @@
         function closePopup() {
             map.closePopup();
         }
+
+
+
+
+        /*Show/Hide Info-box*/
+        function toggleInfo() {
+            var infoBox = document.getElementsByClassName("info-box")[0];
+            if (infoBox.style.display === "block" || infoBox.style.display === "") {
+                infoBox.style.display = "none";
+            } else {
+                infoBox.style.display = "block";
+            }
+        }
+
+
 
     </script>
 </body>
