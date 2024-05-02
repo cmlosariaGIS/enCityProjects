@@ -34,6 +34,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 
+
     <style>
         body,
         html {
@@ -552,6 +553,17 @@
             transition: max-height 0.3s ease-in-out;
             overflow: hidden;
         }
+
+        /* Basemap Switcher */
+        .basemap-control img {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .basemap-control img:hover {
+            transform: translateY(-10px);
+        }
     </style>
 
 
@@ -741,7 +753,7 @@
                                 </label>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="checkbox-container">
                         <span class="label-text">Sustainable Development</span>
@@ -896,13 +908,66 @@
     <script src="downloadProjectSheetsAsZip.js"></script>
 
     <script>
-        // Initialize the map
+
         const map = L.map('map').setView([8.8205995, 105.52213], 5);
 
-        L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
+        // Define tile tile layers
+        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Imagery &copy; <a href="https://www.esri.com/">Esri</a>',
+            maxZoom: 18,
+        });
+
+        const street = L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
             attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
             maxZoom: 28,
-        }).addTo(map);
+        });
+
+        // Define basemap layers object
+        const basemaps = {
+            "Satellite Imagery": satellite,
+            "Street": street
+        };
+
+        // Add the default tile layer to the map
+        street.addTo(map);
+
+        // Custom control with the image
+        const customControl = L.control({ position: 'bottomleft' });
+
+        customControl.onAdd = function (map) {
+            const container = L.DomUtil.create('div', 'basemap-control');
+
+            const img = L.DomUtil.create('img', 'basemap-image', container);
+            img.src = 'https://i.ibb.co/j3fq23k/bm-imagery.png';
+            img.alt = 'Basemap Imagery';
+            img.style.width = '100px';
+            img.style.height = '100px';
+            img.style.cursor = 'pointer';
+
+            img.onclick = function () {
+                if (map.hasLayer(street)) {
+                    map.removeLayer(street);
+                    satellite.addTo(map);
+                    img.src = 'https://i.ibb.co/Jjg7bMD/bm-street.png';
+                } else {
+                    map.removeLayer(satellite);
+                    street.addTo(map);
+                    img.src = 'https://i.ibb.co/j3fq23k/bm-imagery.png';
+                }
+            };
+
+            return container;
+        };
+
+        customControl.addTo(map);
+
+
+
+
+
+
+
+
 
         // Custom icon for marker
         const customIcon = L.icon({
@@ -991,6 +1056,9 @@
         function closePopup() {
             map.closePopup();
         }
+
+
+
 
 
     </script>
