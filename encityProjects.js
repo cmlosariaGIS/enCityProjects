@@ -57,7 +57,7 @@ const data = [
         "projectScale": 390,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture",
+        "sector2": "Landscape Architecture",
         "photo1": "https://encity.co/wp-content/uploads/2023/06/LCK_img_4.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/06/LCK_img_7-2048x1116.jpg",
         "attachment": "https://raw.githubusercontent.com/cmlosariaGIS/enCityProjects/main/Projects/Project%20Sheet_Lim%20Chu%20Kang%20Agri-food%20Production%20Hub.pdf"
@@ -77,7 +77,7 @@ const data = [
         "projectValue": 50000,
         "projectScale": 0.5,
         "status": "Completed",
-        "sector1": "Architecture",
+        "sector1": "Building Architecture",
         "sector2": "Urban Planning",
         "photo1": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-7-2-copy.jpg",
         "photo2": "https://encity.co/wp-content/uploads/2023/10/khanh-hoa-FINAL-1-copy.jpg",
