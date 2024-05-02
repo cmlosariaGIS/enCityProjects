@@ -144,6 +144,7 @@
             background-color: #45a049;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         /*End Pop up elements*/
 
         /*Company Logo*/
@@ -203,10 +204,12 @@
         }
 
         .search-bar input[type="text"] {
+            width: 200px;
             padding: 8px;
             border: none;
-            border-radius: 4px;
-            outline: none;
+            border-radius: 10px;
+            outline-width: 1px;
+            outline-color: #ccc;
         }
 
         .search-bar button {
@@ -481,6 +484,14 @@
             color: #666;
         }
 
+
+
+
+
+
+
+
+
         /* Checkbox styling */
         .checkbox-container {
             display: flex;
@@ -575,11 +586,13 @@
         }
 
         .basemap-control img {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             transition: transform 0.2s ease;
             position: relative;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
         }
 
         .basemap-label {
@@ -595,7 +608,7 @@
             border-radius: 0 0 15px 15px;
             color: rgb(58, 58, 58);
             font-weight: bold;
-            width: 80px;
+            width: 85px;
             transform: translateY(10px);
             /* Initially move label 10px above bottom */
             font-family: 'Be Vietnam', sans-serif;
@@ -663,44 +676,61 @@
                         <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
                             Selection</button>
                     </span>
-
-
                     <div>
                         <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-china" name="country" value="China"
+                                    class="ui-checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/b63qf69/icons8-china-48.png" alt="China Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">China</span>
-                            <label>
-                                <input type="checkbox" id="country-china" name="country" value="China">
-                                <span class="checkmark"></span>
-                            </label>
                         </div>
                         <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia"
+                                    class="ui-checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png" alt="Indonesia Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Indonesia</span>
+                        </div>
+
+                        <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                                <input type="checkbox" id="country-maldives" name="country" value="Maldives"
+                                    class="ui-checkbox">
                                 <span class="checkmark"></span>
                             </label>
-                        </div>
-                        <div class="checkbox-container">
+                            <img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png" alt="Maldives Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Maldives</span>
+                        </div>
+
+                        <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                                <input type="checkbox" id="country-singapore" name="country" value="Singapore"
+                                    class="ui-checkbox">
                                 <span class="checkmark"></span>
                             </label>
-                        </div>
-                        <div class="checkbox-container">
+                            <img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png" alt="Singapore Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Singapore</span>
-                            <label>
-                                <input type="checkbox" id="country-singapore" name="country" value="Singapore">
-                                <span class="checkmark"></span>
-                            </label>
                         </div>
+
                         <div class="checkbox-container">
-                            <span class="label-text">Vietnam</span>
                             <label>
-                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam"
+                                    class="ui-checkbox">
                                 <span class="checkmark"></span>
                             </label>
+                            <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Vietnam</span>
                         </div>
+
                     </div>
 
 
