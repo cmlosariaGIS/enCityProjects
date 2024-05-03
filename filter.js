@@ -123,7 +123,7 @@ function resetProjectScaleSlider() {
 }
 
 
-// Function to display initial points on the map
+// Function to display initial points on the map on Reset Button click
 function displayInitialPoints() {
     data.forEach(function (project) {
         const popupContent = `
@@ -134,8 +134,8 @@ function displayInitialPoints() {
             <b>Completion Date:</b> ${project.completionDate}<br>
             <b>Partner(s):</b> ${project.partner}<br>
             <b>Client:</b> ${project.client}<br>
-            <b>Description:</b> ${project.description}<br>
-            <b>Project Value ($):</b> ${project.projectValue}<br>
+            <b>Description:</b><div style="text-align: justify;">${project.description}</div>
+            <!-- <b>Project Value ($):</b> ${project.projectValue}<br> -->
             <b>Project Scale (ha):</b> ${project.projectScale}<br>
             <b>Status:</b> ${project.status}<br>
             <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
@@ -152,12 +152,14 @@ function displayInitialPoints() {
                     <button class="next-button" onclick="nextImage('${project.photo1}', '${project.photo2}')" title="Show next image">navigate_next</button>
                 </div>
                 <div>
-                    <a href="${project.attachment}" target="_blank">
-                    <button class="download-button">
-                        <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
+                <a href="${project.attachment}" target="_blank" style="text-decoration: none;">
+                    <button class="download-button" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">description</span>
+                        <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
                     </button>
                 </a>
-                </div>
+            </div>
+            
                 <span class="material-icons-outlined close-button" onclick="closePopup()">
                     highlight_off
                 </span>
@@ -210,30 +212,41 @@ function hideNoResultsMessage() {
 }
 
 
+// Function to zoom the map to the extent of filtered points/markers
+function zoomToFilteredPoints(filteredData) {
+    if (filteredData.length > 0) {
+        // Extract latitudes and longitudes of filtered points
+        var latlngs = filteredData.map(function (project) {
+            return [project.lat, project.lng];
+        });
+
+        // Create a LatLngBounds object
+        var bounds = L.latLngBounds(latlngs);
+
+        // Set maximum zoom level
+        var maxZoomLevel = 5; // Adjust this value as needed
+
+        // Zoom the map to the extent of the bounds, limited by maxZoomLevel
+        map.fitBounds(bounds, { maxZoom: maxZoomLevel });
+    }
+}
+
+
 // Event listener for Apply Filters button
 $('.apply-filters-button').on('click', function () {
-    // Get selected countries
+    // Get selected countries, categories, client types, year range, project value range, and project scale range
     var selectedCountries = [];
     $('input[name="country"]:checked').each(function () {
         selectedCountries.push($(this).val());
     });
 
-    // Get selected categories
     var selectedCategories = getSelectedCategories();
-
-    // Get selected client types
     var selectedClientTypes = getSelectedClientTypes();
-
-    // Get selected year range
     var selectedYearRange = $("#year-slider").slider("option", "values");
-
-    // Get selected project value range
     var selectedProjectValueRange = $("#projectValue-slider").slider("option", "values");
-
-    // Get selected project scale range
     var selectedProjectScaleRange = $("#projectScale-slider").slider("option", "values");
 
-    // Filter data based on selected countries, categories, client types, year range, project value range, and project scale range
+    // Filter data based on selected criteria
     var filteredData = data.filter(function (project) {
         var startYear = new Date(project.startDate).getFullYear();
         var completionYear = new Date(project.completionDate).getFullYear();
@@ -253,7 +266,7 @@ $('.apply-filters-button').on('click', function () {
     });
 
     // Call downloadAttachmentsAsZip with filtered data
-    //downloadAttachmentsAsZip(filteredData);
+    // downloadAttachmentsAsZip(filteredData);
 
     // Check if filtered data is empty
     if (filteredData.length === 0) {
@@ -279,8 +292,8 @@ $('.apply-filters-button').on('click', function () {
             <b>Completion Date:</b> ${project.completionDate}<br>
             <b>Partner(s):</b> ${project.partner}<br>
             <b>Client:</b> ${project.client}<br>
-            <b>Description:</b> ${project.description}<br>
-            <b>Project Value ($):</b> ${project.projectValue}<br>
+            <b>Description:</b><div style="text-align: justify;">${project.description}</div>
+            <!-- <b>Project Value ($):</b> ${project.projectValue}<br> -->
             <b>Project Scale (ha):</b> ${project.projectScale}<br>
             <b>Status:</b> ${project.status}<br>
             <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
@@ -297,11 +310,12 @@ $('.apply-filters-button').on('click', function () {
                     <button class="next-button" onclick="nextImage('${project.photo1}', '${project.photo2}')" title="Show next image">navigate_next</button>
                 </div>
                 <div>
-                    <a href="${project.attachment}" target="_blank">
-                    <button class="download-button">
-                        <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
-                    </button>
-                </a>
+                    <a href="${project.attachment}" target="_blank" style="text-decoration: none;">
+                        <button class="download-button" style="display: flex; align-items: center;">
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">description</span>
+                            <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
+                        </button>
+                    </a>
                 </div>
                 <span class="material-icons-outlined close-button" onclick="closePopup()">
                     highlight_off
@@ -311,6 +325,10 @@ $('.apply-filters-button').on('click', function () {
         const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
         marker.bindPopup(popupContent, { maxWidth: 300 });
     });
+
+    // Zoom the map to the extent of the filtered points/markers
+    zoomToFilteredPoints(filteredData);
+
 
 
     var selectedCategories = getSelectedCategories();
