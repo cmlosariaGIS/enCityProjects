@@ -129,8 +129,8 @@ function createPopupContent(project) {
         <b>Completion Date:</b> ${project.completionDate}<br>
         <b>Partner(s):</b> ${project.partner}<br>
         <b>Client:</b> ${project.client}<br>
-        <b>Description:</b> ${project.description}<br>
-        <b>Project Value ($):</b> ${project.projectValue}<br>
+        <b>Description:</b><div style="text-align: justify;">${project.description}</div>
+        <!--<b>Project Value ($):</b> ${project.projectValue}<br>-->
         <b>Project Scale (ha):</b> ${project.projectScale}<br>
         <b>Status:</b> ${project.status}<br>
         <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
@@ -147,12 +147,14 @@ function createPopupContent(project) {
                 <button class="next-button" onclick="nextImage('${project.photo1}', '${project.photo2}')" title="Show next image">navigate_next</button>
             </div>
             <div>
-                <a href="${project.attachment}" target="_blank">
-                <button class="download-button">
-                    <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">description</span> <span style="vertical-align: middle;">Download Project Sheet</span>
+            <a href="${project.attachment}" target="_blank" style="text-decoration: none;">
+                <button class="download-button" style="display: flex; align-items: center;">
+                    <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">description</span>
+                    <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
                 </button>
             </a>
-            </div>
+        </div>
+        
             <span class="material-icons-outlined close-button" onclick="closePopup()">
                 highlight_off
             </span>
