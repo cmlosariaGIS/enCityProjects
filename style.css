@@ -121,6 +121,10 @@ html {
     border-radius: 5px;
 }
 
+.justified {
+    text-align: justify;
+}
+
 .leaflet-popup-close-button {
     display: none;
 }
