@@ -62,19 +62,20 @@
     <div class="form-container">
         <br>
         <br>
-        <p class="title">Welcome back</p>
+        <p class="title">Welcome</p>
+        <h6 class="sub-title">Login to access the enCity Project Tracker</h6> <!-- Updated title -->
         <form class="form" onsubmit="event.preventDefault(); loginWithEmail();">
             <input type="email" class="input" name="email" placeholder="Email">
             <div class="password-input-container">
                 <input type="password" class="input password-input" name="password" placeholder="Password">
                 <span class="password-toggle-icon">
-                    <i class="material-icons-outlined">visibility</i>
+                    <i class="material-icons-outlined">visibility_off</i>
                 </span>
             </div>
-            <p id="error-message" class="error-message"></p> <!-- Display error message -->
             <p class="page-link">
                 <span class="page-link-label">Forgot Password?</span>
             </p>
+            <p id="error-message" class="error-message"></p> <!-- Display error message -->
             <button type="submit" class="form-btn">Log in</button>
         </form>
         <p class="sign-up-label">
@@ -107,10 +108,10 @@
         passwordToggleIcon.addEventListener('click', () => {
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                passwordToggleIcon.textContent = 'visibility_off';
+                passwordToggleIcon.textContent = 'visibility';
             } else {
                 passwordInput.type = 'password';
-                passwordToggleIcon.textContent = 'visibility';
+                passwordToggleIcon.textContent = 'visibility_off';
             }
         });
 
