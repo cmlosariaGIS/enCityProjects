@@ -11,7 +11,6 @@ html {
     position: relative;
 }
 
-
 .info-button {
     position: absolute;
     top: 170px;
@@ -38,7 +37,6 @@ html {
     line-height: 1;
 }
 
-
 .info-box {
     position: fixed;
     top: 50%;
@@ -50,20 +48,22 @@ html {
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-direction: column; /* Adjusted for proper alignment */
+    flex-direction: column;
     align-items: center;
-    max-width: 350px;
+    max-width: 90vw; /* Adjusted maximum width for responsiveness */
 }
 
 .info-image {
-    position: relative; /* Position relative for pseudo-element */
+    position: relative;
     background-image: url('assets/info_box.jpg');
     background-size: cover;
     background-position: center;
     height: 300px;
-    width: 111.5%;
-    margin-left: -20px;
-    border-radius: 8px 8px 0 0; /* Adjusted border radius */
+    width: calc(100% + 40px); /* Adjusted width */
+    margin-left: -20px; /* Adjusted margin */
+    margin-right: -20px; /* Adjusted margin */
+    border-radius: 8px 8px 0 0;
+    object-fit: cover; /* Maintain aspect ratio */
 }
 
 .info-image::before {
@@ -73,16 +73,15 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 20%); /* Adjust opacity to desired gray color */
-    border-radius: 8px 8px 0 0; /* Adjusted border radius */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px 8px 0 0;
 }
-
 
 .info-content {
     flex: 1;
-    margin-top: -22px; /* Adjust spacing from image */
+    margin-top: -22px;
     font-family: 'Be Vietnam', sans-serif;
-    text-align: center; /* Center-align content */
+    text-align: center;
 }
 
 .info-content h3 {
@@ -97,8 +96,8 @@ html {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px; /* Added margin to create space */
-    align-self: flex-end; /* Align to the right */
+    margin-top: 20px;
+    align-self: flex-end;
 }
 
 .dismiss-button:hover {
@@ -467,7 +466,6 @@ html {
     color: #ffffff;
 }
 
-
 #year-slider {
     position: relative;
     margin-bottom: 10px;
@@ -568,7 +566,6 @@ html {
 .checkbox-container input:checked~.checkmark {
     background-color: #2196F3;
 }
-
 
 .checkmark:after {
     content: "";
