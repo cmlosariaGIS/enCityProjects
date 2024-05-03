@@ -42,7 +42,7 @@ html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 998;
+    z-index: 99998;
     background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
@@ -51,6 +51,7 @@ html {
     flex-direction: column;
     align-items: center;
     max-width: 20vw; /* Adjusted maximum width for responsiveness */
+    font-size: smaller;
 }
 
 .info-image {
@@ -89,7 +90,7 @@ html {
 }
 
 .dismiss-button {
-    background-color: #007bff;
+    background-color: #04a9b2;
     color: #fff;
     border: none;
     padding: 8px 16px;
@@ -101,7 +102,7 @@ html {
 }
 
 .dismiss-button:hover {
-    background-color: #0056b3;
+    background-color: #0097ae;
 }
 
 .leaflet-control-zoom {
