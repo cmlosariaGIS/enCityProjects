@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>enCity Projects Web Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <!--Leaflet-->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+    <!--Google  Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet">
+
+    <!--JSZip-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.js"
+        integrity="sha512-3FKAKNDHbfUwAgW45wNAvfgJDDdNoTi5PZWU7ak3Xm0X8u0LbDBWZEyPklRebTZ8r+p0M2KIJWDYZQjDPyYQEA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--SheetJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+
+
+    <!--FileSaver-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
+
+</head>
+
+<style>
+    /* Slider style */
+    .slider {
+        width: 100%;
+        height: .3px;
+        position: relative;
+        margin-top: 20px;
+        background: #04a9b2;
+        /* Slider track color */
+        border-radius: 0;
+        border: none;
+        /* Remove border */
+        /*box-shadow: 0 0 10px #04a9b2; /* Glow effect for slider track */
+    }
+
+    /* Slider handles */
+    .ui-slider-handle {
+        width: 0px;
+        /* Increased width for the 3D effect */
+        height: 0px;
+        /* Increased height for the 3D effect */
+        background-color: #04a9b2;
+        /* Slider handle color */
+        border: 2px solid #04a9b2;
+        /* Border color for handles */
+        border-radius: 50%;
+        /* Rounded handles */
+        cursor: pointer;
+        margin-top: -4px;
+        /* Adjusted to center handles vertically with line */
+        z-index: 1;
+        /* Ensure handles are above tick indicators */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        /* 3D effect for handles */
+        outline: none;
+        /* Remove outline */
+    }
+
+    /* Tick indicators */
+    .tick {
+        position: absolute;
+        bottom: -5px;
+        width: 1px;
+        height: 5px;
+        background-color: #04a9b2;
+    }
+
+    /* Update tick color when hovered */
+    .tick:hover {
+        background-color: #04a9b2;
+    }
+
+    /* Update tick color when slider handle is dragged */
+    .ui-slider-horizontal .ui-slider-handle:hover+.tick {
+        background-color: #04a9b2;
+    }
+</style>
+
+<body>
+    <div id="map"></div>
+
+    <div class="menu-bar">
+        <div class="left-section">
+            <a href="https://encity.co" target="_blank">
+                <img src="https://i.ibb.co/rGN5GwP/logo-encity.png" class="company-logo" alt="enCity Logo">
+            </a>
+        </div>
+        <div class="middle-section">
+        </div>
+        <div class="right-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search Projects...">
+                <button id="searchButton" style="color: #919191;"><span
+                        class="material-symbols-outlined">search</span></button>
+            </div>
+
+            <div class="tooltip-container">
+                <button class="filterProjects-button" onclick="toggleSlideMenu()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
+                        style="vertical-align: middle;">Filter Projects</span>
+                </button>
+                <span class="tooltip">Show Data Filters</span>
+            </div>
+
+            <div class="tooltip-container">
+                <button class="downloadProjectListAsExcel-button" onclick="downloadExcel()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">table</span></span>
+                </button>
+                <span class="tooltip">Download Project List as Excel Table</span>
+            </div>
+
+            <div class="tooltip-container">
+                <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">folder_zip</span></span>
+                </button>
+                <span class="tooltip">Download Project Sheet(s)</span>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="info-button" onclick="toggleInfo()">
+        <span class="material-icons-outlined">info</span>
+    </button>
+
+    <div class="info-box">
+        <div class="info-content">
+            <div class="info-image"></div>
+            <p>About</p>
+            <p>This is a map application that serves as a digital map library of enCity Projects and has functions to
+                filter
+                and compile relevant company project experiences that could meet commonly asked Bid/RFP requirements.
+            </p>
+            <button class="dismiss-button" onclick="toggleInfo()">Dismiss</button>
+        </div>
+
+    </div>
+
+    <div id="slideMenu" class="slide-menu">
+        <div class="slide-menu-content">
+            <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
+            <div class="filter-country" style="font-size: 12px;">
+                <div class="filter-country" style="font-size: 12px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">globe_asia</span>
+                        <span style="padding-right: 10px;">Select Country</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-countrySelection-button" onclick="clearCountrySelection()">Clear
+                            Selection</button>
+                    </span>
+                    <div>
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-china" name="country" value="China">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/b63qf69/icons8-china-48.png" alt="China Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">China</span>
+                        </div>
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-indonesia" name="country" value="Indonesia">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/zmfZRJZ/icons8-indonesia-48.png" alt="Indonesia Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Indonesia</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-maldives" name="country" value="Maldives">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/9VjRBQ7/icons8-maldives-48.png" alt="Maldives Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Maldives</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-singapore" name="country" value="Singapore">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/0XZwRmn/icons8-singapore-48.png" alt="Singapore Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Singapore</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Vietnam</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-category" style="font-size: 12px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">category</span>
+                        <span style="padding-right: 10px;">Select Project Category</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-categorySelection-button" onclick="clearCategorySelection()">Clear
+                            Selection</button>
+                    </span>
+
+                    <div>
+                        <!--Architecture Options-->
+                        <div class="checkbox-container">
+                            <span class="label-text">Architecture</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Architecture" id="architectureCheckbox"
+                                    onclick="toggleArchitectureOptions()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="material-symbols-outlined architecture-expand-icon expand-icon"
+                                onclick="toggleOptions('architectureOptions', '.architecture-expand-icon')"
+                                style="margin-left: 5px;">expand_more</span>
+                        </div>
+                        <div id="architectureOptions" class="expandable-options"
+                            style="max-height: 0px; margin-left: 20px;">
+                            <div class="checkbox-container">
+                                <span class="label-text">Landscape Architecture</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Landscape Architecture"
+                                        onclick="toggleArchitectureCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox-container">
+                                <span class="label-text">Building Architecture</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Building Architecture"
+                                        onclick="toggleArchitectureCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <span class="label-text">GIS</span>
+                            <label>
+                                <input type="checkbox" name="category" value="GIS">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <span class="label-text">Heritage Preservation</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Heritage Preservation">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <!--Planning Options-->
+                        <div class="checkbox-container">
+                            <span class="label-text">Planning</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Planning" style="margin-right: 5px;"
+                                    onclick="togglePlanningOptions()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="material-symbols-outlined planning-expand-icon expand-icon"
+                                onclick="toggleOptions('planningOptions', '.planning-expand-icon')"
+                                style="margin-left: 5px;">expand_more</span>
+                        </div>
+                        <div id="planningOptions" class="expandable-options"
+                            style="max-height: 0px; margin-left: 20px;">
+                            <div class="checkbox-container">
+                                <span class="label-text">Urban Planning</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Urban Planning"
+                                        onclick="togglePlanningCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox-container">
+                                <span class="label-text">Regional Planning</span>
+                                <label>
+                                    <input type="checkbox" name="category" value="Regional Planning"
+                                        onclick="togglePlanningCheckbox()">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Sustainable Development</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Sustainable Development">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Technology</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Technology">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Transportation</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Transportation">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <span class="label-text">Water Management</span>
+                        <label>
+                            <input type="checkbox" name="category" value="Water Management" style="margin-right: 5px;"
+                                onclick="toggleWaterManagementOptions()">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="material-symbols-outlined water-management-expand-icon expand-icon"
+                            onclick="toggleOptions('waterManagementOptions', '.water-management-expand-icon')"
+                            style="margin-left: 5px;">expand_more</span>
+                    </div>
+                    <div id="waterManagementOptions" class="expandable-options"
+                        style="max-height: 0px; margin-left: 20px;">
+                        <div class="checkbox-container">
+                            <span class="label-text">Coastal Resource Management</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Coastal Resource Management"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">River and Lakes Management</span>
+                            <label>
+                                <input type="checkbox" name="category" value="River and Lakes Management"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox-container">
+                            <span class="label-text">Flood Prevention</span>
+                            <label>
+                                <input type="checkbox" name="category" value="Flood Prevention"
+                                    onclick="toggleWaterManagementCheckbox()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="filter-client" style="font-size: 12px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">handshake</span>
+                        <span style="padding-right: 10px;">Client Type</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-clientSelection-button" onclick="clearClientSelection()">Clear
+                            Selection</button>
+                    </span>
+                </div>
+                <div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Government</span>
+                        <label>
+                            <input type="checkbox" name="client-type" value="Government">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Private</span>
+                        <label>
+                            <input type="checkbox" name="client-type" value="Private">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">ODAs, Financial Institutions</span>
+                        <label>
+                            <input type="checkbox" name="client-type" value="ODAs, Financial Institutions">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <p></p>
+
+
+                <div class="filter-year">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">calendar_month</span>
+                        Year Implemented
+                    </span>
+                    <p></p>
+                    <div id="year-slider" class="slider"></div>
+                    <div id="current-year"></div>
+                </div>
+
+                <div class="filter-projectValue">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">payments</span>
+                        Project Value
+                    </span>
+                    <p></p>
+                    <div id="projectValue-slider" class="slider"></div>
+                    <div id="current-projectValue"></div>
+                </div>
+
+                <div class="filter-projectScale">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">square_foot</span>
+                        Project Scale
+                    </span>
+                    <p></p>
+                    <div id="projectScale-slider" class="slider"></div>
+                    <div id="current-projectScale"></div>
+                </div>
+                <br>
+                <div class="button-container">
+                    <button class="reset-filters-button">
+                        <span class="material-symbols-outlined">restart_alt</span>
+                        Reset
+                    </button>
+                    <button class="apply-filters-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        Apply Filters
+                    </button>
+                </div>
+                <div id="noResultsMessage" style="display: none; color: red; font-size: 12px; font-weight: bold;">
+                    No results found. Please adjust your filters.
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <script src="encityProjects.js"></script>
+    <script src="search.js"></script>
+    <script src="filter.js"></script>
+    <script src="downloadProjectListsAsExcel.js"></script>
+    <script src="downloadProjectSheetsAsZip.js"></script>
+
+    <script>
+
+        const map = L.map('map').setView([8.8205995, 105.52213], 5);
+
+        // Define tile tile layers
+        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Imagery &copy; <a href="https://www.esri.com/">Esri</a>',
+            maxZoom: 18,
+        });
+
+        const street = L.tileLayer('https://api.maptiler.com/maps/topo-v2/256/{z}/{x}/{y}@2x.png?key=ygYhKJ5CVp94V87ZZ49x', {
+            attribution: 'Map data &copy; <a href="https://www.maptiler.com/">MapTiler</a> contributors',
+            maxZoom: 28,
+        });
+
+        // Define basemap layers object
+        const basemaps = {
+            "Satellite Imagery": satellite,
+            "Street": street
+        };
+
+        // Add the default tile layer to the map
+        street.addTo(map);
+
+        // Custom control with the image
+        const customControl = L.control({ position: 'bottomleft' });
+
+        customControl.onAdd = function (map) {
+            const container = L.DomUtil.create('div', 'basemap-control');
+
+            const img = L.DomUtil.create('img', 'basemap-image', container);
+            img.src = 'https://i.ibb.co/fHNQYvD/imagery.png';
+            img.alt = 'Basemap Imagery';
+
+            const label = L.DomUtil.create('div', 'basemap-label', container);
+            label.textContent = 'Imagery';
+
+            img.onclick = function () {
+                if (map.hasLayer(street)) {
+                    map.removeLayer(street);
+                    satellite.addTo(map);
+                    img.src = 'https://i.ibb.co/j4TfkcV/street.png';
+                    label.textContent = 'Street';
+                } else {
+                    map.removeLayer(satellite);
+                    street.addTo(map);
+                    img.src = 'https://i.ibb.co/fHNQYvD/imagery.png';
+                    label.textContent = 'Imagery';
+                }
+            };
+
+            return container;
+        };
+
+        customControl.addTo(map);
+
+        // Custom icon for marker
+        const customIcon = L.icon({
+            iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
+            iconSize: [30, 30], // Adjust icon size as needed
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -37]
+        });
+
+        // Add markers to the map
+        data.forEach(({ lat, lng, projectName, country, location, title, startDate, completionDate, partner, client, description, projectValue, projectScale, status, sector1, sector2, photo1, photo2, attachment }) => {
+            const popupContent = `
+    <h2>${projectName}<br></h2>
+    <b>Country:</b> ${country}<br>
+    <b>Location:</b> ${location}<br>
+    <b>Start Date:</b> ${startDate}<br>
+    <b>Completion Date:</b> ${completionDate}<br>
+    <b>Partner(s):</b> ${partner}<br>
+    <b>Client:</b> ${client}<br>
+    <b>Description:</b><div style="text-align: justify;">${description}</div>
+    <!--<b>Project Value ($):</b> ${projectValue}<br>-->
+    <b>Project Scale (ha):</b> ${projectScale}<br>
+    <b>Status:</b> ${status}<br>
+    <b>Sector:</b> ${sector1}, ${sector2}<br>
+    <p></p>
+    <p style="font-size: 10px;"><i>Note: Project pinned location is indicative only</i></p>
+    <div class="image-container">
+        <a href="${photo1}" target="_blank">
+            <img src="${photo1}" class="popup-image" id="popup-image">
+        </a>
+    </div>
+    <div class="button-container">
+        <div class="nav-buttons">
+            <button class="prev-button" onclick="prevImage('${photo1}', '${photo2}')" title="Show previous image">navigate_before</button>
+            <button class="next-button" onclick="nextImage('${photo1}', '${photo2}')" title="Show next image">navigate_next</button>
+        </div>
+        <div>
+    <a href="${attachment}" target="_blank" style="text-decoration: none;">
+        <button class="download-button" style="display: flex; align-items: center;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">description</span>
+            <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
+        </button>
+    </a>
+</div>
+
+        <span class="material-icons-outlined close-button" onclick="closePopup()">
+            highlight_off
+        </span>
+    </div>
+`;
+            const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+            marker.bindPopup(popupContent, { maxWidth: 300 });
+        });
+
+        // Function to show next image
+        function nextImage(photo1, photo2) {
+            const image = document.getElementById('popup-image');
+            if (image.src === photo1) {
+                image.src = photo2;
+                image.parentElement.href = photo2;
+            } else {
+                image.src = photo1;
+                image.parentElement.href = photo1;
+            }
+            image.classList.add('fade-in');
+            setTimeout(() => {
+                image.classList.remove('fade-in');
+            }, 1500); // Adjust timing to match animation duration
+        }
+
+        // Function to show previous image
+        function prevImage(photo1, photo2) {
+            const image = document.getElementById('popup-image');
+            if (image.src === photo1) {
+                image.src = photo2;
+                image.parentElement.href = photo2;
+            } else {
+                image.src = photo1;
+                image.parentElement.href = photo1;
+            }
+            image.classList.add('fade-in');
+            setTimeout(() => {
+                image.classList.remove('fade-in');
+            }, 1500); // Adjust timing to match animation duration
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            map.closePopup();
+        }
+
+
+
+
+        /*Show/Hide Info-box*/
+        function toggleInfo() {
+            var infoBox = document.getElementsByClassName("info-box")[0];
+            if (infoBox.style.display === "block" || infoBox.style.display === "") {
+                infoBox.style.display = "none";
+            } else {
+                infoBox.style.display = "block";
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
