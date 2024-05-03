@@ -50,7 +50,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 90vw; /* Adjusted maximum width for responsiveness */
+    max-width: 20vw; /* Adjusted maximum width for responsiveness */
 }
 
 .info-image {
