@@ -15,7 +15,7 @@
     <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
         // Initialize Firebase with your project credentials
         const firebaseConfig = {
@@ -52,13 +52,16 @@
                     // Signed up successfully
                     const user = userCredential.user;
                     console.log('Signed up with email:', user);
-                    // Display success message
-                    document.getElementById('error-message').textContent = '✔️ Account created';
-                    document.getElementById('error-message').style.color = 'green';
-                    // Navigate to login page after 3 seconds
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 3000);
+                    // Send email verification
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                            // Email sent
+                            document.getElementById('error-message').textContent = '✔️ Verification email sent. Please check your inbox.';
+                            document.getElementById('error-message').style.color = 'green';
+                        })
+                        .catch((error) => {
+                            console.error('Error sending email verification:', error.message);
+                        });
                 })
                 .catch((error) => {
                     // Handle errors here
@@ -73,23 +76,25 @@
                 });
         }
 
-        // Function to handle Google sign up
-        window.signUpWithGoogle = function () {
-            const provider = new GoogleAuthProvider();
-
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    // Signed up successfully with Google
-                    const credential = result.credential;
-                    const user = result.user;
-                    console.log('Signed up with Google:', user);
-                    // You can redirect the user or perform other actions here
+        // Function to handle email verification
+        window.verifyEmail = function () {
+            auth.currentUser.reload()
+                .then(() => {
+                    if (auth.currentUser.emailVerified) {
+                        // Email verified
+                        document.getElementById('error-message').textContent = '✔️ Email verified. Account created successfully.';
+                        document.getElementById('error-message').style.color = 'green';
+                        // Navigate to login page after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 3000);
+                    } else {
+                        // Email not verified
+                        document.getElementById('error-message').textContent = '❌ Email not verified. Please check your inbox.';
+                    }
                 })
                 .catch((error) => {
-                    // Handle errors here
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error('Error signing up with Google:', errorMessage);
+                    console.error('Error verifying email:', error.message);
                 });
         }
     </script>
