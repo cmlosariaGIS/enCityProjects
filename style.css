@@ -9,6 +9,7 @@ html {
 #map {
     height: calc(100% - 0px);
     position: relative;
+    z-index: 1;
 }
 
 .info-button {
@@ -37,12 +38,26 @@ html {
     line-height: 1;
 }
 
+
+
+/*.blur-overlay {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); 
+    z-index: 999;
+}*/
+
 .info-box {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 99998;
+    z-index: 1000; /* Above the blur overlay */
     background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
@@ -50,9 +65,11 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 20vw; /* Adjusted maximum width for responsiveness */
+    max-width: 50vw; /* Adjusted maximum width for responsiveness */
+    min-width: 40vw;
     font-size: smaller;
 }
+
 
 .info-image {
     position: relative;
@@ -471,10 +488,10 @@ html {
     color: #ffffff;
 }
 
-#year-slider {
+/*#year-slider {
     position: relative;
     margin-bottom: 10px;
-}
+}*/
 
 .tick {
     position: absolute;
@@ -528,17 +545,19 @@ html {
     margin-left: 5px;
 }
 
+/*
 .country-icon {
     width: 20px;
     height: 20px;
     vertical-align: middle;
-}
+}*/
 
+/*
 .beta-testing {
     margin-left: 10px;
     font-size: 14px;
     color: #666;
-}
+}*/
 
 /* Checkbox styling */
 .checkbox-container {
