@@ -453,6 +453,8 @@
                         Apply Filters
                     </button>
                 </div>
+                <p></p>
+                <div id="resultCount" style="display: none; font-size: 12px; font-weight: bold;"></div>
                 <div id="noResultsMessage" style="display: none; color: red; font-size: 12px; font-weight: bold;">
                     No results found. Please adjust your filters.
                 </div>
@@ -614,9 +616,6 @@
             map.closePopup();
         }
 
-
-
-
         /*Show/Hide Info-box*/
         function toggleInfo() {
             var infoBox = document.getElementsByClassName("info-box")[0];
@@ -626,8 +625,6 @@
                 infoBox.style.display = "block";
             }
         }
-
-
 
     </script>
 </body>
