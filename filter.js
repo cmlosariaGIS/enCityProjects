@@ -37,25 +37,98 @@ function clearClientSelection() {
     $('input[name="client-type"]').prop('checked', false);
 }
 
+/*Checkbox related  functions*/
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    });
+});
+
+function toggleOptions(optionsId, iconClass) {
+    var options = document.getElementById(optionsId);
+    var icon = document.querySelector(iconClass);
+
+    if (options.style.maxHeight === "0px") {
+        options.style.maxHeight = options.scrollHeight + "px";
+        icon.textContent = "chevron_right";
+    } else {
+        options.style.maxHeight = "0px";
+        icon.textContent = "expand_more";
+    }
+}
+
+function toggleCheckboxValue(checkboxValue, relatedCheckboxes) {
+    var mainCheckbox = document.querySelector("input[value='" + checkboxValue + "']");
+    var checked = true;
+
+    relatedCheckboxes.forEach(function (value) {
+        var checkbox = document.querySelector("input[value='" + value + "']");
+        if (!checkbox.checked) {
+            checked = false;
+        }
+    });
+
+    mainCheckbox.checked = checked;
+}
+
+function toggleOptionsCheckboxes(mainCheckboxValue, relatedCheckboxes) {
+    var mainCheckbox = document.querySelector("input[value='" + mainCheckboxValue + "']");
+    var checked = mainCheckbox.checked;
+
+    relatedCheckboxes.forEach(function (value) {
+        var checkbox = document.querySelector("input[value='" + value + "']");
+        checkbox.checked = checked;
+    });
+}
+
+function toggleArchitectureCheckbox() {
+    toggleCheckboxValue('Architecture', ['Landscape Architecture', 'Building Architecture']);
+}
+
+function toggleArchitectureOptions() {
+    toggleOptionsCheckboxes('Architecture', ['Landscape Architecture', 'Building Architecture']);
+}
+
+function togglePlanningCheckbox() {
+    toggleCheckboxValue('Planning', ['Urban Planning', 'Regional Planning']);
+}
+
+function togglePlanningOptions() {
+    toggleOptionsCheckboxes('Planning', ['Urban Planning', 'Regional Planning']);
+}
+
+function toggleWaterManagementCheckbox() {
+    toggleCheckboxValue('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
+}
+
+function toggleWaterManagementOptions() {
+    toggleOptionsCheckboxes('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
+}
+
+
 // Function to initialize the year slider
 $("#year-slider").slider({
     range: true,
     min: 2018,
-    max: 2024,
-    values: [2018, 2024],
+    max: 2025,
+    values: [2018, 2025],
     slide: function (event, ui) {
         $("#year-range").text(ui.values[0] + " - " + ui.values[1]);
     },
     create: function () {
         // Add tick indicators
-        for (let i = 2018; i <= 2024; i++) {
-            $("<div>").addClass("tick").css("left", (i - 2018) * (100 / 6) + "%").appendTo($("#year-slider"));
+        for (let i = 2018; i <= 2025; i++) {
+            $("<div>").addClass("tick").css("left", (i - 2018) * (100 / 7) + "%").appendTo($("#year-slider"));
         }
     }
 });
 
 // Update current year label
-$("#current-year").text("Years selected: 2018 - 2024");
+$("#current-year").text("Years selected: 2018 - 2025");
 
 $("#year-slider").on("slide", function (event, ui) {
     if (ui.values[0] === ui.values[1]) {
@@ -64,7 +137,7 @@ $("#year-slider").on("slide", function (event, ui) {
         $("#current-year").text("Years selected: " + ui.values[0] + " - " + ui.values[1]);
     }
     $(".year-label").each(function () {
-        $(this).css("left", (ui.values[0] - 2018) * (100 / 6) + "%");
+        $(this).css("left", (ui.values[0] - 2018) * (100 / 7) + "%");
     });
 });
 
@@ -106,8 +179,8 @@ $(function () {
 
 // Function to reset the year slider
 function resetYearSlider() {
-    $("#year-slider").slider("values", [2018, 2024]);
-    $("#current-year").text("Years selected: 2018 - 2024");
+    $("#year-slider").slider("values", [2018, 2025]);
+    $("#current-year").text("Years selected: 2018 - 2025");
 }
 
 // Function to reset the project value slider
@@ -171,6 +244,7 @@ function displayInitialPoints() {
 }
 
 
+/*** RESET FILTERS BUTTON **/
 // Call this function when resetting filters
 function resetFilters() {
     clearCategorySelection();
@@ -179,14 +253,21 @@ function resetFilters() {
     resetYearSlider();
     resetProjectValueSlider();
     resetProjectScaleSlider();
+    
     // Remove existing markers
     map.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
             map.removeLayer(layer);
         }
     });
-    // Hide no results message
+    
+    // Hide no results message and result count
     hideNoResultsMessage();
+    hideResultCount();
+    
+    // Reset map view to initial extent
+    map.setView([8.8205995, 105.52213], 5);
+    
     // Display initial points
     displayInitialPoints();
 }
@@ -198,6 +279,18 @@ $('.reset-filters-button').on('click', function () {
 
 
 /*** APPLY FILTERS BUTTON **/
+// Function to display number of results
+function displayResultCount(count) {
+    const resultCountContainer = document.getElementById("resultCount");
+    resultCountContainer.textContent = `${count} project${count === 1 ? '' : 's'} matched the criteria`;
+    resultCountContainer.style.display = "block";
+}
+
+// Function to hide number of results
+function hideResultCount() {
+    const resultCountContainer = document.getElementById("resultCount");
+    resultCountContainer.style.display = "none";
+}
 
 // Function to display no results message
 function displayNoResultsMessage() {
@@ -210,7 +303,6 @@ function hideNoResultsMessage() {
     const messageContainer = document.getElementById("noResultsMessage");
     messageContainer.style.display = "none";
 }
-
 
 // Function to zoom the map to the extent of filtered points/markers
 function zoomToFilteredPoints(filteredData) {
@@ -230,7 +322,6 @@ function zoomToFilteredPoints(filteredData) {
         map.fitBounds(bounds, { maxZoom: maxZoomLevel });
     }
 }
-
 
 // Event listener for Apply Filters button
 $('.apply-filters-button').on('click', function () {
@@ -271,8 +362,10 @@ $('.apply-filters-button').on('click', function () {
     // Check if filtered data is empty
     if (filteredData.length === 0) {
         displayNoResultsMessage();
+        hideResultCount(); // hide result count if no results
     } else {
         hideNoResultsMessage();
+        displayResultCount(filteredData.length); // display result count if there are results
     }
 
     // Remove existing markers
@@ -329,8 +422,6 @@ $('.apply-filters-button').on('click', function () {
     // Zoom the map to the extent of the filtered points/markers
     zoomToFilteredPoints(filteredData);
 
-
-
     var selectedCategories = getSelectedCategories();
     var selectedClientTypes = getSelectedClientTypes();
     var selectedYearRange = $("#year-slider").slider("option", "values");
@@ -345,77 +436,3 @@ $('.apply-filters-button').on('click', function () {
     console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
 
 });
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
-
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-    });
-});
-
-
-function toggleOptions(optionsId, iconClass) {
-    var options = document.getElementById(optionsId);
-    var icon = document.querySelector(iconClass);
-
-    if (options.style.maxHeight === "0px") {
-        options.style.maxHeight = options.scrollHeight + "px";
-        icon.textContent = "chevron_right";
-    } else {
-        options.style.maxHeight = "0px";
-        icon.textContent = "expand_more";
-    }
-}
-
-function toggleCheckboxValue(checkboxValue, relatedCheckboxes) {
-    var mainCheckbox = document.querySelector("input[value='" + checkboxValue + "']");
-    var checked = true;
-
-    relatedCheckboxes.forEach(function (value) {
-        var checkbox = document.querySelector("input[value='" + value + "']");
-        if (!checkbox.checked) {
-            checked = false;
-        }
-    });
-
-    mainCheckbox.checked = checked;
-}
-
-function toggleOptionsCheckboxes(mainCheckboxValue, relatedCheckboxes) {
-    var mainCheckbox = document.querySelector("input[value='" + mainCheckboxValue + "']");
-    var checked = mainCheckbox.checked;
-
-    relatedCheckboxes.forEach(function (value) {
-        var checkbox = document.querySelector("input[value='" + value + "']");
-        checkbox.checked = checked;
-    });
-}
-
-function toggleArchitectureCheckbox() {
-    toggleCheckboxValue('Architecture', ['Landscape Architecture', 'Building Architecture']);
-}
-
-function toggleArchitectureOptions() {
-    toggleOptionsCheckboxes('Architecture', ['Landscape Architecture', 'Building Architecture']);
-}
-
-function togglePlanningCheckbox() {
-    toggleCheckboxValue('Planning', ['Urban Planning', 'Regional Planning']);
-}
-
-function togglePlanningOptions() {
-    toggleOptionsCheckboxes('Planning', ['Urban Planning', 'Regional Planning']);
-}
-
-function toggleWaterManagementCheckbox() {
-    toggleCheckboxValue('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
-}
-
-function toggleWaterManagementOptions() {
-    toggleOptionsCheckboxes('Water Management', ['Coastal Resource Management', 'River and Lakes Management', 'Flood Prevention']);
-}
