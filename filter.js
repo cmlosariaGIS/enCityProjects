@@ -209,7 +209,7 @@ function displayInitialPoints() {
             <b>Client:</b> ${project.client}<br>
             <b>Description:</b><div style="text-align: justify;">${project.description}</div>
             <!-- <b>Project Value ($):</b> ${project.projectValue}<br> -->
-            <b>Project Scale (ha):</b> ${project.projectScale}<br>
+            <b>Project Scale:</b> ${project.projectScale}ha<br>
             <b>Status:</b> ${project.status}<br>
             <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
             <p></p>
@@ -387,7 +387,7 @@ $('.apply-filters-button').on('click', function () {
             <b>Client:</b> ${project.client}<br>
             <b>Description:</b><div style="text-align: justify;">${project.description}</div>
             <!-- <b>Project Value ($):</b> ${project.projectValue}<br> -->
-            <b>Project Scale (ha):</b> ${project.projectScale}<br>
+            <b>Project Scale:</b> ${project.projectScale}ha<br>
             <b>Status:</b> ${project.status}<br>
             <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
             <p></p>
@@ -436,3 +436,5 @@ $('.apply-filters-button').on('click', function () {
     console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
 
 });
+
+
