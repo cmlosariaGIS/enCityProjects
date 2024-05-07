@@ -29,8 +29,8 @@ body {
 .sub-title {
   text-align: center;
   font-family: 'Be Vietnam', sans-serif;
-  margin: 10px 0 20px 0; /* Adjusted the bottom margin to 10px */
-  font-size: 16px;
+  margin: 0px 0 20px 0; /* Adjusted the bottom margin to 10px */
+  font-size: 14px;
   font-weight: 100;
 }
 

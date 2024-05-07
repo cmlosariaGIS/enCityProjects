@@ -27,7 +27,8 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .info-button:hover {
@@ -38,6 +39,33 @@ html {
     line-height: 1;
 }
 
+.stats-button {
+    position: absolute;
+    top: 210px;
+    left: 22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.stats-button:hover {
+    background-color: #c9c9c9;
+}
+
+.stats-button span {
+    line-height: 1;
+}
 
 
 /*.blur-overlay {
@@ -241,7 +269,7 @@ html {
     width: 100%;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 99999;
+    z-index: 999999;
     padding: 10px 10px 10px 20px;
     /* Adjusted padding */
     display: flex;
@@ -394,11 +422,11 @@ html {
     transition: 0.5s;
     padding-top: 60px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 9999;
+    z-index: 99999;
 }
 
 .slide-menu.active {
-    width: 350px;
+    width: 35%;
 }
 
 .slide-menu-content {
@@ -442,6 +470,13 @@ html {
     resize: vertical;
 }
 
+
+/* Reset Filters and Apply Filters*/
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .reset-filters-button,
 .apply-filters-button {
     font-family: 'Be Vietnam', sans-serif;
@@ -456,37 +491,42 @@ html {
     transition: box-shadow 0.3s ease-in-out;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: calc(50% - 10px); /* 50% width minus 10px for the gap */
 }
 
-.reset-filters-button {
-    width: 40%;
-    float: left;
-}
-
-.reset-filters-button .material-symbols-outlined {
-    margin-right: 8px;
-}
-
-.apply-filters-button {
-    width: 55%;
-    float: right;
-}
-
+.reset-filters-button .material-symbols-outlined,
 .apply-filters-button .material-symbols-outlined {
     margin-right: 8px;
-}
-
-.button-container::after {
-    content: "";
-    clear: both;
-    display: table;
 }
 
 .apply-filters-button:hover,
 .reset-filters-button:hover {
     background-color: rgb(0, 131, 154);
-    color: #ffffff;
 }
+
+.reset-filters-button .material-symbols-outlined::before,
+.apply-filters-button .material-symbols-outlined::before {
+    content: attr(data-icon);
+}
+
+.reset-filters-button .material-symbols-outlined::before {
+    font-family: "Material Icons Outlined";
+}
+
+.apply-filters-button .material-symbols-outlined::before {
+    font-family: "Material Icons";
+}
+
+/* Add a gap between buttons */
+.reset-filters-button + .apply-filters-button {
+    margin-left: 20px;
+}
+
+
+
+
+
 
 /*#year-slider {
     position: relative;
@@ -705,3 +745,17 @@ html {
 }
 
 /*End Menu Bar Buttons Tooltip*/
+
+.basemap-control {
+    position: relative;
+    z-index: 99999; /* Set a higher z-index */
+}
+.basemap-image {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.basemap-label {
+    font-size: 12px;
+    text-align: center;
+}
