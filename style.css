@@ -288,6 +288,15 @@ html {
     justify-content: center;
 }
 
+.project-title {
+    display: flex;
+    align-items: left;
+    justify-content: flex-start; /* Align to the left */
+    padding: 0 30px; /* Add padding if necessary */
+    font-size: large;
+}
+
+
 .right-section {
     display: flex;
     align-items: center;

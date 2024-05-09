@@ -17,6 +17,12 @@ function createCountryChart() {
 
     const labelsCountry = Object.keys(countryCounts);
     const valuesCountry = Object.values(countryCounts);
+
+    // Sort labels and values based on values (counts)
+    const sortedData = labelsCountry.map((label, index) => ({ label, value: valuesCountry[index] })).sort((a, b) => b.value - a.value);
+    const sortedLabelsCountry = sortedData.map(item => item.label);
+    const sortedValuesCountry = sortedData.map(item => item.value);
+
     const colorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF'];
 
     const totalProjectsCount = data.length;
@@ -25,10 +31,10 @@ function createCountryChart() {
     const chartCountry = new Chart(ctxCountry, {
         type: 'doughnut',
         data: {
-            labels: labelsCountry.map((label, index) => `${label} (${valuesCountry[index]})`), // Add count value to each label
+            labels: sortedLabelsCountry.map((label, index) => `${label} (${sortedValuesCountry[index]})`), // Add count value to each label
             datasets: [{
-                data: valuesCountry,
-                backgroundColor: colorsCountry
+                data: sortedValuesCountry,
+                backgroundColor: colorsCountry.slice(0, sortedLabelsCountry.length)
             }]
         },
         options: {
@@ -55,13 +61,13 @@ function createCountryChart() {
     });
 
     // Debugging: Check if chart data is correct
-    console.log(labelsCountry);
-    console.log(valuesCountry);
+    console.log(sortedLabelsCountry);
+    console.log(sortedValuesCountry);
 
     // Create the legend below the chart
     const pieChartLegendCountryContainer = document.querySelector('.chart-legend-country');
     pieChartLegendCountryContainer.innerHTML = ''; // Clear existing legend items
-    chartCountry.data.labels.forEach((label, index) => {
+    sortedLabelsCountry.forEach((label, index) => {
         const legendItemCountry = document.createElement('div');
         legendItemCountry.classList.add('chart-legend-country-item');
 
@@ -70,7 +76,7 @@ function createCountryChart() {
         colorBoxCountry.style.backgroundColor = colorsCountry[index];
 
         const labelTextCountry = document.createElement('span');
-        labelTextCountry.textContent = label;
+        labelTextCountry.textContent = `${label} (${sortedValuesCountry[index]})`;
 
         legendItemCountry.appendChild(colorBoxCountry);
         legendItemCountry.appendChild(labelTextCountry);
