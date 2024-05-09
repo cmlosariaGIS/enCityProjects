@@ -4,6 +4,29 @@ function toggleSlideMenu() {
     slideMenu.classList.toggle("active");
 }
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    interact('.handlebar').draggable({
+        onmove: function (event) {
+            var target = event.target;
+            var menu = target.parentNode;
+            var content = menu.querySelector('.slide-menu-content');
+
+            var x = (parseFloat(menu.getAttribute('data-x')) || 0) + event.dx;
+            var width = parseFloat(menu.style.width) || menu.offsetWidth;
+
+            if (width + event.dx > 200 && width + event.dx < window.innerWidth * 0.5) {
+                menu.style.width = width + event.dx + 'px';
+                content.style.width = width + event.dx + 'px';
+                menu.style.webkitTransform = menu.style.transform = 'translate(' + x + 'px)';
+                menu.setAttribute('data-x', x);
+            }
+        }
+    }).styleCursor(false);
+});
+
+
+
 // Function to get selected categories
 function getSelectedCategories() {
     var selectedCategories = [];
@@ -279,6 +302,7 @@ function resetFilters() {
     clearCategorySelection();
     clearCountrySelection();
     clearClientSelection();
+    clearStatusSelection();
     resetYearSlider();
     resetProjectValueSlider();
     resetProjectScaleSlider();
