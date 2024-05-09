@@ -428,11 +428,12 @@ html {
     right: 0;
     background-color: white;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: width 0.5s;
     padding-top: 60px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 99999;
 }
+
 
 .slide-menu.active {
     width: 35%;

@@ -72,21 +72,89 @@ function createCharts() {
     // Create the legend below the chart
     const pieChartLegendContainer = document.querySelector('.chart-legend-sector');
     pieChartLegendContainer.innerHTML = ''; // Clear existing legend items
+
+    // Add legend items for categories with counts greater than or equal to 5
     sortedLabels.forEach((label, index) => {
-        const legendItem = document.createElement('div');
-        legendItem.classList.add('chart-legend-sector-item');
+        if (sortedValues[index] >= 5) {
+            const legendItem = document.createElement('div');
+            legendItem.classList.add('chart-legend-sector-item');
 
-        const colorBox = document.createElement('div');
-        colorBox.classList.add('legend-color');
-        colorBox.style.backgroundColor = colors[index];
+            const colorBox = document.createElement('div');
+            colorBox.classList.add('legend-color');
+            colorBox.style.backgroundColor = colors[index];
 
-        const labelText = document.createElement('span');
-        labelText.textContent = `${label} (${sortedValues[index]})`;
+            const labelText = document.createElement('span');
+            labelText.textContent = `${label} (${sortedValues[index]})`;
 
-        legendItem.appendChild(colorBox);
-        legendItem.appendChild(labelText);
-        pieChartLegendContainer.appendChild(legendItem);
+            legendItem.appendChild(colorBox);
+            legendItem.appendChild(labelText);
+            pieChartLegendContainer.appendChild(legendItem);
+        }
     });
+
+    // Add expand button if there are hidden projects
+    const hiddenProjects = sortedValues.filter(value => value < 5);
+    if (hiddenProjects.length > 0) {
+        const expandButton = document.createElement('button');
+        expandButton.textContent = 'Show more';
+        expandButton.classList.add('show-more-button');
+        expandButton.onclick = function () {
+            pieChartLegendContainer.innerHTML = ''; // Clear existing legend items
+
+            // Add legend items for all categories
+            sortedLabels.forEach((label, index) => {
+                const legendItem = document.createElement('div');
+                legendItem.classList.add('chart-legend-sector-item');
+
+                const colorBox = document.createElement('div');
+                colorBox.classList.add('legend-color');
+                colorBox.style.backgroundColor = colors[index];
+
+                const labelText = document.createElement('span');
+                labelText.textContent = `${label} (${sortedValues[index]})`;
+
+                legendItem.appendChild(colorBox);
+                legendItem.appendChild(labelText);
+                pieChartLegendContainer.appendChild(legendItem);
+            });
+
+            // Add "See Less" button
+            const seeLessButton = document.createElement('button');
+            seeLessButton.textContent = 'See Less';
+            seeLessButton.classList.add('see-less-button');
+            seeLessButton.onclick = function () {
+                // Clear the legend container
+                pieChartLegendContainer.innerHTML = '';
+
+                // Re-add legend items for categories with counts greater than or equal to 5
+                sortedLabels.forEach((label, index) => {
+                    if (sortedValues[index] >= 5) {
+                        const legendItem = document.createElement('div');
+                        legendItem.classList.add('chart-legend-sector-item');
+
+                        const colorBox = document.createElement('div');
+                        colorBox.classList.add('legend-color');
+                        colorBox.style.backgroundColor = colors[index];
+
+                        const labelText = document.createElement('span');
+                        labelText.textContent = `${label} (${sortedValues[index]})`;
+
+                        legendItem.appendChild(colorBox);
+                        legendItem.appendChild(labelText);
+                        pieChartLegendContainer.appendChild(legendItem);
+                    }
+                });
+
+                // Re-add the "Show more" button
+                pieChartLegendContainer.appendChild(expandButton);
+            };
+            pieChartLegendContainer.appendChild(seeLessButton);
+
+            // Remove the "Show more" button
+            expandButton.remove();
+        };
+        pieChartLegendContainer.appendChild(expandButton);
+    }
 }
 
 window.onload = function () {

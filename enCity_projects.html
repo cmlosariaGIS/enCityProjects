@@ -119,35 +119,39 @@
         <div class="right-section">
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search Projects...">
-                <button id="searchButton" style="color: #919191;"><span class="material-symbols-outlined">search</span></button>
+                <button id="searchButton" style="color: #919191;"><span
+                        class="material-symbols-outlined">search</span></button>
             </div>
-    
+
             <div class="tooltip-container">
                 <button class="filterProjects-button" onclick="toggleSlideMenu()">
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span style="vertical-align: middle;">Filter Projects</span>
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">filter_alt</span> <span
+                        style="vertical-align: middle;">Filter Projects</span>
                 </button>
                 <span class="tooltip">Show Data Filters</span>
             </div>
-    
+
             <div class="tooltip-container">
                 <button class="downloadProjectListAsExcel-button" onclick="downloadExcel()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-                    <span style="vertical-align: middle; margin-left: 0px;"><span class="material-symbols-outlined">table</span></span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">table</span></span>
                 </button>
                 <span class="tooltip">Download Project List as Excel Table</span>
             </div>
-    
+
             <div class="tooltip-container">
                 <button class="downloadProjSheetsAsZip-button" onclick="downloadAttachmentsAsZip()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
-                    <span style="vertical-align: middle; margin-left: 0px;"><span class="material-symbols-outlined">folder_zip</span></span>
+                    <span style="vertical-align: middle; margin-left: 0px;"><span
+                            class="material-symbols-outlined">folder_zip</span></span>
                 </button>
                 <span class="tooltip">Download Project Sheet(s)</span>
             </div>
         </div>
     </div>
-    
-    
+
+
 
     <button class="info-button" onclick="toggleInfo()">
         <span class="material-icons-outlined">info</span>
@@ -170,7 +174,6 @@
 
 
 
-    <!-- Sectors Pie Chart -->
     <button class="stats-button" onclick="toggleSlideMenuStats()">
         <span class="material-icons-outlined">donut_large</span>
     </button>
@@ -180,38 +183,36 @@
             <h2 class="dashboard-title">Dashboard</h2>
             <div class="project-count" id="totalProjectsCount"></div>
             <div class="section-title">Total Projects</div>
-
+    
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Total Projects Per Year Trend Line</div>
             <canvas id="projectsPerYearTrendLineChart"></canvas>
             <div class="trendlinechart-legend-treemap"></div>
-
+    
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects By Category</div>
             <canvas id="sectorChart"></canvas>
-            <div class="chart-legend-sector"></div>  <!-- Legend container for sector chart -->
-
+            <div class="chart-legend-sector"></div> <!-- Legend container for sector chart -->
+    
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects By Country</div>
             <canvas id="countryChart"></canvas>
             <div class="chart-legend-country"></div> <!-- Legend container for country chart -->
-
-
-
+    
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects Sum Treemap</div>
             <canvas id="treemapChart"></canvas>
             <div class="chart-legend-treemap"></div> <!-- Legend container for treemap chart -->
             <div class="divider"></div> <!-- Divider line -->
-
-
-
+    
         </div>
     </div>
+    
 
 
 
 
+    <!--Filter Projects-->
     <div id="slideMenu" class="slide-menu">
         <div class="slide-menu-content">
             <span class="material-icons-outlined slide-menu-close" onclick="toggleSlideMenu()">close</span>
@@ -613,6 +614,7 @@
             <br>
             <br>
         </div>
+        <div class="resize-handle"></div> <!-- Added resize handle -->
     </div>
 
     <script src="encityProjects.js"></script>
@@ -780,6 +782,32 @@
                 infoBox.style.display = "block";
             }
         }
+
+
+        /*resizing the filter projects panel*/
+
+        let isResizing = false;
+
+        document.querySelector('.resize-handle').addEventListener('mousedown', startResize);
+
+        function startResize(e) {
+            isResizing = true;
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('mouseup', stopResize);
+        }
+
+        function resize(e) {
+            if (isResizing) {
+                const slideMenu = document.querySelector('.slide-menu');
+                slideMenu.style.width = (e.clientX - slideMenu.offsetLeft) + 'px';
+            }
+        }
+
+        function stopResize() {
+            isResizing = false;
+            document.removeEventListener('mousemove', resize);
+        }
+
 
 
 
