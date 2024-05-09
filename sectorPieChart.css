@@ -49,7 +49,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.total-projects {
+.section-title {
     font-size: 14px;
     color: #777;
     margin-bottom: 40px;
@@ -62,14 +62,16 @@
     /* Adjusted height for treemap visualization */
 }
 
-.chart-legend {
+.chart-legend-sector, 
+.chart-legend-country {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 10px;
 }
 
-.chart-legend-item {
+.chart-legend-sector-item,
+.chart-legend-country-item {
     display: flex;
     align-items: center;
     margin-right: 20px;
@@ -78,27 +80,29 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+
+
+
+
+
+
 .legend-color {
     width: 12px;
     height: 12px;
     margin-right: 5px;
 }
 
-/* Adjustments for treemap */
-.treemap-chart {
-    margin-left: -10px;
-    /* Push treemap to the left */
-}
-
-/* Add text shadow for treemap labels */
-.treemap-chart text {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.countrylegend-color {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
 }
 
 /* Divider style */
 .divider {
     width: 20%;
-    border-top: 1px solid rgb(105, 105, 105); /* Use border instead of background-color */
+    border-top: 1px solid rgb(105, 105, 105);
+    /* Use border instead of background-color */
     margin: 20px 0;
 }
 
@@ -111,3 +115,39 @@
     color: #777;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+
+
+
+.treemaptoggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.treemaptoggle-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.treemaptoggle-btn.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 20px;
+}
+
+.treemaptoggle-btn .material-icons-outlined {
+    margin-right: 5px;
+}
+
+
+
+
+

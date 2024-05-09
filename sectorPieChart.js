@@ -1,16 +1,12 @@
-let chartCreated = false;
-
-window.onload = function () {
-    createCharts();
-    chartCreated = true;
-};
-
 function toggleSlideMenuStats() {
     const slideMenuStats = document.getElementById('slideMenuStats');
     slideMenuStats.classList.toggle('active');
 }
 
 function createCharts() {
+    // Debugging: Check if data is available
+    console.log(data);
+
     const ctx = document.getElementById('sectorChart').getContext('2d');
     const sectorCounts = {};
 
@@ -61,13 +57,16 @@ function createCharts() {
         }
     });
 
-
+    // Debugging: Check if chart data is correct
+    console.log(labels);
+    console.log(values);
 
     // Create the legend below the chart
-    const legendContainer = document.querySelector('.chart-legend');
+    const pieChartLegendContainer = document.querySelector('.chart-legend-sector');
+    pieChartLegendContainer.innerHTML = ''; // Clear existing legend items
     chart.data.labels.forEach((label, index) => {
         const legendItem = document.createElement('div');
-        legendItem.classList.add('chart-legend-item');
+        legendItem.classList.add('chart-legend-sector-item');
 
         const colorBox = document.createElement('div');
         colorBox.classList.add('legend-color');
@@ -78,53 +77,10 @@ function createCharts() {
 
         legendItem.appendChild(colorBox);
         legendItem.appendChild(labelText);
-        legendContainer.appendChild(legendItem);
+        pieChartLegendContainer.appendChild(legendItem);
     });
-
-    // Prepare data for treemap
-    const countryCounts = {};
-    data.forEach(project => {
-        if (countryCounts[project.country]) {
-            countryCounts[project.country]++;
-        } else {
-            countryCounts[project.country] = 1;
-        }
-    });
-
-    const treemapColors = {
-        'Vietnam': '#0A4158',     // for Vietnam
-        'Singapore': '#4B8378',   // for Singapore
-        'Indonesia': '#FF9636'    // for Indonesia
-    };
-
-    const totalProjects = data.length;
-
-    const treemapData = [{
-        type: 'treemap',
-        labels: Object.keys(countryCounts),
-        parents: Array(Object.keys(countryCounts).length).fill(''),
-        values: Object.values(countryCounts),
-        marker: {
-            colors: Object.keys(countryCounts).map(country => treemapColors[country] || '#CCCCCC') // Assign colors based on country
-        },
-        textinfo: 'label+value+percent entry',
-        hovertemplate: '%{label}<br>%{value} Projects<extra></extra>', // Add "Projects" in hover
-        texttemplate: Object.keys(countryCounts).map(country => {
-            const count = countryCounts[country];
-            const percentage = (count / totalProjects) * 100;
-            return `${country}<br>${count} Projects<br>${percentage.toFixed(2)}%`;
-        }),
-    }];
-
-
-// Create Treemap using Plotly.js
-Plotly.newPlot('treemapChart', treemapData, {
-    margin: { t: 0 },
-    width: 400, // Adjusted width for treemap
-    height: 220, // Adjusted height for treemap
-    layout: { padding: { t: 0 } }, // Minimize top padding
-    displayModeBar: false // Hide the mode bar
-});
-
-
 }
+
+window.onload = function () {
+    createCharts();
+};

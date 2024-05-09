@@ -38,6 +38,7 @@
 
     <!--ChartJS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap"></script>
 
 
     <!-- Include Plotly.js library -->
@@ -59,7 +60,6 @@
         position: relative;
         margin-top: 20px;
         background: #04a9b2;
-        /* Slider track color */
         border-radius: 0;
         border: none;
         /* Remove border */
@@ -69,24 +69,17 @@
     /* Slider handles */
     .ui-slider-handle {
         width: 0px;
-        /* Increased width for the 3D effect */
         height: 0px;
-        /* Increased height for the 3D effect */
         background-color: #04a9b2;
-        /* Slider handle color */
         border: 2px solid #04a9b2;
-        /* Border color for handles */
         border-radius: 50%;
         /* Rounded handles */
         cursor: pointer;
         margin-top: -4px;
-        /* Adjusted to center handles vertically with line */
+        /* Adjust to center handles vertically with line */
         z-index: 1;
-        /* Ensure handles are above tick indicators */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        /* 3D effect for handles */
         outline: none;
-        /* Remove outline */
     }
 
     /* Tick indicators */
@@ -177,25 +170,34 @@
 
 
 
-<!-- Sectors Pie Chart -->
-<button class="stats-button" onclick="toggleSlideMenuStats()">
-    <span class="material-icons-outlined">donut_large</span>
-</button>
-<div id="slideMenuStats" class="slideMenuStats">
-    <div class="slideMenuStats-content">
-        <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
-        <h2 class="dashboard-title">Dashboard</h2>
-        <div class="project-count" id="totalProjectsCount"></div>
-        <div class="total-projects">Total Projects</div>
-        <div class="divider"></div> <!-- Divider line -->
-        <h3 class="chart-title">Projects by Category</h3> <!-- Title for pie chart -->
-        <canvas id="sectorChart"></canvas>
-        <div class="chart-legend"></div>
-        <div class="divider"></div> <!-- Divider line -->
-        <h3 class="chart-title">Projects per Country</h3> <!-- Title for treemap -->
-        <div id="treemapChart" class="treemap-chart"></div> <!-- Add class for styling -->
+    <!-- Sectors Pie Chart -->
+    <button class="stats-button" onclick="toggleSlideMenuStats()">
+        <span class="material-icons-outlined">donut_large</span>
+    </button>
+    <div id="slideMenuStats" class="slideMenuStats">
+        <div class="slideMenuStats-content">
+            <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
+            <h2 class="dashboard-title">Dashboard</h2>
+            <div class="project-count" id="totalProjectsCount"></div>
+            <div class="section-title">Total Projects</div>
+            <div class="divider"></div> <!-- Divider line -->
+            <div class="section-title">Projects By Category</div>
+            <canvas id="sectorChart"></canvas>
+            <div class="chart-legend-sector"></div>  <!-- Legend container for sector chart -->
+
+            <div class="divider"></div> <!-- Divider line -->
+            <div class="section-title">Projects By Country</div>
+            <canvas id="countryChart"></canvas>
+            <div class="chart-legend-country"></div> <!-- Legend container for country chart -->
+
+            <div class="divider"></div> <!-- Divider line -->
+            <div class="section-title">Projects Sum Treemap</div>
+            <canvas id="treemapChart"></canvas>
+            <div class="chart-legend-treemap"></div> <!-- Legend container for treemap chart -->
+            <div class="divider"></div> <!-- Divider line -->
+        </div>
     </div>
-</div>
+
 
 
 
@@ -514,6 +516,32 @@
                 </div>
                 <p></p>
 
+                <div class="filter-status" style="font-size: 12px;">
+                    <span class="filter-title" style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="margin-right: 5px;">done_all</span>
+                        <span style="padding-right: 10px;">Status Type</span>
+                        <span style="flex-grow: 1;"></span>
+                        <button class="clear-statusSelection-button" onclick="clearStatusSelection()">Clear
+                            Selection</button>
+                    </span>
+                </div>
+                <div>
+                    <div class="checkbox-container">
+                        <span class="label-text">Completed</span>
+                        <label>
+                            <input type="checkbox" name="status-type" value="Completed">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-container">
+                        <span class="label-text">On-going</span>
+                        <label>
+                            <input type="checkbox" name="status-type" value="On-going">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <p></p>
 
                 <div class="filter-year">
                     <span class="filter-title" style="display: flex; align-items: center;">
@@ -554,7 +582,7 @@
                         <span class="material-symbols-outlined">play_arrow</span>
                         Apply Filters
                     </button>
-                </div>                              
+                </div>
                 <p></p>
                 <div id="resultCount" style="display: none; font-size: 12px; font-weight: bold;"></div>
                 <div id="noResultsMessage" style="display: none; color: red; font-size: 12px; font-weight: bold;">
@@ -572,6 +600,8 @@
     <script src="downloadProjectListsAsExcel.js"></script>
     <script src="downloadProjectSheetsAsZip.js"></script>
     <script src="sectorPieChart.js"></script>
+    <script src="countryPieChart.js"></script>
+    <script src="treeMap.js"></script>
 
     <script>
 

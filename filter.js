@@ -37,6 +37,26 @@ function clearClientSelection() {
     $('input[name="client-type"]').prop('checked', false);
 }
 
+
+
+// Function to get selected status types
+function getSelectedStatusTypes() {
+    var selectedStatusTypes = [];
+    $('input[name="status-type"]:checked').each(function () {
+        selectedStatusTypes.push($(this).val());
+    });
+    return selectedStatusTypes;
+}
+
+// Function to clear status type selection
+function clearStatusSelection() {
+    $('input[name="status-type"]').prop('checked', false);
+}
+
+
+
+
+
 /*Checkbox related  functions*/
 document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
@@ -334,7 +354,7 @@ function zoomToFilteredPoints(filteredData) {
 
 // Event listener for Apply Filters button
 $('.apply-filters-button').on('click', function () {
-    // Get selected countries, categories, client types, year range, project value range, and project scale range
+    // Get selected countries, categories, client types, status types, year range, project value range, and project scale range
     var selectedCountries = [];
     $('input[name="country"]:checked').each(function () {
         selectedCountries.push($(this).val());
@@ -342,6 +362,7 @@ $('.apply-filters-button').on('click', function () {
 
     var selectedCategories = getSelectedCategories();
     var selectedClientTypes = getSelectedClientTypes();
+    var selectedStatusTypes = getSelectedStatusTypes();
     var selectedYearRange = $("#year-slider").slider("option", "values");
     var selectedProjectValueRange = $("#projectValue-slider").slider("option", "values");
     var selectedProjectScaleRange = $("#projectScale-slider").slider("option", "values");
@@ -358,6 +379,7 @@ $('.apply-filters-button').on('click', function () {
                 selectedCategories.includes(project.sector2)
             ) &&
             (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
+            (selectedStatusTypes.length === 0 || selectedStatusTypes.includes(project.status)) &&
             ((startYear >= selectedYearRange[0] && startYear <= selectedYearRange[1]) ||
                 (completionYear >= selectedYearRange[0] && completionYear <= selectedYearRange[1])) &&
             (project.projectValue >= selectedProjectValueRange[0] && project.projectValue <= selectedProjectValueRange[1]) &&
@@ -433,6 +455,7 @@ $('.apply-filters-button').on('click', function () {
 
     var selectedCategories = getSelectedCategories();
     var selectedClientTypes = getSelectedClientTypes();
+    var selectedStatusTypes = getSelectedClientTypes();
     var selectedYearRange = $("#year-slider").slider("option", "values");
     var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
     var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
@@ -440,6 +463,7 @@ $('.apply-filters-button').on('click', function () {
     console.log("Selected Countries:", selectedCountries);
     console.log("Selected Categories:", selectedCategories);
     console.log("Selected Client Types:", selectedClientTypes);
+    console.log("Selected Status Types:", selectedStatusTypes);
     console.log("Selected Year Range:", selectedYearRange);
     console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
     console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
