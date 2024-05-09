@@ -180,6 +180,12 @@
             <h2 class="dashboard-title">Dashboard</h2>
             <div class="project-count" id="totalProjectsCount"></div>
             <div class="section-title">Total Projects</div>
+
+            <div class="divider"></div> <!-- Divider line -->
+            <div class="section-title">Total Projects Per Year Trend Line</div>
+            <canvas id="projectsPerYearTrendLineChart"></canvas>
+            <div class="trendlinechart-legend-treemap"></div>
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects By Category</div>
             <canvas id="sectorChart"></canvas>
@@ -190,11 +196,16 @@
             <canvas id="countryChart"></canvas>
             <div class="chart-legend-country"></div> <!-- Legend container for country chart -->
 
+
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects Sum Treemap</div>
             <canvas id="treemapChart"></canvas>
             <div class="chart-legend-treemap"></div> <!-- Legend container for treemap chart -->
             <div class="divider"></div> <!-- Divider line -->
+
+
+
         </div>
     </div>
 
@@ -261,6 +272,16 @@
                             <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
                                 style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Vietnam</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-thailand" name="country" value="Thailand">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/sjnYpJc/icons8-thailand-48.png" alt="Thailand Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Thailand</span>
                         </div>
                     </div>
                 </div>
@@ -602,6 +623,7 @@
     <script src="sectorPieChart.js"></script>
     <script src="countryPieChart.js"></script>
     <script src="treeMap.js"></script>
+    <script src="projectYearTrend.js"></script>
 
     <script>
 

@@ -1,6 +1,20 @@
-// Function to generate random colors
-function generateRandomColor() {
-    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+const colorPalette = [
+    "#1A5653", // Forest Green
+    "#107869", // Teal Green
+    "#5CD85A", // Lime Green
+    "#08313A", // Forest Green
+    "#76B947", // Kelly Green
+    "#B1D8B7", // Seafoam Green
+    "#2F5233", // Spearmint
+    "#94C973"  // Spearmint
+];
+
+// Function to convert hex to RGB
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgb(${r}, ${g}, ${b})`;
 }
 
 const treemapData = data.reduce((acc, item, index) => {
@@ -11,7 +25,7 @@ const treemapData = data.reduce((acc, item, index) => {
         acc.push({
             country: item.country,
             projectValue: item.projectValue,
-            color: generateRandomColor() // Generate a random color for each country
+            color: colorPalette[index % colorPalette.length] // Cycle through the color palette
         });
     }
     return acc;
@@ -34,6 +48,7 @@ const config = {
                     }
                     return ctx.raw._data.color;
                 },
+                hoverOffset: 5, // Adjust the hover offset
                 labels: {
                     align: 'left',
                     display: true,
@@ -51,17 +66,26 @@ const config = {
         ],
     },
     options: {
-        events: [],
         plugins: {
             title: {
                 display: true,
-                text: 'Sum of Projects Value'
+                text: ''
             },
             legend: {
                 display: false
             },
             tooltip: {
-                enabled: true
+                enabled: true,
+                callbacks: {
+                    title(items) {
+                        const dataItem = items[0].raw;
+                        const obj = dataItem._data;
+                        return obj.country;
+                    },
+                    label(context) {
+                        return '$' + context.raw.v;
+                    }
+                }
             }
         }
     }
