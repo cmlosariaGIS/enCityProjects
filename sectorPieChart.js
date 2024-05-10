@@ -145,8 +145,9 @@ function createCharts() {
                     }
                 });
 
-                // Re-add the "Show more" button
-                pieChartLegendContainer.appendChild(expandButton);
+                // Re-add the "Show more" button in the middle
+                const middleIndex = Math.floor(sortedLabels.length / 2);
+                pieChartLegendContainer.insertBefore(expandButton, pieChartLegendContainer.children[middleIndex]);
             };
             pieChartLegendContainer.appendChild(seeLessButton);
 

@@ -41,7 +41,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap"></script>
 
 
-    <!-- Include Plotly.js library -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 
@@ -183,31 +182,51 @@
             <h2 class="dashboard-title">Dashboard</h2>
             <div class="project-count" id="totalProjectsCount"></div>
             <div class="section-title">Total Projects</div>
-    
+
+
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Total Projects Per Year Trend Line</div>
             <canvas id="projectsPerYearTrendLineChart"></canvas>
-            <div class="trendlinechart-legend-treemap"></div>
-    
+            <button class="expand-button" onclick="expandChart()">More Details</button> <!--Shows Stacked Bar Chart-->
+            <!--<div class="trendlinechart-legend-treemap"></div>-->
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects By Category</div>
             <canvas id="sectorChart"></canvas>
             <div class="chart-legend-sector"></div> <!-- Legend container for sector chart -->
-    
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects By Country</div>
             <canvas id="countryChart"></canvas>
             <div class="chart-legend-country"></div> <!-- Legend container for country chart -->
-    
+
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Projects Sum Treemap</div>
             <canvas id="treemapChart"></canvas>
             <div class="chart-legend-treemap"></div> <!-- Legend container for treemap chart -->
-            <div class="divider"></div> <!-- Divider line -->
-    
+            <br>
+            <!--<div class="divider"></div> 
+            <div class="section-title">Project Sector by Year</div>
+            <canvas id="projectSectorPerYearBarGraph"></canvas>
+            <button class="expand-button" onclick="expandChart()">Expand Chart</button>-->
         </div>
     </div>
-    
+
+
+
+    <!--Stacked Bar Modal Window-->
+    <div id="expandedChartModal" class="expanded-chart-modal">
+        <div class="expanded-chart-content">
+            <h2 class="expanded-chart-title">Projects Sector per Year</h2>
+            <canvas id="expandedChartCanvas"></canvas>
+            <button onclick="closeExpandedChart()" class="expanded-chart-dismiss-button">Dismiss</button>
+        </div>
+    </div>
+
+
+
+
 
 
 
@@ -614,7 +633,6 @@
             <br>
             <br>
         </div>
-        <div class="resize-handle"></div> <!-- Added resize handle -->
     </div>
 
     <script src="encityProjects.js"></script>
@@ -626,6 +644,7 @@
     <script src="countryPieChart.js"></script>
     <script src="treeMap.js"></script>
     <script src="projectYearTrend.js"></script>
+    <script src="stackedBarChart.js"></script>
 
     <script>
 
@@ -784,29 +803,6 @@
         }
 
 
-        /*resizing the filter projects panel*/
-
-        let isResizing = false;
-
-        document.querySelector('.resize-handle').addEventListener('mousedown', startResize);
-
-        function startResize(e) {
-            isResizing = true;
-            document.addEventListener('mousemove', resize);
-            document.addEventListener('mouseup', stopResize);
-        }
-
-        function resize(e) {
-            if (isResizing) {
-                const slideMenu = document.querySelector('.slide-menu');
-                slideMenu.style.width = (e.clientX - slideMenu.offsetLeft) + 'px';
-            }
-        }
-
-        function stopResize() {
-            isResizing = false;
-            document.removeEventListener('mousemove', resize);
-        }
 
 
 
