@@ -150,8 +150,6 @@
         </div>
     </div>
 
-
-
     <button class="info-button" onclick="toggleInfo()">
         <span class="material-icons-outlined">info</span>
     </button>
@@ -168,11 +166,7 @@
         </div>
     </div>
 
-
-
-
-
-
+    <!--Statistics Dashboard-->
     <button class="stats-button" onclick="toggleSlideMenuStats()">
         <span class="material-icons-outlined">donut_large</span>
     </button>
@@ -182,8 +176,6 @@
             <h2 class="dashboard-title">Dashboard</h2>
             <div class="project-count" id="totalProjectsCount"></div>
             <div class="section-title">Total Projects</div>
-
-
 
             <div class="divider"></div> <!-- Divider line -->
             <div class="section-title">Total Projects Per Year Trend Line</div>
@@ -640,11 +632,12 @@
     <script src="filter.js"></script>
     <script src="downloadProjectListsAsExcel.js"></script>
     <script src="downloadProjectSheetsAsZip.js"></script>
+    <script src="totalProjectsCount.js"></script>
+    <script src="projectYearTrend.js"></script>
+    <script src="stackedBarChart.js"></script>
     <script src="sectorPieChart.js"></script>
     <script src="countryPieChart.js"></script>
     <script src="treeMap.js"></script>
-    <script src="projectYearTrend.js"></script>
-    <script src="stackedBarChart.js"></script>
 
     <script>
 
@@ -802,6 +795,11 @@
             }
         }
 
+        /*Activates Dashboard Panel*/
+        function toggleSlideMenuStats() {
+            const slideMenuStats = document.getElementById('slideMenuStats');
+            slideMenuStats.classList.toggle('active');
+        }
 
 
 

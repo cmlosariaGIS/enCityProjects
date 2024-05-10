@@ -275,7 +275,7 @@ function displayInitialPoints() {
 
 
 /*** RESET FILTERS BUTTON **/
-// Call this function when resetting filters
+// Function to reset filters
 function resetFilters() {
     clearCategorySelection();
     clearCountrySelection();
@@ -301,6 +301,9 @@ function resetFilters() {
     
     // Display initial points
     displayInitialPoints();
+
+    // Reset total projects count
+    updateTotalProjectsCount(data.length);
 }
 
 // Event listener for Reset Filters button
@@ -354,6 +357,8 @@ function zoomToFilteredPoints(filteredData) {
     }
 }
 
+
+
 // Event listener for Apply Filters button
 $('.apply-filters-button').on('click', function () {
     // Get selected countries, categories, client types, status types, year range, project value range, and project scale range
@@ -388,6 +393,9 @@ $('.apply-filters-button').on('click', function () {
             (project.projectScale >= selectedProjectScaleRange[0] && project.projectScale <= selectedProjectScaleRange[1])
         );
     });
+
+    // Update total projects count
+    updateTotalProjectsCount(filteredData.length);
 
     // Call downloadAttachmentsAsZip with filtered data
     // downloadAttachmentsAsZip(filteredData);

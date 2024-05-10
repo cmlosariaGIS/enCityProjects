@@ -25,8 +25,8 @@ function createCountryChart() {
 
     const colorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF'];
 
-    const totalProjectsCount = data.length;
-    document.getElementById('totalProjectsCount').textContent = totalProjectsCount;
+    //const totalProjectsCount = data.length;
+    //document.getElementById('totalProjectsCount').textContent = totalProjectsCount;
 
     const chartCountry = new Chart(ctxCountry, {
         type: 'doughnut',
