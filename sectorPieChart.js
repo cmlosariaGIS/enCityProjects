@@ -92,6 +92,16 @@ function createCharts() {
         }
     });
 
+    // Reduce the vertical gaps between legend items
+    const adjustLegendItemsMargin = function() {
+        const legendItems = document.querySelectorAll('.chart-legend-sector-item');
+        legendItems.forEach(item => {
+            item.style.marginBottom = '0px'; // Adjust margin between legend boxes to 0px
+        });
+    };
+
+    adjustLegendItemsMargin();
+
     // Add expand button if there are hidden projects
     const hiddenProjects = sortedValues.filter(value => value < 5);
     if (hiddenProjects.length > 0) {
@@ -117,6 +127,8 @@ function createCharts() {
                 legendItem.appendChild(labelText);
                 pieChartLegendContainer.appendChild(legendItem);
             });
+
+            adjustLegendItemsMargin(); // Adjust margin between legend boxes to 0px
 
             // Add "See Less" button
             const seeLessButton = document.createElement('button');
@@ -145,9 +157,11 @@ function createCharts() {
                     }
                 });
 
-                // Re-add the "Show more" button in the middle
-                const middleIndex = Math.floor(sortedLabels.length / 2);
-                pieChartLegendContainer.insertBefore(expandButton, pieChartLegendContainer.children[middleIndex]);
+                adjustLegendItemsMargin(); // Adjust margin between legend boxes to 0px
+
+                // Re-add the "Show more" button
+                pieChartLegendContainer.appendChild(expandButton);
+                seeLessButton.remove();
             };
             pieChartLegendContainer.appendChild(seeLessButton);
 

@@ -81,6 +81,11 @@ function createCountryChart() {
         legendItemCountry.appendChild(colorBoxCountry);
         legendItemCountry.appendChild(labelTextCountry);
         pieChartLegendCountryContainer.appendChild(legendItemCountry);
+
+        // Reduce the vertical gaps between legend items
+        if (index < sortedLabelsCountry.length - 1) {
+            legendItemCountry.style.marginBottom = '0px'; // Adjust margin between legend boxes as needed
+        }
     });
 }
 
