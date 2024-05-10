@@ -306,10 +306,17 @@ function resetFilters() {
     updateTotalProjectsCount(data.length);
 }
 
+// Function to reset the country pie chart
+function resetCountryChart() {
+    updateCountryChart(data); // Reset the chart with original data
+}
+
 // Event listener for Reset Filters button
 $('.reset-filters-button').on('click', function () {
-    resetFilters();
+    resetFilters(); // Reset all filters
+    resetCountryChart(); // Reset the country pie chart
 });
+
 
 
 /*** APPLY FILTERS BUTTON **/
@@ -358,7 +365,7 @@ function zoomToFilteredPoints(filteredData) {
 }
 
 
-
+/*
 // Event listener for Apply Filters button
 $('.apply-filters-button').on('click', function () {
     // Get selected countries, categories, client types, status types, year range, project value range, and project scale range
@@ -478,6 +485,131 @@ $('.apply-filters-button').on('click', function () {
     console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
     console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
 
+});*/
+
+
+
+/*** APPLY FILTERS BUTTON **/
+// Event listener for Apply Filters button
+$('.apply-filters-button').on('click', function () {
+    // Get selected countries, categories, client types, status types, year range, project value range, and project scale range
+    var selectedCountries = [];
+    $('input[name="country"]:checked').each(function () {
+        selectedCountries.push($(this).val());
+    });
+
+    var selectedCategories = getSelectedCategories();
+    var selectedClientTypes = getSelectedClientTypes();
+    var selectedStatusTypes = getSelectedStatusTypes();
+    var selectedYearRange = $("#year-slider").slider("option", "values");
+    var selectedProjectValueRange = $("#projectValue-slider").slider("option", "values");
+    var selectedProjectScaleRange = $("#projectScale-slider").slider("option", "values");
+
+    // Filter data based on selected criteria
+    var filteredData = data.filter(function (project) {
+        var startYear = new Date(project.startDate).getFullYear();
+        var completionYear = new Date(project.completionDate).getFullYear();
+        return (
+            (selectedCountries.length === 0 || selectedCountries.includes(project.country)) &&
+            (
+                selectedCategories.length === 0 ||
+                selectedCategories.includes(project.sector1) ||
+                selectedCategories.includes(project.sector2)
+            ) &&
+            (selectedClientTypes.length === 0 || selectedClientTypes.includes(project.clientType)) &&
+            (selectedStatusTypes.length === 0 || selectedStatusTypes.includes(project.status)) &&
+            ((startYear >= selectedYearRange[0] && startYear <= selectedYearRange[1]) ||
+                (completionYear >= selectedYearRange[0] && completionYear <= selectedYearRange[1])) &&
+            (project.projectValue >= selectedProjectValueRange[0] && project.projectValue <= selectedProjectValueRange[1]) &&
+            (project.projectScale >= selectedProjectScaleRange[0] && project.projectScale <= selectedProjectScaleRange[1])
+        );
+    });
+
+    // Update total projects count
+    updateTotalProjectsCount(filteredData.length);
+
+    // Call downloadAttachmentsAsZip with filtered data
+    // downloadAttachmentsAsZip(filteredData);
+
+    // Check if filtered data is empty
+    if (filteredData.length === 0) {
+        displayNoResultsMessage();
+        hideResultCount(); // hide result count if no results
+    } else {
+        hideNoResultsMessage();
+        displayResultCount(filteredData.length); // display result count if there are results
+    }
+
+    // Remove existing markers
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Add markers for filtered data
+    filteredData.forEach(function (project) {
+        const popupContent = `
+            <h2>${project.projectName}<br></h2>
+            <b>Country:</b> ${project.country}<br>
+            <b>Location:</b> ${project.location}<br>
+            <b>Start Date:</b> ${project.startDate}<br>
+            <b>Completion Date:</b> ${project.completionDate}<br>
+            <b>Partner(s):</b> ${project.partner}<br>
+            <b>Client:</b> ${project.client}<br>
+            <b>Description:</b><div style="text-align: justify;">${project.description}</div>
+            <!-- <b>Project Value ($):</b> ${project.projectValue}<br> -->
+            <b>Project Scale:</b> ${project.projectScale}ha<br>
+            <b>Status:</b> ${project.status}<br>
+            <b>Sector:</b> ${project.sector1}, ${project.sector2}<br>
+            <p></p>
+            <p style="font-size: 10px;"><i>Note: Project pinned location is indicative only</i></p>
+            <div class="image-container">
+                <a href="${project.photo1}" target="_blank">
+                    <img src="${project.photo1}" class="popup-image" id="popup-image">
+                </a>
+            </div>
+            <div class="button-container">
+                <div class="nav-buttons">
+                    <button class="prev-button" onclick="prevImage('${project.photo1}', '${project.photo2}')" title="Show previous image">navigate_before</button>
+                    <button class="next-button" onclick="nextImage('${project.photo1}', '${project.photo2}')" title="Show next image">navigate_next</button>
+                </div>
+                <div>
+                    <a href="${project.attachment}" target="_blank" style="text-decoration: none;">
+                        <button class="download-button" style="display: flex; align-items: center;">
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">description</span>
+                            <span style="margin-left: 5px; vertical-align: middle; margin-top: -3px;">Download Project Sheet</span>
+                        </button>
+                    </a>
+                </div>
+                <span class="material-icons-outlined close-button" onclick="closePopup()">
+                    highlight_off
+                </span>
+            </div>
+        `;
+        const marker = L.marker([project.lat, project.lng], { icon: customIcon }).addTo(map);
+        marker.bindPopup(popupContent, { maxWidth: 300 });
+    });
+
+    // Zoom the map to the extent of the filtered points/markers
+    zoomToFilteredPoints(filteredData);
+
+    // Update the country chart with filtered data
+    updateCountryChart(filteredData);
+
+    var selectedCategories = getSelectedCategories();
+    var selectedClientTypes = getSelectedClientTypes();
+    var selectedStatusTypes = getSelectedClientTypes();
+    var selectedYearRange = $("#year-slider").slider("option", "values");
+    var selectedProjectValue = $("#projectValue-slider").slider("option", "values");
+    var selectedProjectScale = $("#projectScale-slider").slider("option", "values");
+
+    console.log("Selected Countries:", selectedCountries);
+    console.log("Selected Categories:", selectedCategories);
+    console.log("Selected Client Types:", selectedClientTypes);
+    console.log("Selected Status Types:", selectedStatusTypes);
+    console.log("Selected Year Range:", selectedYearRange);
+    console.log("Selected Project Value Range:", selectedProjectValue[0] + " - " + selectedProjectValue[1]);
+    console.log("Selected Project Scale Range:", selectedProjectScale[0] + "ha - " + selectedProjectScale[1] + "ha");
+
 });
-
-
