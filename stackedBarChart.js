@@ -65,20 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 labels: {
                     render: 'value' // Show count labels at the tip of the bar stacks
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed.y !== null) {
-                                label += context.parsed.y;
-                            }
-                            return label;
-                        }
-                    }
                 }
             },
             responsive: true,
@@ -166,23 +152,6 @@ function expandChart() {
                 padding: {
                     top: 50,
                     bottom: 50
-                }
-            },
-            animation: {
-                onComplete: function(animation) {
-                    var ctx = this.chart.ctx;
-                    ctx.font = Chart.helpers.fontString(Chart.defaults.font.size, Chart.defaults.font.style, Chart.defaults.font.family);
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'bottom';
-
-                    this.data.datasets.forEach(function(dataset) {
-                        for (var i = 0; i < dataset.data.length; i++) {
-                            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-                            var sum = dataset.data[i];
-                            ctx.fillStyle = 'black';
-                            ctx.fillText(sum, model.x, model.y - 5);
-                        }
-                    });
                 }
             }
         }
