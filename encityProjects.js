@@ -162,7 +162,7 @@ const data = [
         "projectScale": "",
         "status": "",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -435,7 +435,7 @@ const data = [
         "projectScale": 1000,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -456,7 +456,7 @@ const data = [
         "projectScale": 5.8,
         "status": "Completed",
         "sector1": "Architectural and Landscape Design",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -540,7 +540,7 @@ const data = [
         "projectScale": 320,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "City master planning",
+        "sector2": "City Master Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -666,7 +666,7 @@ const data = [
         "projectScale": 187,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -687,7 +687,7 @@ const data = [
         "projectScale": 101,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Regional and Provincial planning",
+        "sector2": "Regional and Provincial Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -813,7 +813,7 @@ const data = [
         "projectScale": 7.89,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -855,7 +855,7 @@ const data = [
         "projectScale": 334,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -960,7 +960,7 @@ const data = [
         "projectScale": "6.500m2",
         "status": "Completed",
         "sector1": "Architectural and Landscape Design",
-        "sector2": "Regional and Provincial planning",
+        "sector2": "Regional and Provincial Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1002,7 +1002,7 @@ const data = [
         "projectScale": 126,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1023,7 +1023,7 @@ const data = [
         "projectScale": 210,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1065,7 +1065,7 @@ const data = [
         "projectScale": 24000,
         "status": "Completed",
         "sector1": "Regional and Provincial Planning",
-        "sector2": "City master planning",
+        "sector2": "City Master Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1106,7 +1106,7 @@ const data = [
         "projectValue": "",
         "projectScale": 27.1,
         "status": "Completed",
-        "sector1": "Architectural and Landscape Design",
+        "sector1": "Landscape Architecture and Urban Design",
         "sector2": "",
         "photo1": "",
         "photo2": "",
@@ -1191,7 +1191,7 @@ const data = [
         "projectScale": 200,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1233,7 +1233,7 @@ const data = [
         "projectScale": 61.5,
         "status": "Completed",
         "sector1": "Urban Conservation and Redevelopment",
-        "sector2": "Regional and Provincial planning",
+        "sector2": "Regional and Provincial Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1275,7 +1275,7 @@ const data = [
         "projectScale": "",
         "status": "Completed",
         "sector1": "",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1338,7 +1338,7 @@ const data = [
         "projectScale": 416,
         "status": "Completed",
         "sector1": "Business Park/High-tech Park/Industrial Park Planning",
-        "sector2": "Regional and Provincial planning",
+        "sector2": "Regional and Provincial Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1527,7 +1527,7 @@ const data = [
         "projectScale": "",
         "status": "Completed",
         "sector1": "",
-        "sector2": " + Architecture & Landscape design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1548,7 +1548,7 @@ const data = [
         "projectScale": 32,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": " + Architecture & Landscape design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1716,7 +1716,7 @@ const data = [
         "projectScale": 16,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": " + Architecture & Landscape design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1842,7 +1842,7 @@ const data = [
         "projectScale": 359,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -1905,7 +1905,7 @@ const data = [
         "projectScale": 205,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2010,7 +2010,7 @@ const data = [
         "projectScale": 40000,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2052,7 +2052,7 @@ const data = [
         "projectScale": 104,
         "status": "Completed",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2199,7 +2199,7 @@ const data = [
         "projectScale": "",
         "status": "",
         "sector1": "Urban Planning",
-        "sector2": "city master planning",
+        "sector2": "City Master Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2220,7 +2220,7 @@ const data = [
         "projectScale": 230,
         "status": "",
         "sector1": "Urban Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2283,7 +2283,7 @@ const data = [
         "projectScale": 686,
         "status": "",
         "sector1": "Urban Planning",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2325,7 +2325,7 @@ const data = [
         "projectScale": 687,
         "status": "",
         "sector1": "Regional and Provincial Planning",
-        "sector2": "Regional and Provincial planning",
+        "sector2": "Regional and Provincial Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2367,7 +2367,7 @@ const data = [
         "projectScale": 128,
         "status": "",
         "sector1": "Infrastructure Planning/Design",
-        "sector2": "Architecture, landscape and urban design",
+        "sector2": "Landscape Architecture and Urban Design",
         "photo1": "",
         "photo2": "",
         "attachment": ""
@@ -2409,7 +2409,7 @@ const data = [
         "projectScale": "",
         "status": "",
         "sector1": "Industrial Planning",
-        "sector2": "Industrial planning",
+        "sector2": "Business Park/High-tech Park/Industrial Park Planning",
         "photo1": "",
         "photo2": "",
         "attachment": ""

@@ -100,11 +100,11 @@ function toggleOptionsCheckboxes(mainCheckboxValue, relatedCheckboxes) {
 }
 
 function toggleArchitectureCheckbox() {
-    toggleCheckboxValue('Architecture', ['Landscape Architecture and Design', 'Building Architecture']);
+    toggleCheckboxValue('Architecture', ['Landscape Architecture and Urban Design', 'Building Architecture']);
 }
 
 function toggleArchitectureOptions() {
-    toggleOptionsCheckboxes('Architecture', ['Landscape Architecture and Design', 'Building Architecture']);
+    toggleOptionsCheckboxes('Architecture', ['Landscape Architecture and Urban Design', 'Building Architecture']);
 }
 
 function toggleConservationCheckbox() {
@@ -116,11 +116,11 @@ function toggleConservationOptions() {
 }
 
 function togglePlanningCheckbox() {
-    toggleCheckboxValue('Planning', ['Business Park/High-tech Park/Industrial Park Planning', 'Infrastructure Planning/Design', 'Regional and Provincial Planning', 'Urban Planning']);
+    toggleCheckboxValue('Planning', ['Business Park/High-tech Park/Industrial Park Planning', 'City Master Planning','Infrastructure Planning/Design', 'Regional and Provincial Planning', 'Urban Planning']);
 }
 
 function togglePlanningOptions() {
-    toggleOptionsCheckboxes('Planning', ['Business Park/High-tech Park/Industrial Park Planning', 'Infrastructure Planning/Design', 'Regional and Provincial Planning', 'Urban Planning']);
+    toggleOptionsCheckboxes('Planning', ['Business Park/High-tech Park/Industrial Park Planning', 'City Master Planning', 'Infrastructure Planning/Design', 'Regional and Provincial Planning', 'Urban Planning']);
 }
 
 function toggleWaterManagementCheckbox() {

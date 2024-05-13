@@ -93,8 +93,8 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 50vw; /* Adjusted maximum width for responsiveness */
-    min-width: 40vw;
+    max-width: 400px; /* Adjusted maximum width for responsiveness */
+    min-width: 300px;
     font-size: smaller;
 }
 
