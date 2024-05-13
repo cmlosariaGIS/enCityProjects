@@ -250,6 +250,16 @@
 
                         <div class="checkbox-container">
                             <label>
+                                <input type="checkbox" id="country-oman" name="country" value="Oman">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/myZyXLp/icons8-oman-48.png" alt="Oman Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Oman</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
                                 <input type="checkbox" id="country-singapore" name="country" value="Singapore">
                                 <span class="checkmark"></span>
                             </label>
@@ -260,22 +270,22 @@
 
                         <div class="checkbox-container">
                             <label>
-                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
-                                <span class="checkmark"></span>
-                            </label>
-                            <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
-                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
-                            <span class="label-text">Vietnam</span>
-                        </div>
-
-                        <div class="checkbox-container">
-                            <label>
                                 <input type="checkbox" id="country-thailand" name="country" value="Thailand">
                                 <span class="checkmark"></span>
                             </label>
                             <img src="https://i.ibb.co/sjnYpJc/icons8-thailand-48.png" alt="Thailand Icon"
                                 style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
                             <span class="label-text">Thailand</span>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <label>
+                                <input type="checkbox" id="country-vietnam" name="country" value="Vietnam">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="https://i.ibb.co/qjTZbtV/icons8-vietnam-48.png" alt="Vietnam Icon"
+                                style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                            <span class="label-text">Vietnam</span>
                         </div>
                     </div>
                 </div>
@@ -680,7 +690,7 @@
         // Custom icon for marker
         const customIcon = L.icon({
             iconUrl: 'https://i.ibb.co/gWyRjHP/icons8-pin-96-xxhdpi.png',
-            iconSize: [30, 30], // Adjust icon size as needed
+            iconSize: [22, 22], // Adjust icon size as needed
             iconAnchor: [16, 37],
             popupAnchor: [0, -37]
         });
@@ -782,7 +792,7 @@
             const slideMenuStats = document.getElementById('slideMenuStats');
             slideMenuStats.classList.toggle('active');
         }
-        
+
     </script>
 </body>
 

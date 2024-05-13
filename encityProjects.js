@@ -378,8 +378,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 11.593584,
+        "lng": 108.982514,
         "projectName": "Phan Rang Township",
         "country": "Vietnam",
         "location": "Ninh Thuan",
@@ -441,8 +441,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 11.751197,
+        "lng": 106.895965,
         "projectName": "Binh Phuoc masterplan",
         "country": "Vietnam",
         "location": "Binh Phuoc",
@@ -483,8 +483,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 21.563631,
+        "lng": 107.889683,
         "projectName": "Mong Cai",
         "country": "Vietnam",
         "location": "Quang Ninh",
@@ -525,8 +525,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 20.844486,
+        "lng": 106.699604,
         "projectName": "Hai Phong General Master Plan",
         "country": "Vietnam",
         "location": "Hai Phong",
@@ -588,8 +588,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 21.311624,
+        "lng": 105.596047,
         "projectName": "North Vinh Yen",
         "country": "Vietnam",
         "location": "Vinh Yen",
@@ -609,8 +609,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 15.873203,
+        "lng": 108.334481,
         "projectName": "South Hoi An",
         "country": "Vietnam",
         "location": "Quang Nam",
@@ -672,8 +672,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 10.240939,
+        "lng": 106.377611,
         "projectName": "Ben Tre Strategic Development Vision",
         "country": "Vietnam",
         "location": "Ben Tre",
@@ -714,8 +714,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 10.037938,
+        "lng": 105.755148,
         "projectName": "Can Tho",
         "country": "Vietnam",
         "location": "Can Tho",
@@ -903,8 +903,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 18.697478,
+        "lng": 105.678428,
         "projectName": "Vinh Township",
         "country": "Vietnam",
         "location": "Nghe An",
@@ -966,8 +966,8 @@ const data = [
         "attachment": ""
     },
     {
-        "lat": "",
-        "lng": "",
+        "lat": 22.338352,
+        "lng": 103.83967,
         "projectName": "Sapa Eco-Tourism Township",
         "country": "Vietnam",
         "location": "Lao Cai",
