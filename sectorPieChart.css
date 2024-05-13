@@ -12,7 +12,7 @@
 }
 
 .slideMenuStats.active {
-    width: 400px;
+    width: 440px;
 }
 
 .slideMenuStats-content {
@@ -57,36 +57,44 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/*
 #sectorChart {
     width: 800%;
     height: 400px;
-    /* Adjusted height for treemap visualization */
-}
+}*/
 
+/*
 .chart-legend-sector, 
 .chart-legend-country {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 10px;
-}
+    flex-direction: column;
+    align-items: flex-start;
+}*/
 
 .chart-legend-sector-item,
 .chart-legend-country-item {
     display: flex;
     align-items: center;
     margin-right: 20px;
-    margin-bottom: 10px;
     font-size: 12px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/*show more sector categories*/
+/*
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}*/
+
 .show-more-button {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 10px 10px;
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -96,11 +104,8 @@
     border-radius: 20px;
     transition: background-color 0.3s;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.show-more-button:hover {
-    background-color: #45a049;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin: auto;
+    margin-top: 10px;
 }
 
 .see-less-button {
@@ -113,37 +118,58 @@
     display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
-    margin-top: 20px; /* Add top margin to separate it from legend */
     cursor: pointer;
     border-radius: 20px;
     transition: background-color 0.3s;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-
+    margin: auto;
+    margin-top: 10px;
 }
 
-
-.see-less-button:hover {
-    background-color: #d32f2f;
+.show-more-button:hover {
+    background-color: #45a049;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-
-
-.legend-color {
-    width: 12px;
-    height: 12px;
-    margin-right: 5px;
+.see-less-button:hover {
+    background-color: #d32f2f;
+    ;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
+.sectorlegend-color {
+    width: 19px;
+    height: 19px;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+/*country sector pie chart*/
 .countrylegend-color {
-    width: 12px;
-    height: 12px;
+    width: 19px;
+    height: 19px;
     margin-right: 5px;
 }
+
+/* CSS for left-justified legend items */
+.legend-justify-left {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.chart-legend-country-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
 
 /* Divider style */
 .divider {
-    width: 20%;
+    width: 50%;
     border-top: 1px solid rgb(105, 105, 105);
     /* Use border instead of background-color */
     margin: 20px 0;
@@ -210,7 +236,8 @@
 
 
 .expand-button:hover {
-    background-color: #45a049; /* Darker green */
+    background-color: #45a049;
+    /* Darker green */
 }
 
 /*Stacked Bar Chart related*/
@@ -231,16 +258,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 40px; /* Decrease the padding */
+    padding: 40px;
+    /* Decrease the padding */
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 800px; /* Decrease the width */
-    height: 450px; /* Decrease the height */
+    width: 800px;
+    /* Decrease the width */
+    height: 450px;
+    /* Decrease the height */
 }
 
 .expanded-chart-dismiss-button {
     position: absolute;
-    bottom: 40px; /* Adjust the distance from the bottom */
+    bottom: 40px;
+    /* Adjust the distance from the bottom */
     left: 50%;
     transform: translateX(-50%);
     background-color: #04a9b2;
@@ -263,8 +294,3 @@
     color: rgb(65, 65, 65);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
-
-
-
-
-

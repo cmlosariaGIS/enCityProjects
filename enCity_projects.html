@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>enCity Projects Web Map</title>
+    <title>enCity Projects Tracker Web Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./style.css">
@@ -32,22 +31,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 
-
     <!--FileSaver-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <!--ChartJS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap"></script>
-
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-
-
-
-
-
 
 </head>
 
@@ -192,12 +181,14 @@
             <div class="section-title">Projects By Country</div>
             <canvas id="countryChart"></canvas>
             <div class="chart-legend-country"></div> <!-- Legend container for country chart -->
-
             <div class="divider"></div> <!-- Divider line -->
-            <div class="section-title">Projects Sum Treemap</div>
+            <br>
+            <!--<div class="divider"></div> <!-- Divider line -->
+            <!--<div class="section-title">Projects Sum Treemap</div>
             <canvas id="treemapChart"></canvas>
             <div class="chart-legend-treemap"></div> <!-- Legend container for treemap chart -->
-            <br>
+            <!--<br>-->
+            
             <!--<div class="divider"></div> 
             <div class="section-title">Project Sector by Year</div>
             <canvas id="projectSectorPerYearBarGraph"></canvas>
@@ -205,9 +196,7 @@
         </div>
     </div>
 
-
-
-    <!--Stacked Bar Modal Window-->
+    <!--Stacked Bar Chart Modal Window-->
     <div id="expandedChartModal" class="expanded-chart-modal">
         <div class="expanded-chart-content">
             <h2 class="expanded-chart-title">Projects Sector per Year</h2>
@@ -215,13 +204,6 @@
             <button onclick="closeExpandedChart()" class="expanded-chart-dismiss-button">Dismiss</button>
         </div>
     </div>
-
-
-
-
-
-
-
 
     <!--Filter Projects-->
     <div id="slideMenu" class="slide-menu">
@@ -388,13 +370,13 @@
                             </label>
                         </div>
 
-                        <div class="checkbox-container">
+                        <!--<div class="checkbox-container">
                             <span class="label-text">Heritage Preservation</span>
                             <label>
                                 <input type="checkbox" name="category" value="Heritage Preservation">
                                 <span class="checkmark"></span>
                             </label>
-                        </div>
+                        </div>-->
 
                         <!--Planning Options-->
                         <div class="checkbox-container">
@@ -637,7 +619,7 @@
     <script src="stackedBarChart.js"></script>
     <script src="sectorPieChart.js"></script>
     <script src="countryPieChart.js"></script>
-    <script src="treeMap.js"></script>
+    <!--<script src="treeMap.js"></script>-->
 
     <script>
 
@@ -800,12 +782,7 @@
             const slideMenuStats = document.getElementById('slideMenuStats');
             slideMenuStats.classList.toggle('active');
         }
-
-
-
-
-
-
+        
     </script>
 </body>
 

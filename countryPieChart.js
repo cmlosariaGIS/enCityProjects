@@ -104,21 +104,17 @@ function updateCountryChart(filteredData) {
     createLegend(sortedLabelsCountry, sortedValuesCountry, colorsCountry);
 }
 
-// Function to create the legend below the chart
+/// Function to create the legend below the chart
 function createLegend(sortedLabelsCountry, sortedValuesCountry, colorsCountry) {
     const pieChartLegendCountryContainer = document.querySelector('.chart-legend-country');
     pieChartLegendCountryContainer.innerHTML = ''; // Clear existing legend items
-    const column1 = document.createElement('div');
-    column1.classList.add('legend-column');
-    const column2 = document.createElement('div');
-    column2.classList.add('legend-column');
 
     sortedLabelsCountry.forEach((label, index) => {
         const legendItemCountry = document.createElement('div');
         legendItemCountry.classList.add('chart-legend-country-item');
 
         const colorBoxCountry = document.createElement('div');
-        colorBoxCountry.classList.add('legend-color');
+        colorBoxCountry.classList.add('countrylegend-color');
         colorBoxCountry.style.backgroundColor = colorsCountry[index];
 
         const labelTextCountry = document.createElement('span');
@@ -127,14 +123,11 @@ function createLegend(sortedLabelsCountry, sortedValuesCountry, colorsCountry) {
         legendItemCountry.appendChild(colorBoxCountry);
         legendItemCountry.appendChild(labelTextCountry);
 
-        if (index % 2 === 0) {
-            column1.appendChild(legendItemCountry);
-        } else {
-            column2.appendChild(legendItemCountry);
-        }
+        pieChartLegendCountryContainer.appendChild(legendItemCountry);
     });
-    pieChartLegendCountryContainer.appendChild(column1);
-    pieChartLegendCountryContainer.appendChild(column2);
+
+    // Justify the legends to the left
+    pieChartLegendCountryContainer.classList.add('legend-justify-left');
 }
 
 // Event listener for window load
@@ -142,8 +135,8 @@ window.addEventListener('load', function () {
     createCountryChart(); // Load the chart initially
 
     // Apply filters
-    document.getElementById('applyFiltersBtn').addEventListener('click', function () {
-        const filteredData = filterData(); // Assuming filterData() function returns filtered data
-        updateCountryChart(filteredData);
-    });
+    //document.getElementById('applyFiltersBtn').addEventListener('click', function () {
+    //  const filteredData = filterData(); // Assuming filterData() function returns filtered data
+    //updateCountryChart(filteredData);
+    //});
 });
