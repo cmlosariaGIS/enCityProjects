@@ -2250,7 +2250,7 @@ const data = [
         "lat": -6.196445,
         "lng": 106.823572,
         "projectName": "Jakarta 2045",
-        "country": "Vietnam",
+        "country": "Indonesia",
         "location": "Jakarta",
         "startDate": "2023",
         "completionDate": "",
