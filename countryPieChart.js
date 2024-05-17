@@ -30,7 +30,7 @@ function createCountryChart() {
     originalLabelsCountry = sortedData.map(item => item.label);
     originalValuesCountry = sortedData.map(item => item.value);
 
-    originalColorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF'];
+    originalColorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF', '#009A44'];
 
     const chartCountry = new Chart(ctxCountry, {
         type: 'doughnut',
@@ -92,7 +92,7 @@ function updateCountryChart(filteredData) {
     const sortedLabelsCountry = sortedData.map(item => item.label);
     const sortedValuesCountry = sortedData.map(item => item.value);
 
-    const colorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF'];
+    const colorsCountry = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#C9CBCF', '#009A44'];
 
     // Update the chart data with filtered data
     window.countryChart.data.labels = sortedLabelsCountry.map((label, index) => `${label} (${sortedValuesCountry[index]})`);

@@ -27,31 +27,29 @@ function createLegendSector(sortedLabelsSector, sortedValuesSector, colorsSector
     const sortedLabels = sortedData.map(item => item.label);
     const sortedValues = sortedData.map(item => item.value);
 
-    sortedLabels.forEach((label, index) => {
-        if (sortedValues[index] >= 5) {
-            const legendItemSector = document.createElement('div');
-            legendItemSector.classList.add('chart-legend-sector-item');
+    // Display top 5 sectors
+    sortedLabels.slice(0, 5).forEach((label, index) => {
+        const legendItemSector = document.createElement('div');
+        legendItemSector.classList.add('chart-legend-sector-item');
 
-            const colorBoxSector = document.createElement('div');
-            colorBoxSector.classList.add('sectorlegend-color');
-            colorBoxSector.style.backgroundColor = colorsSector[index];
+        const colorBoxSector = document.createElement('div');
+        colorBoxSector.classList.add('sectorlegend-color');
+        colorBoxSector.style.backgroundColor = colorsSector[index];
 
-            const labelTextSector = document.createElement('span');
-            labelTextSector.textContent = `${label} (${sortedValues[index]})`;
+        const labelTextSector = document.createElement('span');
+        labelTextSector.textContent = `${label} (${sortedValues[index]})`;
 
-            legendItemSector.appendChild(colorBoxSector);
-            legendItemSector.appendChild(labelTextSector);
+        legendItemSector.appendChild(colorBoxSector);
+        legendItemSector.appendChild(labelTextSector);
 
-            pieChartLegendSectorContainer.appendChild(legendItemSector);
-        }
+        pieChartLegendSectorContainer.appendChild(legendItemSector);
     });
 
     // Reduce the vertical gaps between legend items
     adjustLegendItemsMargin();
 
-    // Add expand button if there are hidden projects
-    const hiddenProjects = sortedValues.filter(value => value < 5);
-    if (hiddenProjects.length > 0) {
+    // Add expand button if there are more than 5 projects
+    if (sortedLabels.length > 5) {
         const expandButton = document.createElement('button');
         expandButton.textContent = 'Show more';
         expandButton.classList.add('show-more-button');
@@ -85,23 +83,21 @@ function createLegendSector(sortedLabelsSector, sortedValuesSector, colorsSector
                 // Clear the legend container
                 pieChartLegendSectorContainer.innerHTML = '';
 
-                // Re-add legend items for categories with counts greater than or equal to 5
-                sortedLabelsSector.forEach((label, index) => {
-                    if (sortedValuesSector[index] >= 5) {
-                        const legendItem = document.createElement('div');
-                        legendItem.classList.add('chart-legend-sector-item');
+                // Re-add legend items for top 5 categories
+                sortedLabels.slice(0, 5).forEach((label, index) => {
+                    const legendItem = document.createElement('div');
+                    legendItem.classList.add('chart-legend-sector-item');
 
-                        const colorBox = document.createElement('div');
-                        colorBox.classList.add('sectorlegend-color');
-                        colorBox.style.backgroundColor = colorsSector[index];
+                    const colorBox = document.createElement('div');
+                    colorBox.classList.add('sectorlegend-color');
+                    colorBox.style.backgroundColor = colorsSector[index];
 
-                        const labelText = document.createElement('span');
-                        labelText.textContent = `${label} (${sortedValuesSector[index]})`;
+                    const labelText = document.createElement('span');
+                    labelText.textContent = `${label} (${sortedValues[index]})`;
 
-                        legendItem.appendChild(colorBox);
-                        legendItem.appendChild(labelText);
-                        pieChartLegendSectorContainer.appendChild(legendItem);
-                    }
+                    legendItem.appendChild(colorBox);
+                    legendItem.appendChild(labelText);
+                    pieChartLegendSectorContainer.appendChild(legendItem);
                 });
 
                 adjustLegendItemsMargin(); // Adjust margin between legend boxes
